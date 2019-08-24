@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-              CIESMORI
+                    LARAVEL CIESMORI
                 </div>
 
                 <div class="links">
