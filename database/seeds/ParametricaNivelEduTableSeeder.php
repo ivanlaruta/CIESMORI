@@ -11,6 +11,67 @@ class ParametricaNivelEduTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '0',
+        'valor_cadena' => 'Ninguna',
+      ]);
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '1',
+        'valor_cadena' => 'Primaria incompleta (1 a 5 años de educación)',
+      ]);
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '2',
+        'valor_cadena' => 'Primaria completa (6 años de educación)',
+      ]);
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '3',
+        'valor_cadena' => 'Secundaria incompleta (7 a 11 años de educación)',
+      ]);
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '4',
+        'valor_cadena' => 'Secundaria completa (12 años de educación)',
+      ]);
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '5',
+        'valor_cadena' => 'Educación superior (más de 12 años de educación, Técnico, Universitario, Postgrado)',
+      ]);
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '6',
+        'valor_cadena' => 'Técnico medio (Instituto, academias, etc.)',
+      ]);
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '7',
+        'valor_cadena' => 'Técnico superior',
+      ]);
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '8',
+        'valor_cadena' => 'Universidad o nivel similar incompleto (Normal, colegio mili',
+      ]);
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '9',
+        'valor_cadena' => 'Universidad o nivel similar completo',
+      ]);
+
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '10',
+        'valor_cadena' => 'Estudios de Post-grado',
+      ]);
+      DB::table('parametrica')->insert([
+        'tabla' => 'nivel_educacion',
+        'codigo' => '94',
+        'valor_cadena' => 'Otro',
+      ]);
+
     }
 }
