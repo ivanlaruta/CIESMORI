@@ -4,11 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>CIESMORI</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+        
         <!-- Styles -->
         <style>
             html, body {
@@ -73,7 +73,7 @@
                         <a href="{{ route('login') }}">Ingresar</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Registar</a>
+                            <a href="{{ route('administracion.empleados.create.form') }}">Registro personal</a>
                         @endif
                     @endauth
                 </div>
@@ -81,10 +81,20 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    PROYECTO CIESMORI
+                    CIESMORI
                 </div>
 
             </div>
         </div>
+
+
+ @if (!session('mensaje')==null)
+    <script type="text/javascript"> 
+        var mensaje='{{session('mensaje')}}';
+            alert(mensaje);
+        
+    </script>    
+    @endif
+
     </body>
 </html>

@@ -1,3 +1,73 @@
+@extends('layouts.login')
+
+@section('content')
+
+              <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+                        {{ csrf_field() }}
+
+              <h1>Login!</h1>
+
+              <div class="form-group{{ $errors->has('user') ? ' has-error' : '' }} has-feedback">
+                    <div >
+                       
+                        <input id="user" type="text" class="form-control" name="user" value="{{ old('user') }}" placeholder="Usuario" required autofocus>
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        @if ($errors->has('user'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('user') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+              </div>
+
+              <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} has-feedback">
+                    <div>
+                       
+                        <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        @if ($errors->has('password'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+              </div>
+
+              <div>
+                <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-btn fa-sign-in"></i> Ingresar
+                </button>
+
+                <a href="{{ route('inicio') }}" class="btn btn-link"> Volver al inicio <i class="fa fa-btn fa-sign-out"  ></i>
+                </a>
+
+
+              </div>
+
+
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                
+
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                <h1><i class="fa fa-cog fa-spin"></i> CIESMORI</h1>
+                
+                  <p>©2019 Todos los derechos reservados. </p>
+                </div>
+              </div>
+            </form>     
+
+
+
+
+@endsection
+
+
+{{-- 
 @extends('layouts.app')
 
 @section('content')
@@ -12,7 +82,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="user" class="col-md-4 col-form-label text-md-right">{{ __('Usuario') }}</label>
+                            <label for="user" class="col-md-4 col-form-label text-md-right">{{ __('user') }}</label>
 
                             <div class="col-md-6">
                                 <input id="user" type="text" class="form-control @error('user') is-invalid @enderror" name="user" value="{{ old('user') }}" required autocomplete="user" autofocus>
@@ -71,3 +141,4 @@
     </div>
 </div>
 @endsection
+ --}}

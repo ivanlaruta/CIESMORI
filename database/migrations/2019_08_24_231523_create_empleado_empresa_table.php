@@ -15,6 +15,12 @@ class CreateEmpleadoEmpresaTable extends Migration
     {
         Schema::create('empleado_empresa', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('empleado_id');
+            $table->integer('empresa');
+            $table->string('observacion')->nullable();
+            $table->integer('estado')->default(1);
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

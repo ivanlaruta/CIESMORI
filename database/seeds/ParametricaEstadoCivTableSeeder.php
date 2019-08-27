@@ -34,7 +34,7 @@ class ParametricaEstadoCivTableSeeder extends Seeder
         DB::table('parametrica')->insert([
             'tabla' => 'estado_civil',
             'codigo' => '5',
-            'valor_cadena' => 'Divoriado/a',
+            'valor_cadena' => 'Divorsiado/a',
             ]);
         DB::table('parametrica')->insert([
             'tabla' => 'estado_civil',
