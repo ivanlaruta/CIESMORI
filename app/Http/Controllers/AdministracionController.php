@@ -15,7 +15,8 @@ class AdministracionController extends Controller
 {
     public function empleados_index()
     {
-        return view('administracion.empleados.index') ;
+        $empleados = Empleado::all();
+        return view('administracion.empleados.index')->with('empleados',$empleados) ;
     }
    
     public function empleados_create_form()
@@ -72,7 +73,7 @@ class AdministracionController extends Controller
         $empleado->save();
 
 
-            return redirect()->route('inicio')->with('mensaje',"Creado exitosamente."); 
+            return redirect()->route('inicio')->with('mensaje',"Su registro a sido creado exitosamente. "); 
 
     }
 }

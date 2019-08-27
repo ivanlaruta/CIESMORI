@@ -21,24 +21,55 @@
           <div class="table-responsive" {{-- style="max-height: 450px; width: 100%; margin: 0; overflow-y: auto; --}}">
             <table class="table table-striped jambo_table bulk_action" id="datatable1">
               <thead>
-                <tr>
-                 {{-- <th>ID</th> --}}
-                 
+                 <tr>
+                 <th>Identificacion</th>
+                 <th>informacion general</th>
+                 <th>Residencia</th>
+                 <th>Contacto</th>
+                 <th>Educacion</th>
+                 <th>Area de trabajo</th>
+                 <th>Disponibilidad</th>
+                 <th>Experiencia</th>
+                 <th>observaciones</th>
+                 <th>Opciones</th>
                 </tr>
               </thead>
-              {{-- <tfoot>
+             
+              <tbody>
+                @foreach($empleados as $det)
                 <tr>
-                 <th>ID</th>
-                 <th>USUARIO</th>
-                 <th>E-MAIL</th>
-                 <th>NOMBRE</th>
-                 <th>PATERNO</th>
-                 <th>UBICACION</th>
-                 <th>ROL</th>
-                 <th>OPCIONES</th>
+
+                 <td>{{$det->persona->primer_nombre}} {{$det->persona->segundo_nombre}} {{$det->persona->apellido_paterno}} {{$det->persona->apellido_materno}}
+                   <br> {{$det->persona->ci}} 
+                 </td> 
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+             
+              
+                 {{-- <td>{{$det->paterno}}</td> 
+                 <td>{{$det->id_ubicacion}}-{{$det->sucursal->nom_sucursal}}</td> 
+                 <td>{{$det->rol}}</td>  --}}
+                 <td>
+                   <div class="btn-group" role="group" >
+                     
+
+                      <a href="#" class="btn btn-warning btn-xs btn_editar" id_usuario = 'as'  data-toggle="tooltip" data-placement="bottom" title="Editar">
+                        <span class="fa fa-edit"></span> 
+                      </a>
+                      <a href="#" class="btn btn-danger btn-xs">
+                        <span class="fa fa-trash"></span> 
+                      </a>
+                    </div>
+                  </td>        
                 </tr>
-              </tfoot> --}}
-              <tbody></tbody>
+                @endforeach
+              </tbody>
             </table>
           </div>
         </div>

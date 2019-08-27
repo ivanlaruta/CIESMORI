@@ -19,7 +19,10 @@
                     <li class="">
                       <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                        <i class="glyphicon glyphicon-user"></i>
-                            {{-- {{ Auth::user()->nombre }} {{ Auth::user()->paterno }} <span class="caret"></span> --}}
+                             {{strtoupper( Auth::user()->empleado->persona->primer_nombre)}}
+                             {{strtoupper( Auth::user()->empleado->persona->segundo_nombre)}}
+                             {{strtoupper( Auth::user()->empleado->persona->apellido_paterno)}}
+                               <span class="caret"></span> 
                       </a>
 
                         <ul class="dropdown-menu" role="menu">
@@ -48,11 +51,9 @@
                     </li>
                     <li role="presentation" class="dropdown">
                       <a  class="info-number" style="  pointer-events: none; " >
-                        <i class="fa fa-map-marker"></i>
-                        {{-- {{Auth::user()->id_ubicacion}} - {{Auth::user()->sucursal2->nom_sucursal}}  --}}
-
+                        <i class="fa fa-tty"></i>
+                         {{strtoupper(Auth::user()->empleado->cargo)}} 
                       </a>
-                      
                     </li>
                 @endif
               </ul>              
