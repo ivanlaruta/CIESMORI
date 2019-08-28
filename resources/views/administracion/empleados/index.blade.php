@@ -2,28 +2,24 @@
 
 @section('content')
 
-  <div class="right_col" role="main">
-    <div class="">
-      <div class="page-title">
-        <div class="title_left">
-          <h3>Empleados</h3>
-        </div>
-        <div class="pull-right" >
-          <a  href="#" class="btn btn-success btn_nuevo " data-toggle="tooltip" data-placement="bottom" title="Agregar nuevo usuario" ><i class="fa fa-plus"></i> Nuevo</a>
-        </div>
-         <div class="title_right"></div>
-      </div>
-      <div class="clearfix"></div>
-        
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_content animated fadeIn">
-          {{-- <p class="text-muted font-13 m-b-30"></p> --}}
-          <div class="table-responsive" {{-- style="max-height: 450px; width: 100%; margin: 0; overflow-y: auto; --}}">
-            <table class="table table-striped jambo_table bulk_action" id="datatable1">
+<div class="right_col" role="main">
+  <div class="">
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Empleados</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <p>Lista del personal registrado, acceda a las opciones para editar la informacion</p>
+            <table class="table table-striped projects">
               <thead>
-                 <tr>
-                 <th>Identificacion</th>
-                 <th>informacion general</th>
+                <tr>
+                 <th style="width: 1%">#</th>
+                 <th style="width: 20%">Identificacion</th>
+                 <th>Informacion general</th>
                  <th>Residencia</th>
                  <th>Contacto</th>
                  <th>Educacion</th>
@@ -34,28 +30,56 @@
                  <th>Opciones</th>
                 </tr>
               </thead>
-             
               <tbody>
-                @foreach($empleados as $det)
-                <tr>
-
-                 <td>{{$det->persona->primer_nombre}} {{$det->persona->segundo_nombre}} {{$det->persona->apellido_paterno}} {{$det->persona->apellido_materno}}
-                   <br> {{$det->persona->ci}} 
-                 </td> 
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-             
-              
-                 {{-- <td>{{$det->paterno}}</td> 
-                 <td>{{$det->id_ubicacion}}-{{$det->sucursal->nom_sucursal}}</td> 
-                 <td>{{$det->rol}}</td>  --}}
-                 <td>
+              @foreach($empleados as $det)
+              <tr>
+                <td>{{$det->id}}</td>
+                <td>
+                    <a>{{$det->primer_nombre}} {{$det->segundo_nombre}} {{$det->apellido_paterno}} {{$det->apellido_materno}}</a>
+                    <br />
+                    <small>CI: {{$det->ci}} {{$det->expedido}}</small>
+                </td> 
+                <td>
+                    <a>{{$det->genero}} </a>
+                    <br />
+                    <a>{{$det->fecha_nacimiento}} </a>
+                </td>
+                <td>
+                    <a>{{$det->residencia}} </a>
+                    <br />
+                    <a>{{$det->zona}}, {{$det->direccion}} </a>
+                </td>
+                <td>
+                    <a>{{$det->telefono1}}, {{$det->telefono2}} </a>
+                </td>
+                <td>
+                    <a>{{$det->nivel_educacion}} </a>
+                    <br />
+                    <a>Nivel {{$det->nivel_curso}} </a>
+                </td>
+                <td>
+                    <a>{{$det->cargo}} </a>
+                    <br />
+                    <a>{{$det->tipo_estudio}} </a>
+                </td>                <td>
+                    <a>Tiempo: {{$det->disponibilidad_tiempo}} </a>
+                    <br />
+                    <a>Turno: {{$det->horario_disponible}} </a>
+                    <br />
+                    <a>hrs: {{$det->horas_que_puede_trabajar}} </a>
+                </td>
+                <td>
+                    <a>{{$det->experiencia}} </a>
+                    <br />
+                   
+                </td>  
+                <td>
+                    <a>{{$det->observaciones}} </a>
+                    <br />
+                   
+                </td>  
+                
+                <td>
                    <div class="btn-group" role="group" >
                      
 
@@ -69,21 +93,18 @@
                   </td>        
                 </tr>
                 @endforeach
+                
+
               </tbody>
             </table>
+
           </div>
         </div>
       </div>
-
-      <div class="modal fade modal_datos" id="Modal_nuevo" role="dialog" >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content contenido">
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>       
+  </div>
+</div>
+
 
 
 @endsection

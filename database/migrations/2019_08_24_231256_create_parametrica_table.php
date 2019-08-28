@@ -19,6 +19,7 @@ class CreateParametricaTable extends Migration
             $table->string('tabla');
             $table->string('codigo');
             $table->string('valor_cadena')->nullable();
+            $table->string('valor_cadena_corto')->nullable();
             $table->string('valor_entero')->nullable();
             $table->string('valor_numerico')->nullable();
             $table->string('descripcion')->nullable();
