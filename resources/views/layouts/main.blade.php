@@ -230,8 +230,16 @@
         <script src="{{asset('js/custom.js')}}"></script>
 
     @yield('scripts')
+ @if (!session('mensaje')==null)
 
+    <script type="text/javascript"> 
+        var mensaje='{{session('mensaje')}}';
 
+        function init_PNotify() {
+            new PNotify({title: "Correcto",type: "success",text: mensaje ,styling: 'bootstrap3',});
+        }; 
+    </script>  
+   @endif
 
 
 

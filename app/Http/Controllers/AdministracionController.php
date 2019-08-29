@@ -8,6 +8,7 @@ use App\User;
 use App\Parametrica;
 use App\Persona;
 use App\Empleado;
+use App\Empleado_empresa;
 
 use DB;
 
@@ -34,8 +35,9 @@ class AdministracionController extends Controller
              {  $join->on('pdt.codigo', '=', 'empleado.cod_disponibilidad_tiempo'); $join->on('pdt.tabla','=',DB::raw("'disponibilidad_tiempo'"));})
         ->Join('parametrica as phd', function($join)
              {  $join->on('phd.codigo', '=', 'empleado.cod_horario_disponible'); $join->on('phd.tabla','=',DB::raw("'horario_disponible'"));})
-        
+        ->where('empleado.estado',1)
         ->select(DB::raw('empleado.*, pte.valor_cadena as tipo_estudio,pdt.valor_cadena as disponibilidad_tiempo,phd.valor_cadena as horario_disponible,   p.ci,pe.valor_cadena_corto as expedido,p.primer_nombre,p.segundo_nombre,p.apellido_paterno,p.apellido_materno,pg.valor_cadena as genero,p.fecha_nacimiento,pec.valor_cadena as estado_civil,pr.valor_cadena as residencia,p.zona,p.direccion,p.telefono1,p.telefono2,ped.valor_cadena as nivel_educacion,p.nivel_curso,p.observacion,p.estado,p.created_by,p.updated_by,p.created_at,p.updated_at'))
+
         ->get();
         
         // dd($empleados);
@@ -44,7 +46,7 @@ class AdministracionController extends Controller
         return view('administracion.empleados.index')->with('empleados',$empleados) ;
     }
    
-    public function empleados_create_form()
+    public function empleados_create_form(Request $request)
     {
         $expedido=Parametrica::select('codigo','valor_cadena')
         					->where('tabla','expedido')
@@ -77,16 +79,33 @@ class AdministracionController extends Controller
         					->where('estado','1')
         					->orderBy('codigo')->get();
        
-        
-    	return view('administracion.empleados.create')
-		    	->with('expedido',$expedido)
-				->with('estado_civil',$estado_civil)
-				->with('ciudad',$ciudad)
-				->with('nivel_educacion',$nivel_educacion)
-				->with('tipo_estudio',$tipo_estudio)
-				->with('disponibilidad_tiempo',$disponibilidad_tiempo)
-				->with('horario_disponible',$horario_disponible)
-				->with('ciudad',$ciudad);
+        switch ($request->formulario) {
+            case 'nuevo':
+                return view('administracion.empleados.create_new')
+                ->with('expedido',$expedido)
+                ->with('estado_civil',$estado_civil)
+                ->with('ciudad',$ciudad)
+                ->with('nivel_educacion',$nivel_educacion)
+                ->with('tipo_estudio',$tipo_estudio)
+                ->with('disponibilidad_tiempo',$disponibilidad_tiempo)
+                ->with('horario_disponible',$horario_disponible)
+                ->with('ciudad',$ciudad);
+                break;
+            case 1:
+                echo "i es igual a 1";
+                break;
+            default:
+                return view('administracion.empleados.create')
+                ->with('expedido',$expedido)
+                ->with('estado_civil',$estado_civil)
+                ->with('ciudad',$ciudad)
+                ->with('nivel_educacion',$nivel_educacion)
+                ->with('tipo_estudio',$tipo_estudio)
+                ->with('disponibilidad_tiempo',$disponibilidad_tiempo)
+                ->with('horario_disponible',$horario_disponible)
+                ->with('ciudad',$ciudad);
+        }
+    	
     }
 
     public function empleados_create(Request $request)
@@ -97,8 +116,23 @@ class AdministracionController extends Controller
         $empleado -> persona_id = $persona ->id;
         $empleado->save();
 
+        $array_empresas = explode(",", $request->empresas);
+
+        for ($i=0; $i < count($array_empresas); $i++) 
+        {
+            $empleado_empresa = new Empleado_empresa();
+            $empleado_empresa -> empleado_id = $empleado ->id;
+            $empleado_empresa -> empresa = $array_empresas[$i];
+            $empleado_empresa ->save();
+        }
+
+
+        if(\Auth::check()){
+            return redirect()->route('administracion.empleados.index')->with('mensaje',"Su registro a sido creado exitosamente. "); 
+        }
+        else{
 
             return redirect()->route('inicio')->with('mensaje',"Su registro a sido creado exitosamente. "); 
-
+        }
     }
 }
