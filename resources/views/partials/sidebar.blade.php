@@ -5,7 +5,7 @@
             </div>
             <div class="clearfix"></div>
             <br />
-            @if(Auth::user()->rol_id == 1)
+            @if(Auth::user()->rol_id == 5)
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">

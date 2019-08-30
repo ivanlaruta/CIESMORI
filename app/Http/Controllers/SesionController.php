@@ -14,7 +14,7 @@ class SesionController extends Controller
         // return redirect()->route('administracion.empleados.index');
 
 
-        if (Auth::user()->rol_ID == '1')
+        if (Auth::user()->rol_id == '5')
         {
             return redirect()->route('administracion.empleados.index');
         }

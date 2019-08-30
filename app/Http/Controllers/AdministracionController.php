@@ -212,10 +212,11 @@ class AdministracionController extends Controller
 
      public function usuarios_create(Request $request)
     {
-             // dd($request->all());
+              // dd($request->all());
         if($request->formulario=="nuevo")
         {
             $user = new User($request->all());
+            $user->rol_id = $request->rol_id;
             $user->password = bcrypt($request->password);
             $user->save();
             return redirect()->route('administracion.usuarios.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
