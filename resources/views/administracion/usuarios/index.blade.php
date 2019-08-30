@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Empleados</h2>
+            <h2>Usuarios</h2>
             <div class="pull-right" >
               <a  href="#" class="btn btn-success btn_nuevo " data-toggle="tooltip" data-placement="bottom" title="Agregar Nuevo" ><i class="fa fa-plus"></i></a>
             </div>
@@ -17,80 +17,38 @@
           </div>
           <div class="x_content">
 
-            <p>Lista del personal registrado, acceda a las opciones para editar la informacion</p>
+            <p>Lista de usuarios, acceda a las opciones para editar la informacion</p>
 
             <table class="table table-striped projects" id="datatable1">
               <thead>
                 <tr>
-                 <th style="width: 1%">#</th>
-                 <th style="width: 12%">Identificacion</th>
-                 <th style="width: auto">Genero/ Fecha nacimiento</th>
-                 <th>Residencia</th>
-                 <th style="width: auto">Contacto</th>
-                 <th style="width: 15%">Educacion</th>
-                 <th>Area de trabajo</th>
-                 <th>Disponibilidad</th>
-                 <th style="width: 1%">Experiencia</th>
-                 <th style="width: 1%">Obs</th>
-                 <th style="width: 1%">Opciones</th>
+                 <th>#</th>
+                 <th>Usuario</th>
+                 <th>Rol</th>
+                 <th>Datos de Personal</th>
+                 <th>Opciones</th>
                 </tr>
               </thead>
               <tbody>
-              @foreach($empleados as $det)
+              @foreach($usuario as $det)
               <tr>
                 <td>{{$det->id}}</td>
+                <td>{{$det->user}}</td>
                 <td>
-                    <a>{{$det->primer_nombre}} {{$det->segundo_nombre}} {{$det->apellido_paterno}} {{$det->apellido_materno}}</a>
-                    <br />
-                    <small><i class="fa fa-credit-card"></i> CI: {{$det->ci}} {{$det->expedido}}</small>
+                    <a>{{$det->rol->descripcion}} </a>
+                </td>
+                <td>
+                  @if(isset($det->empleado->persona->id))
+                    <a>
+                      {{$det->empleado->persona->primer_nombre}} {{$det->empleado->persona->segundo_nombre}} {{$det->empleado->persona->apellido_paterno}} {{$det->empleado->persona->apellido_materno}}
+                    </a>
+                    <br /><small><i class="fa fa-credit-card"></i> CI: {{$det->empleado->persona->ci}} </small>
+                  @else
+                    No asignado
+                  @endif
+                      
                 </td> 
-                <td>
-                    <a><i class="fa fa-intersex"></i> {{$det->genero}} </a>
-                    <br />
-                    <a><i class="fa fa-calendar"></i> {{$det->fecha_nacimiento}} </a>
-                </td>
-                <td>
-                    <a> {{$det->residencia}} </a>
-                    <br />
-                    <a><i class="fa fa-map-marker"></i> {{$det->zona}}, {{$det->direccion}} </a>
-                </td>
-                <td>
-                    <a> {{$det->telefono1}} / {{$det->telefono2}} </a>
-                </td>
-                <td>
-                    <a><i class="fa fa-mortar-board"></i> {{$det->nivel_educacion}} </a>
-                    <br />
-                    <a>Nivel {{$det->nivel_curso}} </a>
-                </td>
-                <td>
-                    <a>{{$det->cargo}} </a>
-                    <br />
-                    <a>{{$det->tipo_estudio}} </a>
-                </td>                <td>
-                    <a>dispnibilidad {{$det->disponibilidad_tiempo}} </a>
-                    <br />
-                    <a><span class="label label-default">{{$det->horario_disponible}} &nbsp;</span>  </a>
-
-                    <br />
-                    <a><i class="fa fa-clock-o"></i> {{$det->horas_que_puede_trabajar}} horas</a>
-                </td>
-                <td>
-                
-                    @if ($det->lista_empresas->count() > 0)
-                      @foreach ($det->lista_empresas as $empresa)
-                        <span class="badge bg-green">{{strtoupper($empresa->empresa)}} &nbsp;</span>
-                      @endforeach
-                    @endif
                   
-                    <br />
-                    <a><i class="fa fa-clock-o"></i> {{$det->experiencia}} Años</a>
-                   
-                </td>  
-                <td>
-                    <a>{{$det->observaciones}} </a>
-                    <br />
-                   
-                </td>  
                 
                 <td>
                    <div class="btn-group" role="group" >
@@ -124,10 +82,10 @@
             <div class="modal fade modal_dialog" id="modal_dialog" role="dialog" >
               <div class="modal-dialog modal-sm">
                 <div class="modal-content">
-                  <form method="get" action="{{  route('administracion.empleados.baja') }}" class="form-horizontal form-label-left" id="empleados_form" >
+                  <form method="get" action="{{  route('administracion.usuarios.baja') }}" class="form-horizontal form-label-left" id="empleados_form" >
                   <div class="modal-body">
                     {{ csrf_field() }}
-                    <input type="hidden" id="id_empleado_txt" name="id_empleado_txt">
+                    <input type="hidden" id="id_usuarios_txt" name="id_usuarios_txt">
                     <h4>Eliminar!</h4>
                     <p>Esta tratando de dar de baja este registro.</p>
                     <p>Desea continuar?.</p>
@@ -206,7 +164,7 @@ var btn_eliminar = $(".btn_eliminar");
 
 var fn_eliminar = function (objeto){
 id_eliminar = objeto.attr("id_empleado");
-$('#id_empleado_txt').val(id_eliminar);
+$('#id_usuarios_txt').val(id_eliminar);
 $('#modal_dialog').modal('show');
 };
 
@@ -230,7 +188,7 @@ var btn_nuevo = $(".btn_nuevo");
       type: "GET",
       cache: false,
       dataType: "html",
-      url: "{{ route('administracion.empleados.create.form')}}",
+      url: "{{ route('administracion.usuarios.create.form')}}",
       data: {
         formulario: "nuevo"
       },

@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->integer('empleado_id')->nullable();
             $table->integer('rol_id')->default(1);
             $table->string('email')->nullable();
+            $table->integer('estado')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

@@ -9,6 +9,7 @@ use App\Parametrica;
 use App\Persona;
 use App\Empleado;
 use App\Empleado_empresa;
+use App\Rol;
 
 use DB;
 
@@ -128,11 +129,90 @@ class AdministracionController extends Controller
 
 
         if(\Auth::check()){
-            return redirect()->route('administracion.empleados.index')->with('mensaje',"Su registro a sido creado exitosamente. "); 
+            return redirect()->route('administracion.empleados.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
         }
         else{
 
-            return redirect()->route('inicio')->with('mensaje',"Su registro a sido creado exitosamente. "); 
+            return redirect()->route('inicio')->with('mensaje',"El registro a sido creado exitosamente. "); 
         }
     }
+
+    public function empleados_baja(Request $request)
+    {
+        // dd($request->all());
+
+               $empleado=Empleado::find($request->id_empleado_txt);
+                $empleado->estado =0;
+                $empleado->save();
+                return redirect()->route('administracion.empleados.index')->with('mensaje',"El registro a sido dado de baja exitosamente. "); 
+    }
+
+    /*================================*/
+
+    public function usuarios_index()
+    {
+        $usuario =User::where('estado',1)->get();
+        return view('administracion.usuarios.index')->with('usuario',$usuario) ;
+    }
+
+    public function usuarios_baja(Request $request)
+    {
+        // dd($request->all());
+
+               $usuario=User::find($request->id_usuarios_txt);
+                $usuario->estado =0;
+                $usuario->save();
+                return redirect()->route('administracion.usuarios.index')->with('mensaje',"El registro a sido dado de baja exitosamente. "); 
+    }
+    public function usuarios_create_form(Request $request)
+    {
+
+        $roles = rol::where('estado',1)->get();
+        $empleados = Empleado::where('estado',1)->get();
+
+
+        switch ($request->formulario) {
+            case 'nuevo':
+                return view('administracion.usuarios.create')
+                ->with('roles',$roles)
+                ->with('empleados',$empleados)
+                ->with('request',$request);
+                break;
+            case 1:
+                echo "i es igual a 1";
+                break;
+            
+        }
+        
+    }
+
+     public function usuarios_create(Request $request)
+    {
+             // dd($request->all());
+        if($request->formulario=="nuevo")
+        {
+            $user = new User($request->all());
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return redirect()->route('administracion.usuarios.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
+        }
+        // else
+        // {
+        //     // if($request->tipo=="editar")
+        //     // {
+        //     //     $user=User::find($request->id_usuario);
+        //     //     $user->fill($request->all());
+        //     //     $user->password = bcrypt($request->password);
+        //     //     $user->save();
+        //     //     return redirect()->route('administracion.index_users')->with('mensaje',"Editado exitosamente."); 
+        //     // }
+
+        // }
+    
+       
+
+            // return redirect()->route('administracion.empleados.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
+// 
+    }
+
 }

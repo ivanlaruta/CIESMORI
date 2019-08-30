@@ -11,8 +11,8 @@
                   <li><a><i class="fa fa-home"></i> Administrcion <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ route('administracion.empleados.index')}}">Empleados</a></li>
-                      <li><a href="index2.html">Personas</a></li>
-                      <li><a href="index3.html">Usuarios</a></li>
+                      
+                      <li><a href="{{ route('administracion.usuarios.index')}}">Usuarios</a></li>
                     </ul>
                   </li>
                 </ul>

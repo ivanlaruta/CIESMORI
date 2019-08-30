@@ -42,6 +42,35 @@ Route::group(['prefix'=>'administracion','middleware'=>'auth'],function(){
 		'as'   =>	'administracion.empleados.index'
 	]);
 
+	route::get('administracion/empleados/baja',[
+		'uses' =>'administracionController@empleados_baja',
+		'as'   =>	'administracion.empleados.baja'
+	]);
+
+
+route::get('administracion/usuarios/create/form',[
+		'uses' =>'administracionController@usuarios_create_form',
+		'as'   =>	'administracion.usuarios.create.form'
+	]);
+
+route::get('administracion/usuarios/create',[
+		'uses' =>'administracionController@usuarios_create',
+		'as'   =>	'administracion.usuarios.create'
+	]);
+
+
+	route::get('administracion/usuarios/index',[
+		'uses' =>'administracionController@usuarios_index',
+		'as'   =>	'administracion.usuarios.index'
+	]);
+
+	route::get('administracion/usuarios/baja',[
+		'uses' =>'administracionController@usuarios_baja',
+		'as'   =>	'administracion.usuarios.baja'
+	]);
+
+
+
 	
 
 });

@@ -19,9 +19,13 @@
                     <li class="">
                       <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                        <i class="glyphicon glyphicon-user"></i>
+                             @if(isset(Auth::user()->empleado->persona->id))
                              {{strtoupper( Auth::user()->empleado->persona->primer_nombre)}}
                              {{strtoupper( Auth::user()->empleado->persona->segundo_nombre)}}
                              {{strtoupper( Auth::user()->empleado->persona->apellido_paterno)}}
+                             @else
+                             {{strtoupper( Auth::user()->user)}}
+                             @endif
                                <span class="caret"></span> 
                       </a>
 
@@ -52,7 +56,8 @@
                     <li role="presentation" class="dropdown">
                       <a  class="info-number" style="  pointer-events: none; " >
                         <i class="fa fa-tty"></i>
-                         {{strtoupper(Auth::user()->empleado->cargo)}} 
+
+                         {{strtoupper(Auth::user()->rol->descripcion)}} 
                       </a>
                     </li>
                 @endif
