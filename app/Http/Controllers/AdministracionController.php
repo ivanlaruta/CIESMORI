@@ -186,6 +186,30 @@ class AdministracionController extends Controller
         
     }
 
+     public function usuarios_finder(Request $request)
+    {
+        $term = trim($request->q);
+
+        if (empty($term)) {
+            return \Response::json([]);
+        }
+
+        // $tags = Trf_Cliente::search($term)->limit(5)->get();
+        $tags =DB::select( DB::raw("
+           select e.*,p.ci,p.primer_nombre,p.segundo_nombre,p.apellido_paterno,apellido_materno from empleado e join persona p on p.id=e.persona_id where concat(p.primer_nombre,' ',IFNULL( p.segundo_nombre, ''),' ',p.apellido_paterno,' ',IFNULL( p.apellido_materno, ''),' ',p.ci) like '%".$term."%'
+            "));
+       
+
+        $formatted_tags = [];
+
+        foreach ($tags as $tag) {
+            $formatted_tags[] = ['id' => $tag->id, 'text' => $tag->primer_nombre.' '.$tag->apellido_paterno.' '.$tag->apellido_materno.' '.$tag->ci ];
+        }
+
+        return \Response::json($formatted_tags);
+    }
+
+
      public function usuarios_create(Request $request)
     {
              // dd($request->all());

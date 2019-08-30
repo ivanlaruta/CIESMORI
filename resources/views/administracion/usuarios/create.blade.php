@@ -62,9 +62,8 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="ci">Personal asignado
                 </label>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                  <select class="form-control col-md-7 col-xs-12 select_ciudad" data-width="100%" id="empleado_id" name="empleado_id" >
-                    <option></option>
-                   
+                  <select id="empleado_id" name="empleado_id" class="form-control col-md-8 col-xs-12 empleado_id"  style="width: 100%;" >
+
                   </select>
                 </div>
               </div>
@@ -89,6 +88,40 @@
 
 <script type="text/javascript">
 
+
+
+$('#empleado_id').select2({
+    placeholder: 'Seleccione un empleado',
+    minimumInputLength: 2,
+    language: {
+      noResults: function() { return "No hay resultado";},
+      searching: function() { return "Buscando.."; },
+      inputTooShort: function() { return "Por favor ingrese 2 o mas caracteres"; }
+    },
+    ajax: {
+        url: "{{ route('administracion.usuarios.finder')}}",
+        dataType: 'json',
+        data: function (params) {
+            return {
+                q: $.trim(params.term),
+                type: 'public'
+            };
+        },
+        processResults: function (data) {
+            return {
+                results: data
+            };
+        },
+        // processResults: function (data) {
+        //     return {
+        //         results: $.map(data, function(obj) {
+        //             return { id: obj.id, text: obj.text, telf: obj.telf };
+        //         })
+        //     };
+        // },
+        cache: true
+    }
+});
 
  $('.rol_id').select2({minimumResultsForSearch:-1,placeholder:"Rol",allowClear:true});
 

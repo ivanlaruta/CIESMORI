@@ -93,9 +93,12 @@
                 </td>  
                 
                 <td>
-                   <div class="btn-group" role="group" >
+                   <div class="btn-group row" role="group" >
                      
 
+                      <a href="#" class="btn btn-success btn-xs btn_editar" id_empleado = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Crear Usuario">
+                        <span class="fa fa-user"></span> 
+                      </a>
                       <a href="#" class="btn btn-warning btn-xs btn_editar" id_empleado = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Editar">
                         <span class="fa fa-edit"></span> 
                       </a>

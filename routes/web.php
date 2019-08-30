@@ -19,6 +19,10 @@ Route::get('/inicio', function () {
     return view('welcome');
 })->name('inicio');
 
+Route::get('/vacio', function () {
+    return view('vacio');
+})->name('vacio');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -67,6 +71,11 @@ route::get('administracion/usuarios/create',[
 	route::get('administracion/usuarios/baja',[
 		'uses' =>'administracionController@usuarios_baja',
 		'as'   =>	'administracion.usuarios.baja'
+	]);
+
+	route::get('administracion/usuarios/finder',[
+		'uses' =>'administracionController@usuarios_finder',
+		'as'   =>	'administracion.usuarios.finder'
 	]);
 
 
