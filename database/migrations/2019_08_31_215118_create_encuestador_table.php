@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmpresaInvestigacionTable extends Migration
+class CreateEncuestadorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateEmpresaInvestigacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('empresa_investigacion', function (Blueprint $table) {
+        Schema::create('encuestador', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre');
-            $table->string('direccion')->nullable();
-            $table->string('telefono1')->nullable();
-                        
+            $table->integer('persona_id');
+            $table->integer('imagen_id')->default(1);
+            $table->string('cargo');
+            $table->string('cod_disponibilidad_tiempo')->nullable();
+            $table->integer('horas_que_puede_trabajar');
+            $table->integer('experiencia');
+
             $table->string('observacion')->nullable();
             $table->integer('estado')->default(1);
             $table->string('created_by')->nullable();
@@ -34,6 +37,6 @@ class CreateEmpresaInvestigacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('empresa_investigacion');
+        Schema::dropIfExists('encuestador');
     }
 }

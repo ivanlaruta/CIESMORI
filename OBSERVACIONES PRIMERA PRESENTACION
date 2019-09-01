@@ -1,0 +1,58 @@
+OBSERVACIONES PRIMERA PRESENTACION
+Alta empleados
+	carnet unico-> crear validacion mostrar errror
+	campo turno multiple->pivot
+	Area de trabajo igual que empresas->pivot
+	subir fotografia->codigo facilito.()
+
+REGIONALIZAR USUARIOS
+	Crear tabla ciudad('id','nombre','departamento_id')
+	Crear tabla departamento('id','nombre_corto','nombre')
+
+===============================================================
+CAMBIOS EN LA BASE
+===============================================================
+
+QUITAR TABLAS
+-EMPRESA_INVETIGACION
+
+RENOMBRAR_TABLAS
+-TABLA EMPLEADO POR ENCUESTADOR MAS RELACIONES
+
+QUITAR DE PARAMETRICA 
+-EXPEDIDOS 
+-CIUDADES
+
+CREAR TABLAS Y SEED
+- CIUAD
+- DEPARTAMENTO
+
+CRER SOLO TABLA
+- ENCUESTADOR_AREA_TRABAJO
+- ENCUESTADOR_TURNO
+- ENCUESTADOR_ENCUESTA
+- IMAGEN
+
+- PARAMETRICA_POSICIONES
+	(CAMPO,INICIO,LONGITUD)
+- ENCUESTA
+	(ID,NOMBRE,NOMBRE DE TABLA,...)
+- ENCUESTA_DETALLE, CSWEB (DETALLE_ENCUESTA)
+
+
+MODIFICAR CONTENIDO
+- TABLA ENCUESTADOR
+	QUITAR CAMPOS COD_TIPO_ESTUDIO
+	QUITAR CAMPOS COD_HORARIO_DISPONIBLE
+	AUMENTAR CAMPO_IMAGEN_ID
+
+- TABLA USARIO
+	REMPLASAR EMPLEADO_ID POR PERSONA_ID
+	AUMENTAR CAMPO_IMAGEN_ID
+
+
+
+
+
+
+

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmpleadoEmpresaTable extends Migration
+class CreateParametricaPosicionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateEmpleadoEmpresaTable extends Migration
      */
     public function up()
     {
-        Schema::create('empleado_empresa', function (Blueprint $table) {
+        Schema::create('parametrica_posiciones', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('empleado_id');
-            $table->string('empresa');
+            $table->string('campo');
+            $table->integer('inicio');
+            $table->integer('longitud');
+
             $table->string('observacion')->nullable();
             $table->integer('estado')->default(1);
             $table->string('created_by')->nullable();
@@ -32,6 +34,6 @@ class CreateEmpleadoEmpresaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('empleado_empresa');
+        Schema::dropIfExists('parametrica_posiciones');
     }
 }
