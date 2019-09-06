@@ -26,7 +26,7 @@ class RolesTableSeeder extends Seeder
             'descripcion' => 'Cliente',
             ]);
         DB::table('roles')->insert([
-            'descripcion' => 'Admin',
+            'descripcion' => 'ADMINISTRADOR',
             ]);
     }
 }

@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Empleados</h2>
+            <h2>Encuestadores</h2>
             <div class="pull-right" >
               <a  href="#" class="btn btn-success btn_nuevo " data-toggle="tooltip" data-placement="bottom" title="Agregar Nuevo" ><i class="fa fa-plus"></i></a>
             </div>
@@ -19,75 +19,98 @@
 
             <p>Lista del personal registrado, acceda a las opciones para editar la informacion</p>
 
-            <table class="table table-striped projects" id="datatable1">
+            <table class="table table-striped " id="datatable1">
               <thead>
                 <tr>
                  <th style="width: 1%">#</th>
-                 <th style="width: 12%">Identificacion</th>
-                 <th style="width: auto">Genero/ Fecha nacimiento</th>
-                 <th>Residencia</th>
-                 <th style="width: auto">Contacto</th>
-                 <th style="width: 15%">Educacion</th>
-                 <th>Area de trabajo</th>
-                 <th>Disponibilidad</th>
-                 <th style="width: 1%">Experiencia</th>
+                 <th style="width: 25%">Datos personales</th>
+                 <th style="width: 15%">Educacion y Experiencia</th>
+                 <th style="width: 15%">Area de trabajo</th>
+                 <th style="width: 10%">Disponibilidad</th>
                  <th style="width: 1%">Obs</th>
                  <th style="width: 1%">Opciones</th>
                 </tr>
               </thead>
-              <tbody>
-              @foreach($empleados as $det)
+              {{-- <tbody> --}}
+              @foreach($encuestadores as $det)
               <tr>
                 <td>{{$det->id}}</td>
                 <td>
-                    <a>{{$det->primer_nombre}} {{$det->segundo_nombre}} {{$det->apellido_paterno}} {{$det->apellido_materno}}</a>
-                    <br />
-                    <small><i class="fa fa-credit-card"></i> CI: {{$det->ci}} {{$det->expedido}}</small>
-                </td> 
-                <td>
-                    <a><i class="fa fa-intersex"></i> {{$det->genero}} </a>
-                    <br />
-                    <a><i class="fa fa-calendar"></i> {{$det->fecha_nacimiento}} </a>
+                  <div class="col-sm-12">
+                    <h5 class="brief">
+                      <i>
+                      <strong>
+                      {{$det->persona->primer_nombre}} 
+                      {{$det->persona->segundo_nombre}} 
+                      {{$det->persona->apellido_paterno}} 
+                      {{$det->persona->apellido_materno}}
+                      </strong>
+                      </i>
+                    </h5>
+                    <div class="right col-xs-2 text-center">
+                      <img src="images/img.jpg" alt="" class="img-circle img-responsive">
+                    </div>
+                    <div class="left col-xs-10">
+                      <ul class="list-unstyled">
+                        <li><i class="fa fa-credit-card"></i> Ci: {{$det->persona->ci}} {{$det->persona->expedido->nombre_corto}} </li>
+                        <li><i class="fa fa-intersex"></i> Genero: {{$det->persona->genero()}} </li>
+                        <li><i class="fa fa-child"></i> Estado civil: {{$det->persona->estado_civil()}} </li>
+                        <li><i class="fa fa-calendar"></i> Nacimiento: {{$det->persona->fecha_nacimiento}} </li>
+                        <li><i class="fa fa-phone"></i> Telefonos: {{$det->persona->telefono1}} {{$det->persona->telefono2}}</li>
+                        <li><i class="fa fa-map-marker"></i> Direccion: {{$det->persona->zona}}, {{$det->persona->direccion}},{{$det->persona->ciudad->nombre}}</li>
+                      </ul>
+                    </div>
+                  </div>
                 </td>
+                            
                 <td>
-                    <a> {{$det->residencia}} </a>
-                    <br />
-                    <a><i class="fa fa-map-marker"></i> {{$det->zona}}, {{$det->direccion}} </a>
+                  <ul class="list-unstyled">
+                    <br>
+                    <li><i class="fa fa-mortar-board"></i> Educacion: {{$det->persona->nivel_educacion()}}  (Nivel: {{$det->persona->nivel_curso}} ) </li>
+                    <li><i class="fa fa-briefcase"></i> Empresas en las que trabajo: 
+                      @if ($det->lista_empresas->count() > 0)
+                        @foreach ($det->lista_empresas as $empresa)
+                          <span class="label label-primary">{{strtoupper($empresa->empresa)}} &nbsp;</span>
+                        @endforeach
+                      @endif
+                   </li>
+                    <li><i class="fa fa-clock-o"></i> Años/experiencia: {{$det->experiencia}} </li>
+                  </ul>
                 </td>
-                <td>
-                    <a> {{$det->telefono1}} / {{$det->telefono2}} </a>
-                </td>
-                <td>
-                    <a><i class="fa fa-mortar-board"></i> {{$det->nivel_educacion}} </a>
-                    <br />
-                    <a>Nivel {{$det->nivel_curso}} </a>
-                </td>
-                <td>
-                    <a>{{$det->cargo}} </a>
-                    <br />
-                    <a>{{$det->tipo_estudio}} </a>
-                </td>                <td>
-                    <a>dispnibilidad {{$det->disponibilidad_tiempo}} </a>
-                    <br />
-                    <a><span class="label label-default">{{$det->horario_disponible}} &nbsp;</span>  </a>
 
-                    <br />
-                    <a><i class="fa fa-clock-o"></i> {{$det->horas_que_puede_trabajar}} horas</a>
+                <td>
+                  <ul class="list-unstyled">
+                    <br>
+                    <li><i class="fa fa-user"></i> Cargo: {{$det->cargo}} </li>
+                    <li><i class="fa fa-cubes"></i> Tipo de estudio: 
+                      @if ($det->lista_tipo_estudio->count() > 0)
+                        @foreach ($det->lista_tipo_estudio as $lista)
+                          <span class="label label-primary">{{strtoupper($lista->tipo_estudio_p()->valor_cadena)}} &nbsp;</span>
+                        @endforeach
+                      @endif
+                   </li>
+                  </ul>
                 </td>
+
                 <td>
-                
-                    @if ($det->lista_empresas->count() > 0)
-                      @foreach ($det->lista_empresas as $empresa)
-                        <span class="badge bg-green">{{strtoupper($empresa->empresa)}} &nbsp;</span>
-                      @endforeach
-                    @endif
-                  
-                    <br />
-                    <a><i class="fa fa-clock-o"></i> {{$det->experiencia}} Años</a>
-                   
-                </td>  
+                  <ul class="list-unstyled">
+                    <br>
+                    <li><i class="fa fa-adjust"></i> Disponibilidad: {{strtoupper($det->disponibilidad_tiempo())}} </li>
+                    <li><i class="fa fa-sun-o"></i> Turno disponible: 
+                      @if ($det->lista_turnos->count() > 0)
+                        @foreach ($det->lista_turnos as $lista)
+                          <span class="label label-primary">{{$lista->horario_disponible_p()->valor_cadena}} &nbsp;</span>
+                        @endforeach
+                      @endif
+                   </li>
+                   <li><i class="fa fa-clock-o"></i> Horas que puede trabajar: {{$det->horas_que_puede_trabajar}} </li>
+                  </ul>
+                </td>
+
+              
+               
                 <td>
-                    <a>{{$det->observaciones}} </a>
+                    <a>{{$det->observacion}} </a>
                     <br />
                    
                 </td>  
@@ -119,7 +142,18 @@
 
             <div class="modal fade modal_datos" id="Modal_nuevo" role="dialog" >
               <div class="modal-dialog modal-lg">
-                <div class="modal-content contenido">
+                <div class="modal-content ">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Formulario Encuestadores</h4>
+                  </div>
+                  <div class="modal-body contenido"></div>
+                  <div class="modal-footer">
+                    <br>
+                    <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
+                    
+                  </div>
                 </div>
               </div>
             </div>
@@ -127,7 +161,7 @@
             <div class="modal fade modal_dialog" id="modal_dialog" role="dialog" >
               <div class="modal-dialog modal-sm">
                 <div class="modal-content">
-                  <form method="get" action="{{  route('administracion.empleados.baja') }}" class="form-horizontal form-label-left" id="empleados_form" >
+                  <form method="get" action="{{  route('administracion.encuestadores.baja') }}" class="form-horizontal form-label-left" id="encuestadores_form" >
                   <div class="modal-body">
                     {{ csrf_field() }}
                     <input type="hidden" id="id_empleado_txt" name="id_empleado_txt">
@@ -233,7 +267,7 @@ var btn_nuevo = $(".btn_nuevo");
       type: "GET",
       cache: false,
       dataType: "html",
-      url: "{{ route('administracion.empleados.create.form')}}",
+      url: "{{ route('administracion.encuestadores.create.form')}}",
       data: {
         formulario: "nuevo"
       },

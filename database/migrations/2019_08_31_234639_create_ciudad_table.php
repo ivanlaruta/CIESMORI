@@ -14,11 +14,10 @@ class CreateCiudadTable extends Migration
     public function up()
     {
         Schema::create('ciudad', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->integer('id');
             $table->integer('departamento_id');
-            $table->string('codigo');
-            $table->string('nombre');
 
+            $table->string('nombre');
             $table->string('observacion')->nullable();
             $table->integer('estado')->default(1);
             $table->string('created_by')->nullable();

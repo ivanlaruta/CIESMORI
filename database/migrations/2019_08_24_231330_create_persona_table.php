@@ -31,6 +31,7 @@ class CreatePersonaTable extends Migration
             $table->string('telefono2')->nullable();
             $table->string('cod_nivel_educacion')->nullable();
             $table->string('nivel_curso')->nullable();
+            $table->integer('imagen_id')->default(1);
 
             $table->string('observacion')->nullable();
             $table->integer('estado')->default(1);

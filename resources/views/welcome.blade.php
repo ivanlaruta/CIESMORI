@@ -70,11 +70,12 @@
                     @auth
                         <a href="{{ url('session') }}">Inicio</a>
                     @else
+                        @if (Route::has('register'))
+                            <a href="{{ route('administracion.encuestadores.create.nolog_form') }}">Registrarse</a>
+                        @endif
+                        
                         <a href="{{ route('login') }}">Ingresar</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('administracion.empleados.create.form') }}">Registro personal</a>
-                        @endif
                     @endauth
                 </div>
             @endif

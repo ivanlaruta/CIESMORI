@@ -16,7 +16,7 @@ class CreateEncuestadorTable extends Migration
         Schema::create('encuestador', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('persona_id');
-            $table->integer('imagen_id')->default(1);
+           
             $table->string('cargo');
             $table->string('cod_disponibilidad_tiempo')->nullable();
             $table->integer('horas_que_puede_trabajar');

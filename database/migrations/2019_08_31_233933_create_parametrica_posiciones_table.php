@@ -18,7 +18,6 @@ class CreateParametricaPosicionesTable extends Migration
             $table->string('campo');
             $table->integer('inicio');
             $table->integer('longitud');
-
             $table->string('observacion')->nullable();
             $table->integer('estado')->default(1);
             $table->string('created_by')->nullable();

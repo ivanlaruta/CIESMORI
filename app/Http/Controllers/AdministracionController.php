@@ -7,60 +7,40 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Parametrica;
 use App\Persona;
-use App\Empleado;
-use App\Empleado_empresa;
+use App\Encuestador;
+use App\Encuestador_empresa;
+use App\Encuestador_tipo_estudio;
+use App\Encuestador_horario_disponible;
+use App\Departamento;
+use App\Ciudad;
 use App\Rol;
+use App\Http\Requests\PersonaRequest;
 
 use DB;
 
 class AdministracionController extends Controller
 {
-    public function empleados_index()
+    public function encuestadores_index()
     {
-        $empleados = Empleado::orderBy('empleado.id')
-        ->join('persona as p','p.id','=','empleado.persona_id')
-        ->Join('parametrica as pe', function($join)
-             {  $join->on('pe.codigo', '=', 'p.cod_expedido'); $join->on('pe.tabla','=',DB::raw("'expedido'"));})
-        ->Join('parametrica as pg', function($join)
-             {  $join->on('pg.codigo', '=', 'p.cod_genero'); $join->on('pg.tabla','=',DB::raw("'genero'"));})
-        ->Join('parametrica as pec', function($join)
-             {  $join->on('pec.codigo', '=', 'p.cod_estado_civil'); $join->on('pec.tabla','=',DB::raw("'estado_civil'"));})
-        ->Join('parametrica as pr', function($join)
-             {  $join->on('pr.codigo', '=', 'p.cod_residencia'); $join->on('pr.tabla','=',DB::raw("'ciudad'"));})
-        ->Join('parametrica as ped', function($join)
-             {  $join->on('ped.codigo', '=', 'p.cod_nivel_educacion'); $join->on('ped.tabla','=',DB::raw("'nivel_educacion'"));})
-
-        ->Join('parametrica as pte', function($join)
-             {  $join->on('pte.codigo', '=', 'empleado.cod_tipo_estudio'); $join->on('pte.tabla','=',DB::raw("'tipo_estudio'"));})
-        ->Join('parametrica as pdt', function($join)
-             {  $join->on('pdt.codigo', '=', 'empleado.cod_disponibilidad_tiempo'); $join->on('pdt.tabla','=',DB::raw("'disponibilidad_tiempo'"));})
-        ->Join('parametrica as phd', function($join)
-             {  $join->on('phd.codigo', '=', 'empleado.cod_horario_disponible'); $join->on('phd.tabla','=',DB::raw("'horario_disponible'"));})
-        ->where('empleado.estado',1)
-        ->select(DB::raw('empleado.*, pte.valor_cadena as tipo_estudio,pdt.valor_cadena as disponibilidad_tiempo,phd.valor_cadena as horario_disponible,   p.ci,pe.valor_cadena_corto as expedido,p.primer_nombre,p.segundo_nombre,p.apellido_paterno,p.apellido_materno,pg.valor_cadena as genero,p.fecha_nacimiento,pec.valor_cadena as estado_civil,pr.valor_cadena as residencia,p.zona,p.direccion,p.telefono1,p.telefono2,ped.valor_cadena as nivel_educacion,p.nivel_curso,p.observacion,p.estado,p.created_by,p.updated_by,p.created_at,p.updated_at'))
-
+        $encuestadores = Encuestador::orderBy('encuestador.id')
+        ->where('encuestador.estado',1)
         ->get();
-        
-        // dd($empleados);
 
-
-        return view('administracion.empleados.index')->with('empleados',$empleados) ;
+        return view('administracion.encuestadores.index')->with('encuestadores',$encuestadores) ;
     }
    
-    public function empleados_create_form(Request $request)
+    public function encuestadores_create_form(Request $request)
     {
-        $expedido=Parametrica::select('codigo','valor_cadena')
-        					->where('tabla','expedido')
-        					->where('estado','1')
-        					->orderBy('valor_cadena')->get();
+        $expedido=Departamento::where('estado','1')
+        					->orderBy('id')->get();
+
+        $ciudad=Ciudad::where('estado','1')
+        					->orderBy('id')->get();
+
         $estado_civil=Parametrica::select('codigo','valor_cadena')
         					->where('tabla','estado_civil')
         					->where('estado','1')
         					->orderBy('codigo')->get();
-        $ciudad=Parametrica::select('codigo','valor_cadena')
-        					->where('tabla','ciudad')
-        					->where('estado','1')
-        					->orderBy('valor_cadena','asc')->get();
         $nivel_educacion=Parametrica::select('codigo','valor_cadena')
         					->where('tabla','nivel_educacion')
         					->where('estado','1')
@@ -80,9 +60,9 @@ class AdministracionController extends Controller
         					->where('estado','1')
         					->orderBy('codigo')->get();
        
-        switch ($request->formulario) {
-            case 'nuevo':
-                return view('administracion.empleados.create_new')
+        
+                
+        return view('administracion.encuestadores.create_content_form')
                 ->with('expedido',$expedido)
                 ->with('estado_civil',$estado_civil)
                 ->with('ciudad',$ciudad)
@@ -91,45 +71,57 @@ class AdministracionController extends Controller
                 ->with('disponibilidad_tiempo',$disponibilidad_tiempo)
                 ->with('horario_disponible',$horario_disponible)
                 ->with('ciudad',$ciudad);
-                break;
-            case 1:
-                echo "i es igual a 1";
-                break;
-            default:
-                return view('administracion.empleados.create')
-                ->with('expedido',$expedido)
-                ->with('estado_civil',$estado_civil)
-                ->with('ciudad',$ciudad)
-                ->with('nivel_educacion',$nivel_educacion)
-                ->with('tipo_estudio',$tipo_estudio)
-                ->with('disponibilidad_tiempo',$disponibilidad_tiempo)
-                ->with('horario_disponible',$horario_disponible)
-                ->with('ciudad',$ciudad);
-        }
     	
     }
 
-    public function empleados_create(Request $request)
+    public function encuestadores_create_nolog_form(Request $request)
     {
+
+        return view('administracion.encuestadores.create_nolog'); 
+
+    }
+
+    public function encuestadores_create(Request $request)
+    {
+        // dd($request->all());
+        $file = $request->file('image');
+        dd($file);
         $persona = new Persona($request->all());
         $persona->save();
-        $empleado = new Empleado($request->all());
-        $empleado -> persona_id = $persona ->id;
-        $empleado->save();
+        $encuestador = new Encuestador($request->all());
+        $encuestador -> persona_id = $persona ->id;
+        $encuestador->save();
 
         $array_empresas = explode(",", $request->empresas);
 
         for ($i=0; $i < count($array_empresas); $i++) 
         {
-            $empleado_empresa = new Empleado_empresa();
-            $empleado_empresa -> empleado_id = $empleado ->id;
-            $empleado_empresa -> empresa = $array_empresas[$i];
-            $empleado_empresa ->save();
+            $encuestador_empresa = new Encuestador_empresa();
+            $encuestador_empresa -> encuestador_id = $encuestador ->id;
+            $encuestador_empresa -> empresa = strtoupper($array_empresas[$i]);
+            $encuestador_empresa ->save();
         }
 
+        for ($i=0; $i < count($request->cod_tipo_estudio); $i++) 
+        {
+            $encuestador_tipo_estudio = new Encuestador_tipo_estudio();
+            $encuestador_tipo_estudio -> encuestador_id = $encuestador ->id;
+            $encuestador_tipo_estudio -> cod_tipo_estudio = $request->cod_tipo_estudio[$i];
+            $encuestador_tipo_estudio ->save();
+        }
+
+        for ($i=0; $i < count($request->cod_horario_disponible); $i++) 
+        {
+            $encuestador_horario_disponible = new Encuestador_horario_disponible();
+            $encuestador_horario_disponible -> encuestador_id = $encuestador ->id;
+            $encuestador_horario_disponible -> cod_horario_disponible = $request->cod_horario_disponible[$i];
+            $encuestador_horario_disponible ->save();
+        }
+
+        // dd('grabado');
 
         if(\Auth::check()){
-            return redirect()->route('administracion.empleados.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
+            return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
         }
         else{
 
@@ -137,14 +129,14 @@ class AdministracionController extends Controller
         }
     }
 
-    public function empleados_baja(Request $request)
+    public function encuestadores_baja(Request $request)
     {
         // dd($request->all());
 
-               $empleado=Empleado::find($request->id_empleado_txt);
-                $empleado->estado =0;
-                $empleado->save();
-                return redirect()->route('administracion.empleados.index')->with('mensaje',"El registro a sido dado de baja exitosamente. "); 
+               $encuestador=Encuestador::find($request->id_encuestador_txt);
+                $encuestador->estado =0;
+                $encuestador->save();
+                return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido dado de baja exitosamente. "); 
     }
 
     /*================================*/
@@ -168,14 +160,14 @@ class AdministracionController extends Controller
     {
 
         $roles = rol::where('estado',1)->get();
-        $empleados = Empleado::where('estado',1)->get();
+        $encuestadores = Encuestador::where('estado',1)->get();
 
 
         switch ($request->formulario) {
             case 'nuevo':
                 return view('administracion.usuarios.create')
                 ->with('roles',$roles)
-                ->with('empleados',$empleados)
+                ->with('encuestadores',$encuestadores)
                 ->with('request',$request);
                 break;
             case 1:
@@ -196,7 +188,7 @@ class AdministracionController extends Controller
 
         // $tags = Trf_Cliente::search($term)->limit(5)->get();
         $tags =DB::select( DB::raw("
-           select e.*,p.ci,p.primer_nombre,p.segundo_nombre,p.apellido_paterno,apellido_materno from empleado e join persona p on p.id=e.persona_id where concat(p.primer_nombre,' ',IFNULL( p.segundo_nombre, ''),' ',p.apellido_paterno,' ',IFNULL( p.apellido_materno, ''),' ',p.ci) like '%".$term."%'
+           select e.*,p.ci,p.primer_nombre,p.segundo_nombre,p.apellido_paterno,apellido_materno from encuestador e join persona p on p.id=e.persona_id where concat(p.primer_nombre,' ',IFNULL( p.segundo_nombre, ''),' ',p.apellido_paterno,' ',IFNULL( p.apellido_materno, ''),' ',p.ci) like '%".$term."%'
             "));
        
 
@@ -236,7 +228,7 @@ class AdministracionController extends Controller
     
        
 
-            // return redirect()->route('administracion.empleados.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
+            // return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
 // 
     }
 

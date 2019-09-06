@@ -11,7 +11,7 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Administrcion <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ route('administracion.empleados.index')}}">Empleados</a></li>
+                      <li><a href="{{ route('administracion.encuestadores.index')}}">Empleados</a></li>
                       
                       <li><a href="{{ route('administracion.usuarios.index')}}">Usuarios</a></li>
                     </ul>

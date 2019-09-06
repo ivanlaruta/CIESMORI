@@ -5,8 +5,8 @@
               <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
-              <h1>Login!</h1>
-
+              <h1>Bienvenido</h1>
+                <p>Por favor ingrese sus credenciales. </p>
               <div class="form-group{{ $errors->has('user') ? ' has-error' : '' }} has-feedback">
                     <div >
                        
@@ -38,7 +38,7 @@
                             <i class="fa fa-btn fa-sign-in"></i> Ingresar
                 </button>
 
-                <a href="{{ route('inicio') }}" class="btn btn-link"> Volver al inicio <i class="fa fa-btn fa-sign-out"  ></i>
+                <a href="{{ route('inicio') }}" class="btn btn-link"> Salir <i class="fa fa-btn fa-sign-out"  ></i>
                 </a>
 
 
@@ -54,9 +54,9 @@
                 <br />
 
                 <div>
-                <h1><i class="fa fa-cog fa-spin"></i> CIESMORI</h1>
-                
                   <p>©2019 Todos los derechos reservados. </p>
+                <h1> CIESMORI</h1>
+                
                 </div>
               </div>
             </form>     

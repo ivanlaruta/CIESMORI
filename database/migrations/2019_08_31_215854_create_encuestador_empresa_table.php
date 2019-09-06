@@ -14,8 +14,7 @@ class CreateEncuestadorEmpresaTable extends Migration
     public function up()
     {
         Schema::create('encuestador_empresa', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('empleado_id');
+            $table->integer('encuestador_id');
             $table->string('empresa');
             $table->string('observacion')->nullable();
             $table->integer('estado')->default(1);

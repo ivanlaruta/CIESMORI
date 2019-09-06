@@ -19,10 +19,11 @@
                     <li class="">
                       <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                        <i class="glyphicon glyphicon-user"></i>
-                             @if(isset(Auth::user()->empleado->persona->id))
-                             {{strtoupper( Auth::user()->empleado->persona->primer_nombre)}}
-                             {{strtoupper( Auth::user()->empleado->persona->segundo_nombre)}}
-                             {{strtoupper( Auth::user()->empleado->persona->apellido_paterno)}}
+                             @if(isset(Auth::user()->persona->id))
+                             {{strtoupper( Auth::user()->persona->primer_nombre)}}
+                             {{strtoupper( Auth::user()->persona->segundo_nombre)}}
+                             {{strtoupper( Auth::user()->persona->apellido_paterno)}}
+                             {{strtoupper( Auth::user()->persona->apellido_materno)}}
                              @else
                              {{strtoupper( Auth::user()->user)}}
                              @endif
@@ -55,11 +56,20 @@
                     </li>
                     <li role="presentation" class="dropdown">
                       <a  class="info-number" style="  pointer-events: none; " >
-                        <i class="fa fa-tty"></i>
+                        <i class="fa fa-th-large"></i>
 
                          {{strtoupper(Auth::user()->rol->descripcion)}} 
                       </a>
                     </li>
+                     @if(isset(Auth::user()->persona->id))
+                    <li role="presentation" class="dropdown">
+                      <a  class="info-number" style="  pointer-events: none; " >
+                        <i class="fa fa-map-marker"></i>
+
+                         {{strtoupper(Auth::user()->persona->ciudad->Departamento->nombre)}} 
+                      </a>
+                    </li>
+                    @endif
                 @endif
               </ul>              
             </nav>
