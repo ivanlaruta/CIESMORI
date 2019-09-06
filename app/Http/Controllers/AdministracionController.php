@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PersonaRequest;
 
 use App\User;
 use App\Parametrica;
@@ -14,7 +15,7 @@ use App\Encuestador_horario_disponible;
 use App\Departamento;
 use App\Ciudad;
 use App\Rol;
-use App\Http\Requests\PersonaRequest;
+
 
 use DB;
 
@@ -81,11 +82,12 @@ class AdministracionController extends Controller
 
     }
 
-    public function encuestadores_create(Request $request)
+    public function store(PersonaRequest $request)
     {
-        // dd($request->all());
-        $file = $request->file('image');
-        dd($file);
+        //dd($request->all());
+        //dd($request->image);
+        //$file = $request->file('image');
+        // dd($file);
         $persona = new Persona($request->all());
         $persona->save();
         $encuestador = new Encuestador($request->all());

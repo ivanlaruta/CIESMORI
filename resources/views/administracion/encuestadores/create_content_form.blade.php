@@ -4,7 +4,7 @@
         <div class="">
             <br />
 
-            {{-- @if ($errors->any())
+             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -12,9 +12,9 @@
                         @endforeach
                     </ul>
                 </div>
-            @endif --}}
+            @endif
 
-          <form method="POST" action="{{  route('administracion.encuestadores.create') }}" class="form-horizontal form-label-left" id="encuestadores_form" enctype="multipart/form-data">
+          <form method="post" action="{{ route('encuestadores.store') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
             {{ csrf_field() }}
 
 

@@ -44,12 +44,13 @@ route::get('administracion/encuestadores/create/log_form',[
 		'as'   =>	'administracion.encuestadores.create.log_form'
 	]);
 
-route::get('administracion/encuestadores/create',[
+route::post('administracion/encuestadores/create',[
 		'uses' =>'administracionController@encuestadores_create',
 		'as'   =>	'administracion.encuestadores.create'
 	]);
 
 
+Route::resource('encuestadores', 'administracionController');
 
 Route::group(['prefix'=>'administracion','middleware'=>'auth'],function(){
 
@@ -74,7 +75,7 @@ route::get('administracion/usuarios/create/form',[
 		'as'   =>	'administracion.usuarios.create.form'
 	]);
 
-route::post('administracion/usuarios/create',[
+route::get('administracion/usuarios/create',[
 		'uses' =>'administracionController@usuarios_create',
 		'as'   =>	'administracion.usuarios.create'
 	]);
@@ -96,7 +97,5 @@ route::post('administracion/usuarios/create',[
 	]);
 
 
-
-	
 
 });
