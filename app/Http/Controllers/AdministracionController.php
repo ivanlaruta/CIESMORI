@@ -15,6 +15,7 @@ use App\Encuestador_horario_disponible;
 use App\Departamento;
 use App\Ciudad;
 use App\Rol;
+use App\Imagen;
 
 
 use DB;
@@ -82,14 +83,29 @@ class AdministracionController extends Controller
 
     }
 
-    public function store(PersonaRequest $request)
+    public function store(Request $request)
     {
         //dd($request->all());
-        //dd($request->image);
-        //$file = $request->file('image');
-        // dd($file);
+
+        $persona = new Persona($request->all());
+
+        if($request->file('image')){
+            $file = $request->file('image');
+            $namefile = $request->ci.'_'.time().'.'.$file->getClientOriginalExtension();
+            $path = public_path().'\images\personas\\';
+            $file->move($path,$namefile);
+
+            $imagen = new Imagen();
+            $imagen -> archivo = $namefile;
+            $imagen -> carpeta = 'personas';
+            $imagen->save();
+
+            $persona -> imagen_id = $imagen ->id;
+        }      
+
         $persona = new Persona($request->all());
         $persona->save();
+
         $encuestador = new Encuestador($request->all());
         $encuestador -> persona_id = $persona ->id;
         $encuestador->save();

@@ -17,7 +17,6 @@ class CreateImagenTable extends Migration
             $table->bigIncrements('id');
             $table->string('archivo')->nullable();
             $table->string('carpeta')->nullable();
-            $table->string('nombre')->nullable();
             $table->integer('estado')->default(1);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
