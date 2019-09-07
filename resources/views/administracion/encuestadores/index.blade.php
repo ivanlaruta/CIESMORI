@@ -47,10 +47,11 @@
                       </strong>
                       </i>
                     </h5>
-                    <div class="right col-xs-2 text-center">
-                      <img src="images/img.jpg" alt="" class="img-circle img-responsive">
+                    <div class="right col-xs-4 text-center">
+                      <img src="{{url('/images/personas/'.$det->persona->foto->archivo
+                      )}}" alt="" class="img-circle img-responsive">
                     </div>
-                    <div class="left col-xs-10">
+                    <div class="left col-xs-8">
                       <ul class="list-unstyled">
                         <li><i class="fa fa-credit-card"></i> Ci: {{$det->persona->ci}} {{$det->persona->expedido->nombre_corto}} </li>
                         <li><i class="fa fa-intersex"></i> Genero: {{$det->persona->genero()}} </li>

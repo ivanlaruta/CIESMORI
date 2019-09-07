@@ -88,7 +88,6 @@ class AdministracionController extends Controller
         //dd($request->all());
 
         $persona = new Persona($request->all());
-
         if($request->file('image')){
             $file = $request->file('image');
             $namefile = $request->ci.'_'.time().'.'.$file->getClientOriginalExtension();
@@ -102,8 +101,6 @@ class AdministracionController extends Controller
 
             $persona -> imagen_id = $imagen ->id;
         }      
-
-        $persona = new Persona($request->all());
         $persona->save();
 
         $encuestador = new Encuestador($request->all());
