@@ -15,6 +15,7 @@ class CreateEncuestaDetalleTable extends Migration
     {
         Schema::create('encuesta_detalle', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('id_encuesta');
             $table->string('fecha');
             $table->string('hora');
             $table->string('ci_enc');

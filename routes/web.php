@@ -99,3 +99,21 @@ route::get('administracion/usuarios/create',[
 
 
 });
+
+
+
+Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
+
+route::get('encuesta/migracion',[
+		'uses' =>'EncuestaController@migracion',
+		'as'   =>	'encuesta.migracion'
+	]);
+
+route::get('encuesta/migrar',[
+		'uses' =>'EncuestaController@migrar',
+		'as'   =>	'encuesta.migrar'
+	]);
+
+Route::resource('encuesta', 'EncuestaController');
+
+});

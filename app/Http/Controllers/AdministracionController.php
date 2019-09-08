@@ -24,8 +24,9 @@ class AdministracionController extends Controller
 {
     public function encuestadores_index()
     {
-        $encuestadores = Encuestador::orderBy('encuestador.id')
-        ->where('encuestador.estado',1)
+        $encuestadores = Encuestador::orderBy('id')
+        ->where('estado',1)
+        
         ->get();
 
         return view('administracion.encuestadores.index')->with('encuestadores',$encuestadores) ;
@@ -88,6 +89,7 @@ class AdministracionController extends Controller
         //dd($request->all());
 
         $persona = new Persona($request->all());
+
         if($request->file('image')){
             $file = $request->file('image');
             $namefile = $request->ci.'_'.time().'.'.$file->getClientOriginalExtension();

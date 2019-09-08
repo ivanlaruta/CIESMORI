@@ -22,7 +22,7 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 6,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'CI del Encuestador',
+        'campo' => 'CI_del_Encuestador',
         'inicio' => 14,
         'longitud' => 8,
       ]);
@@ -47,12 +47,12 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 3,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Hora de Inicio del Sistema',
+        'campo' => 'Hora_de_Inicio_del_Sistema',
         'inicio' => 34,
         'longitud' => 6,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Hora de Finalización del Sistema',
+        'campo' => 'Hora_de_Finalización_del_Sistema',
         'inicio' => 40,
         'longitud' => 6,
       ]);
@@ -62,12 +62,12 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 6,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Latitud A',
+        'campo' => 'Latitud_A',
         'inicio' => 52,
         'longitud' => 13,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Longitud A',
+        'campo' => 'Longitud_A',
         'inicio' => 65,
         'longitud' => 13,
       ]);
@@ -82,7 +82,7 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 2,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Rango de edad',
+        'campo' => 'Rango_de_edad',
         'inicio' => 160,
         'longitud' => 1,
       ]);
@@ -102,7 +102,7 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 30,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Carnet de Identidad',
+        'campo' => 'Carnet_de_Identidad',
         'inicio' => 193,
         'longitud' => 15,
       ]);
@@ -122,7 +122,7 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 4,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Manzano 1',
+        'campo' => 'Manzano_1',
         'inicio' => 315,
         'longitud' => 20,
       ]);
@@ -132,7 +132,7 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 120,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Número de casa',
+        'campo' => 'Número_de_casa',
         'inicio' => 455,
         'longitud' => 10,
       ]);
@@ -142,13 +142,13 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 250,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Nombre de la encuestador',
+        'campo' => 'Nombre_de_la_encuestador',
         'inicio' => 715,
         'longitud' => 80,
       ]);
 
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Código del encuestador',
+        'campo' => 'Código_del_encuestador',
         'inicio' => 795,
         'longitud' => 4,
       ]);
@@ -158,22 +158,22 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 1,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Tipo de Supervisión',
+        'campo' => 'Tipo_de_Supervisión',
         'inicio' => 800,
         'longitud' => 1,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Nombre del supervisor',
+        'campo' => 'Nombre_del_supervisor',
         'inicio' => 801,
         'longitud' => 80,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Código del supervisor',
+        'campo' => 'Código_del_supervisor',
         'inicio' => 881,
         'longitud' => 4,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Id auxiliar',
+        'campo' => 'Id_auxiliar',
         'inicio' => 885,
         'longitud' => 34,
       ]);
@@ -285,17 +285,17 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 2,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Nombre de la zona',
+        'campo' => 'Nombre_de_la_zona',
         'inicio' => 2221,
         'longitud' => 300,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Nombre de la empresa o negocio',
+        'campo' => 'Nombre_de_la_empresa_o_negocio',
         'inicio' => 2521,
         'longitud' => 100,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Teléfono de la empresa',
+        'campo' => 'Teléfono_de_la_empresa',
         'inicio' => 2621,
         'longitud' => 30,
       ]);
@@ -305,23 +305,23 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 80,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Dirección calle 1',
+        'campo' => 'Dirección_calle_1',
         'inicio' => 2731,
         'longitud' => 100,
       ]);
 
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Dirección calle 2',
+        'campo' => 'Dirección_calle_2',
         'inicio' => 2831,
         'longitud' => 100,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Latitud B',
+        'campo' => 'Latitud_B',
         'inicio' => 2931,
         'longitud' => 13,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Longitud B',
+        'campo' => 'Longitud_B',
         'inicio' => 2944,
         'longitud' => 13,
       ]);
@@ -336,27 +336,27 @@ class ParametricaPosicionesSeeder extends Seeder
         'longitud' => 2,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Unidad censal',
+        'campo' => 'Unidad_censal',
         'inicio' => 2967,
         'longitud' => 4,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Latitud C',
+        'campo' => 'Latitud_C',
         'inicio' => 2971,
         'longitud' => 13,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Longitud C',
+        'campo' => 'Longitud_C',
         'inicio' => 2984,
         'longitud' => 13,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Apellido encuestador',
+        'campo' => 'Apellido_encuestador',
         'inicio' => 2997,
         'longitud' => 80,
       ]);
       DB::table('parametrica_posiciones')->insert([
-        'campo' => 'Id del dispositivo',
+        'campo' => 'Id_del_dispositivo',
         'inicio' => 3077,
         'longitud' => 30,
       ]);
