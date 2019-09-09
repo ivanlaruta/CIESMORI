@@ -29,6 +29,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/session', 'SesionController@index')->name('session');
 
 
+route::get('Encuesta/listar_tablas_db',[
+		'uses' =>'EncuestaController@listar_tablas_db',
+		'as'   =>	'listar_tablas_db'
+	]);
+
+
 route::get('administracion/encuestadores/create/form',[
 		'uses' =>'administracionController@encuestadores_create_form',
 		'as'   =>	'administracion.encuestadores.create.form'
@@ -104,16 +110,21 @@ route::get('administracion/usuarios/create',[
 
 Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 
-route::get('encuesta/migracion',[
-		'uses' =>'EncuestaController@migracion',
-		'as'   =>	'encuesta.migracion'
-	]);
+	route::get('encuesta/migracion',[
+			'uses' =>'EncuestaController@migracion',
+			'as'   =>	'encuesta.migracion'
+		]);
 
-route::get('encuesta/migrar',[
-		'uses' =>'EncuestaController@migrar',
-		'as'   =>	'encuesta.migrar'
-	]);
+	route::get('encuesta/migrar',[
+			'uses' =>'EncuestaController@migrar',
+			'as'   =>	'encuesta.migrar'
+		]);
 
-Route::resource('encuesta', 'EncuestaController');
+	route::get('encuesta/contenido_detalle',[
+			'uses' =>'EncuestaController@contenido_detalle',
+			'as'   =>	'encuesta.contenido_detalle'
+		]);
+
+	Route::resource('encuesta', 'EncuestaController');
 
 });

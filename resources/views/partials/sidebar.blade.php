@@ -16,13 +16,11 @@
                       <li><a href="{{ route('administracion.usuarios.index')}}">Usuarios</a></li>
                     </ul>
                   </li>
-                </ul>
-              </div>
-              <div class="menu_section">
-                <ul class="nav side-menu">
+                
                   <li><a><i class="fa fa-home"></i> Encuestas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ route('encuesta.migracion')}}">Migracion de encuestas</a></li>
+                      <li><a href="{{ route('encuesta.index')}}">Lista de encuestas</a></li>
                       
                     </ul>
                   </li>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Encuesta;
+use App\V_detalle_encuesta;
 use Illuminate\Http\Request;
 use DB;
 
@@ -16,21 +17,31 @@ class EncuestaController extends Controller
      */
     public function migracion()
     {
-        $tablas_db = DB::select( DB::raw(" 
-                    SHOW TABLES
-                    FROM tablas_ciesmori
-            "));
-         // dd($tablas_db[0]->Tables_in_tablas_ciesmori);
+        $name_db = DB::select( DB::raw("SHOW DATABASES"));
+        return view('encuestas.migracion.migrate_form')->with('name_db',$name_db);
+    }
 
-        return view('encuestas.migracion.index')->with('tablas_db',$tablas_db) ;
+    public function listar_tablas_db(Request $request)
+    {
+
+       $tablas_db = DB::select( DB::raw(" 
+                    SELECT TABLE_NAME AS tables 
+                    FROM INFORMATION_SCHEMA.TABLES 
+                    WHERE TABLE_SCHEMA = '".$request->name_db."'
+            "));
+
+       return($tablas_db);
+      
     }
 
     public function migrar(Request $request)
     {
-        // dd($request->all());
+
         $encuesta = new Encuesta();
         $encuesta -> nombre = $request ->nombre;
         $encuesta -> nombre_tabla = $request ->origen;
+        $encuesta -> nombre_db = $request ->db;
+        $encuesta -> observacion = $request ->observacion;
         $encuesta -> save();
 
         DB::insert("
@@ -71,7 +82,7 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,801,80) Nombre_del_supervisor
             ,SUBSTR(a.questionnaire,881,4) Código_del_supervisor
             ,SUBSTR(a.questionnaire,885,34) Id_auxiliar
-            from tablas_ciesmori.".$encuesta -> nombre_tabla." a
+            from ".$request -> db.".".$encuesta -> nombre_tabla." a
             ");
      
         DB::insert("
@@ -119,26 +130,30 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,2984,13) Longitud_C
             ,SUBSTR(a.questionnaire,2997,80) Apellido_encuestador
             ,SUBSTR(a.questionnaire,3077,30) Id_del_dispositivo
-            from tablas_ciesmori.".$encuesta -> nombre_tabla." a
+            from ".$request -> db.".".$encuesta -> nombre_tabla." a
             ");
      
 
-
-
-        dd('save');
-
-
-        $consulta = DB::select( DB::raw(" select * from ".$request->origen));
-
-
-
+         return redirect()->route('encuesta.index')->with('mensaje',"Se a enlazado la encuesta exitosamente. "); 
 
 
     }
 
     public function index()
     {
-        //
+        $encuesta = Encuesta::all();
+
+        return view('encuestas.index')->with('encuesta',$encuesta);
+    }
+
+
+    public function contenido_detalle(Request $request)
+    {
+
+        $encuesta_Cab = Encuesta::find($request->id_encuesta);
+        $encuesta_det = V_detalle_encuesta::where('id_encuesta',$request->id_encuesta)->get();
+        return($encuesta_det);
+        return view('encuestas.detalle_content')->with('encuesta_Cab',$encuesta_Cab);
     }
 
     /**
