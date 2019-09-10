@@ -142,18 +142,51 @@ class EncuestaController extends Controller
     public function index()
     {
         $encuesta = Encuesta::all();
-
-        return view('encuestas.index')->with('encuesta',$encuesta);
+        $campos_tabla =  DB::select( DB::raw("SHOW COLUMNS FROM v_encuesta_detalle"));
+        // dd($campos_tabla);
+        return view('encuestas.index')->with('encuesta',$encuesta)->with('campos_tabla',$campos_tabla);
     }
 
 
     public function contenido_detalle(Request $request)
     {
-
         $encuesta_Cab = Encuesta::find($request->id_encuesta);
-        $encuesta_det = V_detalle_encuesta::where('id_encuesta',$request->id_encuesta)->get();
-        return($encuesta_det);
-        return view('encuestas.detalle_content')->with('encuesta_Cab',$encuesta_Cab);
+
+        $array_campos = $request->lista_campos;
+        
+        if(empty($array_campos))
+        {
+
+            $detalle = V_detalle_encuesta::where('id_encuesta',$request->id_encuesta)->get();
+            $campos_tabla =  DB::select( DB::raw("SHOW COLUMNS FROM v_encuesta_detalle"));
+
+            for ($i = 0; $i < sizeof($campos_tabla); $i++) 
+            {
+                $array_campos[$i] = $campos_tabla[$i]->Field;
+            }
+        }
+        else
+        {
+            $cadena ="";
+            for ($i = 0; $i < sizeof($array_campos); $i++) 
+            {
+                $cadena = $cadena.$array_campos[$i];
+                if($i < (sizeof($array_campos))-1){
+                $cadena = $cadena.',';
+               }
+            }
+
+            $detalle = V_detalle_encuesta::query();
+            $detalle = $detalle->select(DB::raw($cadena));
+                     
+            $detalle = $detalle->where('id_encuesta',$request->id_encuesta)->get();
+            // return($detalle);
+        }
+
+        return view('encuestas.detalle_content')
+                ->with('encuesta_Cab',$encuesta_Cab)
+                ->with('array_campos',$array_campos)
+                ->with('detalle',$detalle);
     }
 
     /**

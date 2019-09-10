@@ -1,31 +1,29 @@
                 <h4>Lista de encuesta / {{$encuesta_Cab->nombre}}</h4>
-                <table class="table table-bordered">
+                <table class="table table-bordered " id="tabla_filtrada">
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Username</th>
+                      @for  ($i = 0; $i < sizeof($array_campos); $i++)
+                        <th>{{$array_campos[$i]}}</th>
+                      @endfor
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>@twitter</td>
-                    </tr>
+                    @foreach($detalle as $det)
+                      <tr>
+                         @for  ($i = 0; $i < sizeof($array_campos); $i++)
+                            
+                        <td>
+                          @php
+                              echo $det->{$array_campos[$i]};
+                          @endphp
+                          </th>
+                         @endfor
+
+
+                        
+                      </tr>
+                    
+                      
+                    @endforeach
                   </tbody>
                 </table>
