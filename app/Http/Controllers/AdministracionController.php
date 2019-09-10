@@ -22,6 +22,23 @@ use DB;
 
 class AdministracionController extends Controller
 {
+    public function validar_ci(Request $request)
+    {
+        // return($request->ci);
+        // $encuestadores = DB::table('persona')
+        //     ->leftJoin('encuestador', 'persona.id', '=', 'encuestador.persona_id')
+        //     ->where('estado',1)
+        //     ->where('persona.ci',$request->ci)
+        //     ->get();
+
+        $persona = Persona::orderBy('id')
+        ->where('estado',1)
+        ->where('ci',$request->ci)
+        ->first();
+
+        return ($persona);
+    }
+
     public function encuestadores_index()
     {
         $encuestadores = Encuestador::orderBy('id')

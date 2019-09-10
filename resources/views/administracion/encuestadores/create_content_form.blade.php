@@ -27,10 +27,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Cedula Idenidad *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="ci" name="ci" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad">
+                  <input type="text" id="ci" name="ci" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad" onblur="validar_ci()">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <select class="form-control col-md-7 col-xs-12 select_expedido" data-width="100%" id="cod_expedido" name="cod_expedido" required="required">
+                  <select class="form-control col-md-7 col-xs-12 select_expedido" data-width="100%" id="cod_expedido" name="cod_expedido" required="required" >
                     <option></option>
                     @foreach($expedido as $det)
                       <option value="{{$det->id}}">{{strtoupper($det->nombre_corto)}}</option>
@@ -224,7 +224,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                   
                   {{-- <a class="btn btn-primary" href="{{ route('inicio') }}" role="button">Cancelar</a> --}}
-                  <button type="submit" class="btn btn-block btn-success">Guardar</button>
+                  <button type="submit" class="btn btn-block btn-success btn_guardar">Guardar</button>
                 </div>
               </div>
             </form>
@@ -269,6 +269,44 @@ $(function() {
     }
   })
 });
+
+function validar_ci() {
+
+var cid = $("#ci").val();
+
+$.ajax({
+    type: "GET",
+    cache: false,
+    dataType: "html",
+    url: "{{ route('administracion.encuestadores.validar_ci')}}",
+    data: {
+      ci: cid
+    },
+    success: function(dataResult)
+    {
+      
+      func_alerta(dataResult);
+    }
+  });
+};
+
+
+function func_alerta(resultado) {
+
+  var obj_php = "<?php echo json_encode("+resultado+"); ?>";
+  if (obj_php.length > 0){
+    // alert('Esta Cedula de Identidad ya se encuentra registrada. NO puede crear un registro duplicado.');
+
+    new PNotify({title: "No puede continuar",type: "error",text: 'Esta Cedula de Identidad ya se encuentra registrada. NO puede crear un registro duplicado para este CI.' ,styling: 'bootstrap3',});
+
+
+    $(".btn_guardar").attr("disabled", true);
+  }
+  else{
+   $(".btn_guardar").attr("disabled", false);
+
+  }
+};
 
 </script>
 
