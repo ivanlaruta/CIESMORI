@@ -120,14 +120,12 @@
                    <div class="btn-group row" role="group" >
                      
 
-                      <a href="#" class="btn btn-success btn-xs btn_editar" id_empleado = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Crear Usuario">
-                        <span class="fa fa-user"></span> 
-                      </a>
-                      <a href="#" class="btn btn-warning btn-xs btn_editar" id_empleado = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Editar">
+                     
+                      <a href="#" class="btn btn-warning btn-xs btn_editar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Editar">
                         <span class="fa fa-edit"></span> 
                       </a>
 
-                      <a href="#" class="btn btn-danger btn-xs btn_eliminar" id_empleado = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+                      <a href="#" class="btn btn-danger btn-xs btn_eliminar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Eliminar">
                         <span class="fa fa-trash"></span> 
                       </a>
 
@@ -165,7 +163,7 @@
                   <form method="get" action="{{  route('administracion.encuestadores.baja') }}" class="form-horizontal form-label-left" id="encuestadores_form" >
                   <div class="modal-body">
                     {{ csrf_field() }}
-                    <input type="hidden" id="id_empleado_txt" name="id_empleado_txt">
+                    <input type="hidden" id="id_encuestador_txt" name="id_encuestador_txt">
                     <h4>Eliminar!</h4>
                     <p>Esta tratando de dar de baja este registro.</p>
                     <p>Desea continuar?.</p>
@@ -243,8 +241,8 @@ var btn_eliminar = $(".btn_eliminar");
   });
 
 var fn_eliminar = function (objeto){
-id_eliminar = objeto.attr("id_empleado");
-$('#id_empleado_txt').val(id_eliminar);
+id_eliminar = objeto.attr("id_encuestador");
+$('#id_encuestador_txt').val(id_eliminar);
 $('#modal_dialog').modal('show');
 };
 
