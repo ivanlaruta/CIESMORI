@@ -75,6 +75,11 @@ Route::group(['prefix'=>'administracion','middleware'=>'auth'],function(){
 		'as'   =>	'administracion.encuestadores.baja'
 	]);
 
+	route::get('administracion/encuestadores/agrega_encuesta',[
+		'uses' =>'administracionController@encuestadores_agrega_encuesta',
+		'as'   =>	'administracion.encuestadores.agrega_encuesta'
+	]);
+
 
 route::get('administracion/usuarios/create/form',[
 		'uses' =>'administracionController@usuarios_create_form',

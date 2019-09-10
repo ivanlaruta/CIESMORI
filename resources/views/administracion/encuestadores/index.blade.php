@@ -18,7 +18,7 @@
           <div class="x_content">
 
             <p>Lista del personal registrado, acceda a las opciones para editar la informacion</p>
-
+            <div class="table-responsive">
             <table class="table table-striped " id="datatable1">
               <thead>
                 <tr>
@@ -27,6 +27,7 @@
                  <th style="width: 15%">Educacion y Experiencia</th>
                  <th style="width: 15%">Area de trabajo</th>
                  <th style="width: 10%">Disponibilidad</th>
+                 <th style="width: 10%">Encuestas Asignadas</th>
                  <th style="width: 1%">Obs</th>
                  <th style="width: 1%">Opciones</th>
                 </tr>
@@ -107,20 +108,18 @@
                    <li><i class="fa fa-clock-o"></i> Horas que puede trabajar: {{$det->horas_que_puede_trabajar}} </li>
                   </ul>
                 </td>
-
-              
-               
                 <td>
-                    <a>{{$det->observacion}} </a>
-                    <br />
-                   
+                    <a><br>{{$det->observacion}}</a>
+                </td> 
+                <td>
+                    <a><br></a>                    
                 </td>  
-                
                 <td>
                    <div class="btn-group row" role="group" >
                      
-
-                     
+                      <a href="#" class="btn btn-success btn-xs btn_agregar_encuesta" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Agregar encuesta">
+                        <span class="fa fa-file"></span> 
+                      </a>
                       <a href="#" class="btn btn-warning btn-xs btn_editar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Editar">
                         <span class="fa fa-edit"></span> 
                       </a>
@@ -138,6 +137,7 @@
 
               </tbody>
             </table>
+            </div>
 
             <div class="modal fade modal_datos" id="Modal_nuevo" role="dialog" >
               <div class="modal-dialog modal-lg">
@@ -176,6 +176,31 @@
                 </div>
               </div>
             </div>
+
+            <div class="modal fade modal_dialog" id="modal_agregar_encuesta" role="dialog" >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Asignacion de encuestas</h4>
+                  </div>
+                  <form method="get" action="{{  route('administracion.encuestadores.agrega_encuesta') }}" class="form-horizontal form-label-left" id="agregarecuesta_form" >
+                  <div class="modal-body">
+                    {{ csrf_field() }}
+                    <input type="hidden" id="id_encuestador_txt" name="id_encuestador_txt">
+                    <h4><small>Ingrese encuestas</small></h4><br>
+                    <input id="encuestas" name="encuestas" type="text" class="tags form-control" value="" />
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success btn_sub" id="btn_sub">Guardar  </button>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -190,7 +215,11 @@
 @section('scripts')
 
 <script type="text/javascript">
-  
+  $('#encuestas').tagsInput({
+          width: 'auto',
+          defaultText:'Empresas',
+          height:'auto',
+        });
 
     $('#datatable1').DataTable( { "language": {
             
@@ -231,6 +260,20 @@
 
       
     } );
+
+// =============== agrefar_ encuesta ============================
+var id_asignar;
+
+var btn_agregar_encuesta = $(".btn_agregar_encuesta");
+  btn_agregar_encuesta.on("click",function(){
+    fn_agrega_encuesta($(this));
+  });
+
+var fn_agrega_encuesta = function (objeto){
+id_asignar = objeto.attr("id_encuestador");
+$('#id_encuestador_txt').val(id_asignar);
+$('#modal_agregar_encuesta').modal('show');
+};
 
 // =============== eliminar ============================
 var id_eliminar;

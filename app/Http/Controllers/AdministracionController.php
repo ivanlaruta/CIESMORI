@@ -173,6 +173,11 @@ class AdministracionController extends Controller
                 return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido dado de baja exitosamente. "); 
     }
 
+    public function encuestadores_agrega_encuesta(Request $request)
+    {
+         dd($request->all());            
+    }
+
     /*================================*/
 
     public function usuarios_index()
