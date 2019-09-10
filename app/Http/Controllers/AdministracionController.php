@@ -10,6 +10,7 @@ use App\Parametrica;
 use App\Persona;
 use App\Encuestador;
 use App\Encuestador_empresa;
+use App\Encuestador_encuesta;
 use App\Encuestador_tipo_estudio;
 use App\Encuestador_horario_disponible;
 use App\Departamento;
@@ -175,7 +176,22 @@ class AdministracionController extends Controller
 
     public function encuestadores_agrega_encuesta(Request $request)
     {
-         dd($request->all());            
+          // dd($request->all()); 
+
+        $array_encuestas = explode(",", $request->encuestas);
+
+        for ($i=0; $i < count($array_encuestas); $i++) 
+        {
+            $encuestador_encuesta = new Encuestador_encuesta();
+            $encuestador_encuesta -> encuestador_id =  $request->id_encuestador_txt2;
+            $encuestador_encuesta -> encuesta_id =  $request->id_encuestador_txt2;
+            $encuestador_encuesta -> estado_encuesta =  $request->id_encuestador_txt2;
+            $encuestador_encuesta -> observacion = strtoupper($array_encuestas[$i]);
+            // dd($encuestador_encuesta); 
+            $encuestador_encuesta ->save();
+        }
+
+        return redirect()->route('administracion.encuestadores.index')->with('mensaje',"Se asigno correctamente"); 
     }
 
     /*================================*/

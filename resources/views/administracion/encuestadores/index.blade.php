@@ -108,12 +108,25 @@
                    <li><i class="fa fa-clock-o"></i> Horas que puede trabajar: {{$det->horas_que_puede_trabajar}} </li>
                   </ul>
                 </td>
+              
+                  <td>
+                    <ul class="list-unstyled">
+                      <br>
+                      
+                      <li><i class="fa fa-file"></i> Encuestas asignadas: 
+                        @if ($det->lista_encuestas->count() > 0)
+                          @foreach ($det->lista_encuestas as $empresa)
+                            <span class="label label-primary">{{strtoupper($empresa->observacion)}} &nbsp;</span>
+                          @endforeach
+                        @endif
+                     </li>
+                    
+                    </ul>
+                  </td>                   
+              
                 <td>
                     <a><br>{{$det->observacion}}</a>
                 </td> 
-                <td>
-                    <a><br></a>                    
-                </td>  
                 <td>
                    <div class="btn-group row" role="group" >
                      
@@ -188,7 +201,7 @@
                   <form method="get" action="{{  route('administracion.encuestadores.agrega_encuesta') }}" class="form-horizontal form-label-left" id="agregarecuesta_form" >
                   <div class="modal-body">
                     {{ csrf_field() }}
-                    <input type="hidden" id="id_encuestador_txt" name="id_encuestador_txt">
+                    <input type="hidden" id="id_encuestador_txt2" name="id_encuestador_txt2">
                     <h4><small>Ingrese encuestas</small></h4><br>
                     <input id="encuestas" name="encuestas" type="text" class="tags form-control" value="" />
                   </div>
@@ -217,7 +230,7 @@
 <script type="text/javascript">
   $('#encuestas').tagsInput({
           width: 'auto',
-          defaultText:'Empresas',
+          defaultText:'Encuestas',
           height:'auto',
         });
 
@@ -271,7 +284,7 @@ var btn_agregar_encuesta = $(".btn_agregar_encuesta");
 
 var fn_agrega_encuesta = function (objeto){
 id_asignar = objeto.attr("id_encuestador");
-$('#id_encuestador_txt').val(id_asignar);
+$('#id_encuestador_txt2').val(id_asignar);
 $('#modal_agregar_encuesta').modal('show');
 };
 
