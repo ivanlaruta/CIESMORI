@@ -59,8 +59,6 @@
         <link href="{{asset('gentelella-master/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{asset('gentelella-master/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
 
-
-        
         <!-- Custom Theme Style -->
         <link href="{{asset('gentelella-master/build/css/custom.min.css')}}" rel="stylesheet">
 
@@ -223,7 +221,6 @@
 
         <!-- Select2 -->
         <script src="{{asset('gentelella-master/vendors/select2/dist/js/select2.full.min.js')}}"></script>
-        
 
 
 
