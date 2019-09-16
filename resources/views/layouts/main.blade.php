@@ -50,7 +50,6 @@
         <!-- Bootstrap Colorpicker -->
         <link href="{{asset('gentelella-master/vendors/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')}}" rel="stylesheet">
 
-        <link href="{{asset('gentelella-master/vendors/cropper/dist/cropper.min.css')}}" rel="stylesheet">
 
         <!-- Dtatables -->
         <link href="{{asset('gentelella-master/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
@@ -62,6 +61,7 @@
         <!-- Custom Theme Style -->
         <link href="{{asset('gentelella-master/build/css/custom.min.css')}}" rel="stylesheet">
 
+        <link href="{{asset('js/cropperjs/cropper.css')}}" rel="stylesheet">
 
         <!-- animate.css -->
         <link href="{{asset('animate.css/animate.min.css')}}" rel="stylesheet">
@@ -158,9 +158,7 @@
         <script src="{{asset('gentelella-master/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js')}}"></script>
         <!-- jQuery Knob -->
         <script src="{{asset('gentelella-master/vendors/jquery-knob/dist/jquery.knob.min.js')}}"></script>
-        <!-- Cropper -->
-        {{-- <script src="{{asset('gentelella-master/vendors/cropper/dist/cropper.min.js')}}"></script> --}}
-
+       
         <!-- PNotify -->
         <script src="{{asset('gentelella-master/vendors/pnotify/dist/pnotify.js')}}"></script>
         <script src="{{asset('gentelella-master/vendors/pnotify/dist/pnotify.buttons.js')}}"></script>
@@ -221,6 +219,8 @@
 
         <!-- Select2 -->
         <script src="{{asset('gentelella-master/vendors/select2/dist/js/select2.full.min.js')}}"></script>
+ <!-- Cropper -->
+        <script src="{{asset('js/cropperjs/cropper.js')}}"></script>
 
 
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEncuestadorTable extends Migration
+class CreateEcuestadorCargoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,9 @@ class CreateEncuestadorTable extends Migration
      */
     public function up()
     {
-        Schema::create('encuestador', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('persona_id');
-           
-            
-            $table->string('cod_disponibilidad_tiempo')->nullable();
-            $table->integer('horas_que_puede_trabajar');
-            $table->integer('experiencia');
-
+        Schema::create('encuestador_cargo', function (Blueprint $table) {
+            $table->integer('encuestador_id');
+            $table->string('cod_cargo');
             $table->string('observacion')->nullable();
             $table->integer('estado')->default(1);
             $table->string('created_by')->nullable();
@@ -37,6 +31,6 @@ class CreateEncuestadorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('encuestador');
+        Schema::dropIfExists('encuestador_cargo');
     }
 }

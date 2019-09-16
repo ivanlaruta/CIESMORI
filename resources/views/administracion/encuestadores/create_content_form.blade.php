@@ -4,15 +4,7 @@
         <div class="">
             <br />
 
-             @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+          
 
           <form method="post" action="{{ route('encuestadores.store') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
             {{ csrf_field() }}
@@ -151,7 +143,8 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Fotografia *
                 </label>
                  <div class="col-md-10 col-sm-10 col-xs-12">
-                  <input type="file" id="image" name="image">
+                  <img id="blah" src="#" alt="Su fotografia" width="50%" height="50%"/>
+                  <input type="file" id="image" name="image" accept="image/*" >
                 </div>        
               </div>
 
@@ -163,10 +156,18 @@
               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Area de trabajo *
                 </label>
-                <div class="col-md-3 col-sm-3 col-xs-12">
+               {{--  <div class="col-md-3 col-sm-3 col-xs-12">
                   <input type="text" id="cargo" name="cargo" required="required" class="form-control col-md-7 col-xs-12" placeholder="Cargo" onkeyup="this.value = this.value.toUpperCase();">
+                </div> --}}
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <select class="form-control col-md-7 col-xs-12 select_cargos" data-width="100%" id="cargos" name="cargos[]" required="required" multiple="multiple">
+                    <option></option>
+                    @foreach($cargos as $det)
+                      <option value="{{$det->codigo}}">{{strtoupper($det->valor_cadena)}}</option>
+                    @endforeach
+                  </select>
                 </div>
-                <div class="col-md-7 col-sm-7 col-xs-12">
+                <div class="col-md-5 col-sm-5 col-xs-12">
                   <select class="form-control col-md-7 col-xs-12 select_tipo_estudio" data-width="100%" id="cod_tipo_estudio" name="cod_tipo_estudio[]" required="required" multiple="multiple">
                     <option></option>
                     @foreach($tipo_estudio as $det)
@@ -234,12 +235,30 @@
 
 <script type="text/javascript">
 
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function(e) {
+      $('#blah').attr('src', e.target.result);
+    }
+    
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#image").change(function() {
+  // alert('asd');
+  readURL(this);
+});
+
 
  $('.select_expedido').select2({minimumResultsForSearch:-1,placeholder:"Expedido",allowClear:true});
  $('.select_estado_civil').select2({minimumResultsForSearch:-1,placeholder:"Estado civil",allowClear:true});
  $('.select_ciudad').select2({placeholder:"Ciudad de residencia",allowClear:true});
  $('.select_nivel_educacion').select2({minimumResultsForSearch:-1,placeholder:"Nivel de educacion",allowClear:true});
  $('.select_tipo_estudio').select2({placeholder:"Tipo de estudio"});
+ $('.select_cargos').select2({placeholder:"Cargo"});
  $('.select_disponibilidad_tiempo').select2({minimumResultsForSearch:-1,placeholder:"Disponibilidad de tiempo",allowClear:true});
  $('.select_horario_disponible').select2({minimumResultsForSearch:-1,placeholder:"Horario disponible"});
 
@@ -285,7 +304,7 @@ $.ajax({
     success: function(dataResult)
     {
       
-      func_alerta(dataResult);
+       func_alerta(dataResult);
     }
   });
 };
@@ -294,6 +313,7 @@ $.ajax({
 function func_alerta(resultado) {
 
   var obj_php = "<?php echo json_encode("+resultado+"); ?>";
+  alert(obj_php);
   if (obj_php.length > 0){
     // alert('Esta Cedula de Identidad ya se encuentra registrada. NO puede crear un registro duplicado.');
 

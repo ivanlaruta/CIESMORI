@@ -83,8 +83,15 @@
                 <td>
                   <ul class="list-unstyled">
                     <br>
-                    <li><i class="fa fa-user"></i> Cargo: {{$det->cargo}} </li>
-                    <li><i class="fa fa-cubes"></i> Tipo de estudio: 
+                    {{-- <li><i class="fa fa-user"></i> Cargo: {{$det->cargo}} </li> --}}
+                    <li><i class="fa fa-user"></i> Cargo: 
+                      @if ($det->lista_cargos->count() > 0)
+                        @foreach ($det->lista_cargos as $lista)
+                          <span class="label label-primary">{{strtoupper($lista->cargo_p()->valor_cadena)}} &nbsp;</span>
+                        @endforeach
+                      @endif
+                   </li>
+                   <li><i class="fa fa-cubes"></i> Tipo de estudio: 
                       @if ($det->lista_tipo_estudio->count() > 0)
                         @foreach ($det->lista_tipo_estudio as $lista)
                           <span class="label label-primary">{{strtoupper($lista->tipo_estudio_p()->valor_cadena)}} &nbsp;</span>

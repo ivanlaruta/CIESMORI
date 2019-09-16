@@ -35,6 +35,10 @@ class Encuestador extends Model
     {
         return $this->hasMany('App\Encuestador_tipo_estudio','encuestador_id');
     }
+    public function lista_cargos()
+    {
+        return $this->hasMany('App\Encuestador_Cargo','encuestador_id');
+    }
     public function disponibilidad_tiempo()
     {
         $v= Parametrica::where('tabla','=', 'disponibilidad_tiempo')->where('codigo','=',$this->cod_disponibilidad_tiempo)->get();

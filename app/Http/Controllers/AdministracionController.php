@@ -12,11 +12,13 @@ use App\Encuestador;
 use App\Encuestador_empresa;
 use App\Encuestador_encuesta;
 use App\Encuestador_tipo_estudio;
+use App\Encuestador_Cargo;
 use App\Encuestador_horario_disponible;
 use App\Departamento;
 use App\Ciudad;
 use App\Rol;
 use App\Imagen;
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 use DB;
@@ -26,11 +28,11 @@ class AdministracionController extends Controller
     public function validar_ci(Request $request)
     {
         // return($request->ci);
-        // $encuestadores = DB::table('persona')
+        // $persona = DB::table('persona')
         //     ->leftJoin('encuestador', 'persona.id', '=', 'encuestador.persona_id')
-        //     ->where('estado',1)
+        //     ->where('encuestador.estado',1)
         //     ->where('persona.ci',$request->ci)
-        //     ->get();
+        //     ->take(1)->get();
 
         $persona = Persona::orderBy('id')
         ->where('estado',1)
@@ -72,6 +74,10 @@ class AdministracionController extends Controller
         					->where('tabla','tipo_estudio')
         					->where('estado','1')
         					->orderBy('codigo')->get();
+        $cargos=Parametrica::select('codigo','valor_cadena')
+                            ->where('tabla','cargo')
+                            ->where('estado','1')
+                            ->orderBy('codigo')->get();
         $disponibilidad_tiempo=Parametrica::select('codigo','valor_cadena')
         					->where('tabla','disponibilidad_tiempo')
         					->where('estado','1')
@@ -88,6 +94,7 @@ class AdministracionController extends Controller
                 ->with('estado_civil',$estado_civil)
                 ->with('ciudad',$ciudad)
                 ->with('nivel_educacion',$nivel_educacion)
+                ->with('cargos',$cargos)
                 ->with('tipo_estudio',$tipo_estudio)
                 ->with('disponibilidad_tiempo',$disponibilidad_tiempo)
                 ->with('horario_disponible',$horario_disponible)
@@ -104,15 +111,26 @@ class AdministracionController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
 
         $persona = new Persona($request->all());
 
         if($request->file('image')){
             $file = $request->file('image');
             $namefile = $request->ci.'_'.time().'.'.$file->getClientOriginalExtension();
-            $path = public_path().'\images\personas\\';
-            $file->move($path,$namefile);
+
+
+            $image_resize = Image::make($file->getRealPath());              
+            // $image_resize->resize(300, 300);
+
+            $image_resize->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+
+            // $path = public_path().'\images\personas\\';
+            // $image_resize->save($path,$namefile);
+            $image_resize->save(public_path('images/personas/' .$namefile));
 
             $imagen = new Imagen();
             $imagen -> archivo = $namefile;
@@ -143,6 +161,15 @@ class AdministracionController extends Controller
             $encuestador_tipo_estudio -> encuestador_id = $encuestador ->id;
             $encuestador_tipo_estudio -> cod_tipo_estudio = $request->cod_tipo_estudio[$i];
             $encuestador_tipo_estudio ->save();
+        }
+
+
+        for ($i=0; $i < count($request->cargos); $i++) 
+        {
+            $encuestador_cargos = new Encuestador_Cargo();
+            $encuestador_cargos -> encuestador_id = $encuestador ->id;
+            $encuestador_cargos -> cod_cargo = $request->cargos[$i];
+            $encuestador_cargos ->save();
         }
 
         for ($i=0; $i < count($request->cod_horario_disponible); $i++) 
