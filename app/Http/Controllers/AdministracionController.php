@@ -27,17 +27,10 @@ class AdministracionController extends Controller
 {
     public function validar_ci(Request $request)
     {
-        // return($request->ci);
-        // $persona = DB::table('persona')
-        //     ->leftJoin('encuestador', 'persona.id', '=', 'encuestador.persona_id')
-        //     ->where('encuestador.estado',1)
-        //     ->where('persona.ci',$request->ci)
-        //     ->take(1)->get();
-
-        $persona = Persona::orderBy('id')
-        ->where('estado',1)
-        ->where('ci',$request->ci)
-        ->first();
+        $persona = DB::table('persona')
+            ->join('encuestador', 'persona.id', '=', 'encuestador.persona_id')
+            ->where('persona.ci',$request->ci)
+            ->get()->toArray();;
 
         return ($persona);
     }
@@ -100,6 +93,57 @@ class AdministracionController extends Controller
                 ->with('horario_disponible',$horario_disponible)
                 ->with('ciudad',$ciudad);
     	
+    }
+    public function encuestadores_edit_form(Request $request)
+    {
+        // dd($request->all());
+        $expedido=Departamento::where('estado','1')
+                            ->orderBy('id')->get();
+
+        $ciudad=Ciudad::where('estado','1')
+                            ->orderBy('id')->get();
+
+        $estado_civil=Parametrica::select('codigo','valor_cadena')
+                            ->where('tabla','estado_civil')
+                            ->where('estado','1')
+                            ->orderBy('codigo')->get();
+        $nivel_educacion=Parametrica::select('codigo','valor_cadena')
+                            ->where('tabla','nivel_educacion')
+                            ->where('estado','1')
+                            ->orderByRaw('CAST(codigo AS int)')
+                            // ->orderBy('codigo')
+                            ->get();
+        $tipo_estudio=Parametrica::select('codigo','valor_cadena')
+                            ->where('tabla','tipo_estudio')
+                            ->where('estado','1')
+                            ->orderBy('codigo')->get();
+        $cargos=Parametrica::select('codigo','valor_cadena')
+                            ->where('tabla','cargo')
+                            ->where('estado','1')
+                            ->orderBy('codigo')->get();
+        $disponibilidad_tiempo=Parametrica::select('codigo','valor_cadena')
+                            ->where('tabla','disponibilidad_tiempo')
+                            ->where('estado','1')
+                            ->orderBy('codigo')->get();
+        $horario_disponible=Parametrica::select('codigo','valor_cadena')
+                            ->where('tabla','horario_disponible')
+                            ->where('estado','1')
+                            ->orderBy('codigo')->get();
+       
+        $encuestador = Encuestador::find($request->id);
+
+        return view('administracion.encuestadores.edit_content_form')
+                ->with('encuestador',$encuestador)
+                ->with('expedido',$expedido)
+                ->with('estado_civil',$estado_civil)
+                ->with('ciudad',$ciudad)
+                ->with('nivel_educacion',$nivel_educacion)
+                ->with('cargos',$cargos)
+                ->with('tipo_estudio',$tipo_estudio)
+                ->with('disponibilidad_tiempo',$disponibilidad_tiempo)
+                ->with('horario_disponible',$horario_disponible)
+                ->with('ciudad',$ciudad);
+        
     }
 
     public function encuestadores_create_nolog_form(Request $request)

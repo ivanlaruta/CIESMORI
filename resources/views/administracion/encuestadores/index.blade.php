@@ -140,6 +140,7 @@
                       <a href="#" class="btn btn-success btn-xs btn_agregar_encuesta" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Agregar encuesta">
                         <span class="fa fa-file"></span> 
                       </a>
+
                       <a href="#" class="btn btn-warning btn-xs btn_editar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Editar">
                         <span class="fa fa-edit"></span> 
                       </a>
@@ -168,6 +169,24 @@
                     <h4 class="modal-title" id="myModalLabel">Formulario Encuestadores</h4>
                   </div>
                   <div class="modal-body contenido"></div>
+                  <div class="modal-footer">
+                    <br>
+                    <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+           <div class="modal fade modal_edita" id="modal_edita" role="dialog" >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content ">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Formulario Encuestadores</h4>
+                  </div>
+                  <div class="modal-body contenido_edit"></div>
                   <div class="modal-footer">
                     <br>
                     <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
@@ -311,16 +330,13 @@ $('#modal_dialog').modal('show');
 
 
 
-// =====================================================
+// ======================= nuevo encuestadpr ==============================
 
 
 var btn_nuevo = $(".btn_nuevo");
   btn_nuevo.on("click",function(){
     frm_nuevo($(this));
   });
-
-
-
   var modalContent = $(".contenido");
   var modal=$(".modal_datos");
 
@@ -338,6 +354,59 @@ var btn_nuevo = $(".btn_nuevo");
         console.log(dataResult);
         modalContent.empty().html(dataResult);                        
         modal.modal('show');
+        NProgress.done();
+      },
+      error: function(jqXHR, exception)
+      {
+        var msg = '';
+        if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+        } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+        } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+        NProgress.done();
+      }
+    });
+  };
+
+
+
+// ========================= edita encuestador ============================
+
+
+var btn_editar = $(".btn_editar");
+  btn_editar.on("click",function(){
+    frm_edita($(this));
+  });
+  var modalContentEdit = $(".contenido_edit");
+  var modal_edita=$(".modal_edita");
+
+  var frm_edita = function(objeto){
+    $.ajax({
+      type: "GET",
+      cache: false,
+      dataType: "html",
+      url: "{{ route('administracion.encuestadores.edit.form')}}",
+      data: {
+        formulario: "editar",
+        id: objeto.attr("id_encuestador")
+      },
+      success: function(dataResult)
+      {
+        console.log(dataResult);
+        modalContentEdit.empty().html(dataResult);                        
+        modal_edita.modal('show');
         NProgress.done();
       },
       error: function(jqXHR, exception)

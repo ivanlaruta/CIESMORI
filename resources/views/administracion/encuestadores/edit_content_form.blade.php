@@ -19,13 +19,13 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Cedula Idenidad *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="ci" name="ci" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad" onblur="validar_ci()">
+                  <input type="text" id="ci" name="ci" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad" onblur="validar_ci()" value="{{$encuestador->persona->ci}}">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <select class="form-control col-md-7 col-xs-12 select_expedido" data-width="100%" id="cod_expedido" name="cod_expedido" required="required" >
                     <option></option>
                     @foreach($expedido as $det)
-                      <option value="{{$det->id}}">{{strtoupper($det->nombre_corto)}}</option>
+                      <option value="{{$det->id}}" @if($det->id==$encuestador->persona->cod_expedido) selected @endif>{{strtoupper($det->nombre_corto)}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -35,10 +35,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Nombres *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="primer_nombre" name="primer_nombre" required="required" class="form-control col-md-7 col-xs-12" placeholder=" Primer nombre" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="primer_nombre" name="primer_nombre" required="required" class="form-control col-md-7 col-xs-12" placeholder=" Primer nombre"  value="{{$encuestador->persona->primer_nombre}}" onkeyup="this.value = this.value.toUpperCase();">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="segundo_nombre" name="segundo_nombre" class="form-control col-md-7 col-xs-12" placeholder=" Segundo nombre" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="segundo_nombre" name="segundo_nombre" class="form-control col-md-7 col-xs-12" placeholder=" Segundo nombre" value="{{$encuestador->persona->segundo_nombre}}"  onkeyup="this.value = this.value.toUpperCase();">
                 </div>
               </div>
 
@@ -46,10 +46,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Apellidos *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="apellido_paterno" name="apellido_paterno" required="required" class="form-control col-md-7 col-xs-12" placeholder="Apellido paterno" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="apellido_paterno" name="apellido_paterno" required="required" class="form-control col-md-7 col-xs-12" placeholder="Apellido paterno" value="{{$encuestador->persona->apellido_paterno}}"  onkeyup="this.value = this.value.toUpperCase();">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="apellido_materno" name="apellido_materno"  class="form-control col-md-7 col-xs-12" placeholder="Apellido materno" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="apellido_materno" name="apellido_materno"  class="form-control col-md-7 col-xs-12" placeholder="Apellido materno" value="{{$encuestador->persona->apellido_materno}}"  onkeyup="this.value = this.value.toUpperCase();">
                 </div>
               </div>               
               
@@ -57,10 +57,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Genero *</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div id="cod_genero" name="genero" class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                    <label class="btn btn-default @if($encuestador->persona->cod_genero ==1) active @endif" data-toggle-class="btn-primary " data-toggle-passive-class="btn-default">
                       <input type="radio" name="cod_genero" value="1" required="required"> &nbsp; Masculino &nbsp;
                     </label>
-                    <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                    <label class="btn btn-default @if($encuestador->persona->cod_genero ==2) active @endif" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                       <input type="radio" name="cod_genero" value="2" required="required"> Femenino
                     </label>
                   </div>
@@ -71,7 +71,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Fecha de nacimiento *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" required="required" class="form-control col-md-7 col-xs-12">
+                  <input type="text" id="fecha_nacimiento" value="2000/12/04" name="fecha_nacimiento" required="required" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
 
@@ -82,7 +82,7 @@
                   <select class="form-control col-md-7 col-xs-12 select_estado_civil" data-width="100%" id="cod_estado_civil" name="cod_estado_civil" required="required">
                     <option></option>
                     @foreach($estado_civil as $det)
-                      <option value="{{$det->codigo}}">{{strtoupper($det->valor_cadena)}}</option>
+                      <option value="{{$det->codigo}}" @if($det->codigo==$encuestador->persona->cod_estado_civil) selected @endif>{{strtoupper($det->valor_cadena)}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -95,7 +95,7 @@
                   <select class="form-control col-md-7 col-xs-12 select_ciudad" data-width="100%" id="cod_residencia" name="cod_residencia" required="required">
                     <option></option>
                     @foreach($ciudad as $det)
-                      <option value="{{$det->id}}">{{strtoupper($det->nombre)}}</option>
+                      <option value="{{$det->id}}" @if($det->id==$encuestador->persona->cod_residencia) selected @endif >{{strtoupper($det->nombre)}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -105,10 +105,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Direccion *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="zona" name="zona" required="required" class="form-control col-md-7 col-xs-12" placeholder="Zona" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="zona" name="zona" required="required" class="form-control col-md-7 col-xs-12" placeholder="Zona" value="{{$encuestador->persona->zona}}" onkeyup="this.value = this.value.toUpperCase();">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="direccion" name="direccion" required="required" class="form-control col-md-7 col-xs-12" placeholder="Direccion" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="direccion" name="direccion" required="required" class="form-control col-md-7 col-xs-12" placeholder="Direccion" value="{{$encuestador->persona->direccion}}"onkeyup="this.value = this.value.toUpperCase();">
                 </div>
               </div>
 
@@ -116,10 +116,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Telefonos *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="number" id="telefono1" name="telefono1" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 1">
+                  <input type="number" id="telefono1" name="telefono1" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 1" value="{{$encuestador->persona->telefono1}}">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="number" id="telefono2" name="telefono2" class="form-control col-md-7 col-xs-12" placeholder="Telefono 2">
+                  <input type="number" id="telefono2" name="telefono2" class="form-control col-md-7 col-xs-12" placeholder="Telefono 2" value="{{$encuestador->persona->telefono2}}">
                 </div>
               </div>
 
@@ -130,12 +130,12 @@
                   <select class="form-control col-md-7 col-xs-12 select_nivel_educacion" data-width="100%" id="cod_nivel_educacion" name="cod_nivel_educacion" required="required">
                     <option></option>
                     @foreach($nivel_educacion as $det)
-                      <option value="{{$det->codigo}}">{{$det->valor_cadena}}</option>
+                      <option value="{{$det->codigo}}"  @if($det->codigo==$encuestador->persona->cod_nivel_educacion) selected @endif>{{$det->valor_cadena}}</option>
                     @endforeach
                   </select>
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="number" id="nivel_curso" name="nivel_curso" required="required" class="form-control col-md-7 col-xs-12" placeholder="Ultimo curso" min="0" max="50">
+                  <input type="number" id="nivel_curso" name="nivel_curso" required="required" class="form-control col-md-7 col-xs-12" placeholder="Ultimo curso" min="0" max="50" value="{{$encuestador->persona->nivel_curso}}">
                 </div>
               </div>
 
@@ -143,7 +143,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Fotografia *
                 </label>
                  <div class="col-md-10 col-sm-10 col-xs-12">
-                  <img id="blah" src="#" alt="Su fotografia" width="50%" height="50%"/>
+                  <img src="{{url('/images/personas/'.$encuestador->persona->foto->archivo)}}" id="blah" src="#" alt="Su fotografia" width="50%" height="50%"/>
                   <input type="file" id="image" name="image" accept="image/*" >
                 </div>        
               </div>
@@ -257,8 +257,33 @@ $("#image").change(function() {
  $('.select_estado_civil').select2({minimumResultsForSearch:-1,placeholder:"Estado civil",allowClear:true});
  $('.select_ciudad').select2({placeholder:"Ciudad de residencia",allowClear:true});
  $('.select_nivel_educacion').select2({minimumResultsForSearch:-1,placeholder:"Nivel de educacion",allowClear:true});
- $('.select_tipo_estudio').select2({placeholder:"Tipo de estudio"});
- $('.select_cargos').select2({placeholder:"Cargo"});
+
+var select_cargos_val = $('.select_cargos').select2({placeholder:"Cargo"});
+
+var cargos =[];
+var data_cargos = '<?php echo json_encode($encuestador->lista_cargos); ?>';
+var lista_cargos = JSON.parse(data_cargos );
+for (var i = 0; i < lista_cargos.length; i++) {
+  var data_temp = [];
+  data_temp.push(lista_cargos[i].cod_cargo) ;
+  cargos.push(data_temp);
+}
+select_cargos_val.val(cargos).trigger("change"); 
+
+
+var select_tipo_estudio_val = $('.select_tipo_estudio').select2({placeholder:"Tipo de estudio"});
+
+var tipo_estudios =[];
+var data_tipo_estudio = '<?php echo json_encode($encuestador->lista_tipo_estudio); ?>';
+var lista_tipo_estudio = JSON.parse(data_tipo_estudio );
+for (var i = 0; i < lista_tipo_estudio.length; i++) {
+  var data_temp = [];
+  data_temp.push(lista_tipo_estudio[i].cod_tipo_estudio) ;
+  tipo_estudios.push(data_temp);
+}
+select_tipo_estudio_val.val(tipo_estudios).trigger("change"); 
+
+
  $('.select_disponibilidad_tiempo').select2({minimumResultsForSearch:-1,placeholder:"Disponibilidad de tiempo",allowClear:true});
  $('.select_horario_disponible').select2({minimumResultsForSearch:-1,placeholder:"Horario disponible"});
 
@@ -269,11 +294,15 @@ $('#empresas').tagsInput({
         });
 
 $(function() {
+  
+  var fnac = '<?php echo $encuestador->persona->fecha_nacimiento;?>';
+  var res = fnac.replace(/-/g, "/");
+
   $('input[name="fecha_nacimiento"]').daterangepicker({
     "singleDatePicker": true,
     "minDate": moment().subtract(80, 'years'),
     "maxDate": moment().subtract(17, 'years'),
-    "startDate": moment().subtract(17, 'years'),
+    "startDate": res,
     "locale": {
       "format": "YYYY/MM/DD",
       "separator": " - ",

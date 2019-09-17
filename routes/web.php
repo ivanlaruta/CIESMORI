@@ -70,6 +70,11 @@ Route::group(['prefix'=>'administracion','middleware'=>'auth'],function(){
 		'as'   =>	'administracion.encuestadores.index'
 	]);
 
+
+route::get('administracion/encuestadores/edit/form',[
+		'uses' =>'administracionController@encuestadores_edit_form',
+		'as'   =>	'administracion.encuestadores.edit.form'
+	]);
 	route::get('administracion/encuestadores/baja',[
 		'uses' =>'administracionController@encuestadores_baja',
 		'as'   =>	'administracion.encuestadores.baja'
