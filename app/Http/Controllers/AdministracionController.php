@@ -132,8 +132,21 @@ class AdministracionController extends Controller
        
         $encuestador = Encuestador::find($request->id);
 
+        $cadena_empresas = '';
+
+        if ($encuestador->lista_empresas->count() > 0){
+            foreach ($encuestador->lista_empresas as $empresa){
+              $cadena_empresas .=$empresa->empresa.',';
+            }
+        }
+            
+          
+
+        // dd($cadena_empresas);
+
         return view('administracion.encuestadores.edit_content_form')
                 ->with('encuestador',$encuestador)
+                ->with('cadena_empresas',$cadena_empresas)
                 ->with('expedido',$expedido)
                 ->with('estado_civil',$estado_civil)
                 ->with('ciudad',$ciudad)

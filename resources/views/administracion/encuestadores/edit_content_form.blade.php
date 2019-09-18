@@ -184,7 +184,7 @@
                   <select class="form-control col-md-7 col-xs-12 select_disponibilidad_tiempo" data-width="100%" id="cod_disponibilidad_tiempo" name="cod_disponibilidad_tiempo" required="required">
                     <option></option>
                     @foreach($disponibilidad_tiempo as $det)
-                      <option value="{{$det->codigo}}">{{strtoupper($det->valor_cadena)}}</option>
+                      <option value="{{$det->codigo}}"  @if($det->codigo==$encuestador->cod_disponibilidad_tiempo) selected @endif>{{strtoupper($det->valor_cadena)}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -197,7 +197,7 @@
                   </select>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                  <input type="number" id="horas_que_puede_trabajar" name="horas_que_puede_trabajar" required="required" class="form-control col-md-7 col-xs-12" placeholder="Horas que puede trabajar" min="1" max="24">
+                  <input type="number" id="horas_que_puede_trabajar" name="horas_que_puede_trabajar" required="required" class="form-control col-md-7 col-xs-12" placeholder="Horas que puede trabajar" value="{{$encuestador->horas_que_puede_trabajar}}" min="1" max="24">
                 </div>
               </div>
 
@@ -205,10 +205,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Experiencia *
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input id="empresas" name="empresas" type="text" class="tags form-control" value="" />
+                  <input id="empresas" name="empresas" type="text" class="tags form-control" value="{{$cadena_empresas}}" />
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                  <input type="number" id="experiencia" name="experiencia" required="required" class="form-control col-md-7 col-xs-12" placeholder="Años de Experiencia" min="1" max="60">
+                  <input type="number" id="experiencia" name="experiencia" required="required" class="form-control col-md-7 col-xs-12" placeholder="Años de Experiencia" value="{{$encuestador->experiencia}}" min="1" max="60">
                 </div>                
               </div>              
 
@@ -216,7 +216,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Observacion
                 </label>
                 <div class="col-md-10 col-sm-10 col-xs-12">
-                  <input type="text" id="observacion" name="observacion"  class="form-control col-md-7 col-xs-12" placeholder="Observaciones">
+                  <input type="text" id="observacion" name="observacion"  class="form-control col-md-7 col-xs-12" placeholder="Observaciones" value="{{$encuestador->observacion}}">
                 </div>
               </div>
             
@@ -285,7 +285,22 @@ select_tipo_estudio_val.val(tipo_estudios).trigger("change");
 
 
  $('.select_disponibilidad_tiempo').select2({minimumResultsForSearch:-1,placeholder:"Disponibilidad de tiempo",allowClear:true});
- $('.select_horario_disponible').select2({minimumResultsForSearch:-1,placeholder:"Horario disponible"});
+
+ 
+var select_horario_disponible = $('.select_horario_disponible').select2({minimumResultsForSearch:-1,placeholder:"Horario disponible"});
+var horario_disponibles =[];
+var data_horario_disponible = '<?php echo json_encode($encuestador->lista_turnos); ?>';
+var lista_horario_disponible = JSON.parse(data_horario_disponible );
+for (var i = 0; i < lista_horario_disponible.length; i++) {
+  var data_temp = [];
+  data_temp.push(lista_horario_disponible[i].cod_horario_disponible) ;
+  horario_disponibles.push(data_temp);
+}
+select_horario_disponible.val(horario_disponibles).trigger("change");
+
+
+
+
 
 $('#empresas').tagsInput({
           width: 'auto',
@@ -318,10 +333,12 @@ $(function() {
   })
 });
 
+var cior = '<?php echo $encuestador->persona->ci ;?>';
+
 function validar_ci() {
 
 var cid = $("#ci").val();
-
+if(cid != cior){
 $.ajax({
     type: "GET",
     cache: false,
@@ -336,6 +353,7 @@ $.ajax({
        func_alerta(dataResult);
     }
   });
+}
 };
 
 
