@@ -131,6 +131,7 @@ class AdministracionController extends Controller
                             ->orderBy('codigo')->get();
        
         $encuestador = Encuestador::find($request->id);
+        $encuestador_id = $request->id;
 
         $cadena_empresas = '';
 
@@ -155,7 +156,8 @@ class AdministracionController extends Controller
                 ->with('tipo_estudio',$tipo_estudio)
                 ->with('disponibilidad_tiempo',$disponibilidad_tiempo)
                 ->with('horario_disponible',$horario_disponible)
-                ->with('ciudad',$ciudad);
+                ->with('ciudad',$ciudad)
+                ->with('encuestador_id',$encuestador_id);
         
     }
 
@@ -251,18 +253,20 @@ class AdministracionController extends Controller
 
     public function encuestadores_editar(Request $request)
     {
-         dd($request->all());
+        // dd($request->all());
+        $encuestador = Encuestador::find($request->encuestador_id);
+        $encuestador->fill($request->all());
 
-        $persona = new Persona($request->all());
+        $persona = Persona::find($encuestador->persona_id);
+        $persona->fill($request->all());
+
+
 
         if($request->file('image')){
             $file = $request->file('image');
             $namefile = $request->ci.'_'.time().'.'.$file->getClientOriginalExtension();
-
-
             $image_resize = Image::make($file->getRealPath());              
             // $image_resize->resize(300, 300);
-
             $image_resize->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
@@ -278,12 +282,15 @@ class AdministracionController extends Controller
             $imagen->save();
 
             $persona -> imagen_id = $imagen ->id;
-        }      
-        $persona->save();
+        }
 
-        $encuestador = new Encuestador($request->all());
-        $encuestador -> persona_id = $persona ->id;
+        $persona->save();
         $encuestador->save();
+
+        $Encuestador_empresa=Encuestador_empresa::where('encuestador_id',$request->encuestador_id)->delete();
+        $Encuestador_tipo_estudio=Encuestador_tipo_estudio::where('encuestador_id',$request->encuestador_id)->delete();
+        $Encuestador_Cargo=Encuestador_Cargo::where('encuestador_id',$request->encuestador_id)->delete();
+        $Encuestador_horario_disponible=Encuestador_horario_disponible::where('encuestador_id',$request->encuestador_id)->delete();
 
         $array_empresas = explode(",", $request->empresas);
 
@@ -323,7 +330,7 @@ class AdministracionController extends Controller
         // dd('grabado');
 
         if(\Auth::check()){
-            return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
+            return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido modificado exitosamente. "); 
         }
         else{
 

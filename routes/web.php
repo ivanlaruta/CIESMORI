@@ -55,7 +55,7 @@ route::post('administracion/encuestadores/create',[
 		'as'   =>	'administracion.encuestadores.create'
 	]);
 
-route::get('administracion/encuestadores/editar',[
+route::post('administracion/encuestadores/editar',[
 		'uses' =>'administracionController@encuestadores_editar',
 		'as'   =>	'encuestadores.editar'
 	]);

@@ -6,10 +6,10 @@
 
           
 
-          <form method="get" action="{{ route('encuestadores.editar') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
+          <form method="post" action="{{ route('encuestadores.editar') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
             {{ csrf_field() }}
 
-
+              <input type="hidden" name="encuestador_id" value="{{$encuestador_id}}" name="">
               <div class="x_title">
                 <h2> INFORMACION PERSONAL</h2>
                 <div class="clearfix"></div>
@@ -234,6 +234,8 @@
 <!-- /page content -->
 
 <script type="text/javascript">
+var radio = '<?php echo $encuestador->persona->cod_genero;?>';
+ $('[name="cod_genero"]').val(radio);
 
 function readURL(input) {
   if (input.files && input.files[0]) {
