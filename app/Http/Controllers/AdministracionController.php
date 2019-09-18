@@ -248,6 +248,89 @@ class AdministracionController extends Controller
         }
     }
 
+
+    public function encuestadores_editar(Request $request)
+    {
+         dd($request->all());
+
+        $persona = new Persona($request->all());
+
+        if($request->file('image')){
+            $file = $request->file('image');
+            $namefile = $request->ci.'_'.time().'.'.$file->getClientOriginalExtension();
+
+
+            $image_resize = Image::make($file->getRealPath());              
+            // $image_resize->resize(300, 300);
+
+            $image_resize->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+
+            // $path = public_path().'\images\personas\\';
+            // $image_resize->save($path,$namefile);
+            $image_resize->save(public_path('images/personas/' .$namefile));
+
+            $imagen = new Imagen();
+            $imagen -> archivo = $namefile;
+            $imagen -> carpeta = 'personas';
+            $imagen->save();
+
+            $persona -> imagen_id = $imagen ->id;
+        }      
+        $persona->save();
+
+        $encuestador = new Encuestador($request->all());
+        $encuestador -> persona_id = $persona ->id;
+        $encuestador->save();
+
+        $array_empresas = explode(",", $request->empresas);
+
+        for ($i=0; $i < count($array_empresas); $i++) 
+        {
+            $encuestador_empresa = new Encuestador_empresa();
+            $encuestador_empresa -> encuestador_id = $encuestador ->id;
+            $encuestador_empresa -> empresa = strtoupper($array_empresas[$i]);
+            $encuestador_empresa ->save();
+        }
+
+        for ($i=0; $i < count($request->cod_tipo_estudio); $i++) 
+        {
+            $encuestador_tipo_estudio = new Encuestador_tipo_estudio();
+            $encuestador_tipo_estudio -> encuestador_id = $encuestador ->id;
+            $encuestador_tipo_estudio -> cod_tipo_estudio = $request->cod_tipo_estudio[$i];
+            $encuestador_tipo_estudio ->save();
+        }
+
+
+        for ($i=0; $i < count($request->cargos); $i++) 
+        {
+            $encuestador_cargos = new Encuestador_Cargo();
+            $encuestador_cargos -> encuestador_id = $encuestador ->id;
+            $encuestador_cargos -> cod_cargo = $request->cargos[$i];
+            $encuestador_cargos ->save();
+        }
+
+        for ($i=0; $i < count($request->cod_horario_disponible); $i++) 
+        {
+            $encuestador_horario_disponible = new Encuestador_horario_disponible();
+            $encuestador_horario_disponible -> encuestador_id = $encuestador ->id;
+            $encuestador_horario_disponible -> cod_horario_disponible = $request->cod_horario_disponible[$i];
+            $encuestador_horario_disponible ->save();
+        }
+
+        // dd('grabado');
+
+        if(\Auth::check()){
+            return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
+        }
+        else{
+
+            return redirect()->route('inicio')->with('mensaje',"El registro a sido creado exitosamente. "); 
+        }
+    }
+
     public function encuestadores_baja(Request $request)
     {
         // dd($request->all());

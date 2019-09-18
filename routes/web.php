@@ -55,6 +55,11 @@ route::post('administracion/encuestadores/create',[
 		'as'   =>	'administracion.encuestadores.create'
 	]);
 
+route::get('administracion/encuestadores/editar',[
+		'uses' =>'administracionController@encuestadores_editar',
+		'as'   =>	'encuestadores.editar'
+	]);
+
 route::get('administracion/encuestadores/validar_ci',[
 		'uses' =>'administracionController@validar_ci',
 		'as'   =>	'administracion.encuestadores.validar_ci'

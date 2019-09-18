@@ -6,7 +6,7 @@
 
           
 
-          <form method="post" action="{{ route('encuestadores.store') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
+          <form method="get" action="{{ route('encuestadores.editar') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
             {{ csrf_field() }}
 
 
