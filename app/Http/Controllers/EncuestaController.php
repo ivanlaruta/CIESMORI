@@ -17,17 +17,28 @@ class EncuestaController extends Controller
      */
     public function migracion()
     {
+
         $name_db = DB::select( DB::raw("SHOW DATABASES"));
         return view('encuestas.migracion.migrate_form')->with('name_db',$name_db);
     }
 
     public function listar_tablas_db(Request $request)
     {
+        $tabla_encuestas = Encuesta::select('nombre_tabla')->get()->ToArray();
+        $tablas = "";
+        for ($i=0; $i < sizeof($tabla_encuestas); $i++) {
+               $tablas = $tablas."'".$tabla_encuestas[$i]."'";
+               if($i < (sizeof($tabla_encuestas))-1){
+                $tablas = $tablas.",";
+               }
+            }
 
-       $tablas_db = DB::select( DB::raw(" 
+        $tablas_db = DB::select( DB::raw(" 
                     SELECT TABLE_NAME AS tables 
                     FROM INFORMATION_SCHEMA.TABLES 
                     WHERE TABLE_SCHEMA = '".$request->name_db."'
+                    AND TABLE_NAME not in (".$tablas.")
+
             "));
 
        return($tablas_db);
