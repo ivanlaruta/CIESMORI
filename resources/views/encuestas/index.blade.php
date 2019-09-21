@@ -2,39 +2,6 @@
 
 @section('content')
 <style type="text/css" media="screen">
-    .mimodal {
-      display:    none;
-      position:   fixed;
-      z-index:    1000;
-      top:        0;
-      left:       0;
-      height:     100%;
-      width:      100%;
-      background: rgba( 255, 255, 255, .8 ) 
-                 
-                  no-repeat;
-  }
-
-  /* When the body has the loading class, we turn
-     the scrollbar off with overflow:hidden */
-  body.loading .mimodal {
-      overflow: hidden;   
-  }
-
-  /* Anytime the body has the loading class, our
-     mimodal element will be visible */
-  body.loading .mimodal {
-      display: block;
-  }
-
-  .centro 
-  {
-     width: 200px;
-     height: 200px;
-     text-align: center;
-     vertical-align: middle;
-  }
-
 
 </style>
 
@@ -90,12 +57,7 @@
 
             <div class="detalle">
 
-              <div class="mimodal">
-                <div class="centro">
-                     <i class="fa fa-spinner fa-spin fa-7x" style="font-size:40px"></i>
-                     Estamos trabajando en su solicitud.
-                </div>
-              </div>
+              
 
 
               <a href="#" class="btn btn-primary  btn_volver" data-toggle="tooltip" data-placement="bottom" title="Volver a la lista de encuestas">
@@ -148,12 +110,7 @@
 @section('scripts')
 <script type="text/javascript">
 
-$body = $("body");
 
-$(document).on({
-    ajaxStart: function() { $body.addClass("loading");    },
-     ajaxStop: function() { $body.removeClass("loading"); }    
-});
 
 var cabecera = $(".cabecera");
 var detalle = $(".detalle").hide();
