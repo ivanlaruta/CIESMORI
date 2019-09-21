@@ -1,7 +1,7 @@
-1: post_max_size = 8M . Cambiamos el 8 por el valor deseado. Esto nos permite aumentar el tamaño de los post.
+1: post_max_size = 8M -> 512M  . Cambiamos el 8 por el valor deseado. Esto nos permite aumentar el tamaño de los post.
 
-3: max_execution_time = 30 . Cambiamos 30 por el valor deseado. Esto permite aumentar el tiempo de respuesta del servidor.
+3: max_execution_time = 30 -> 600 . Cambiamos 30 por el valor deseado. Esto permite aumentar el tiempo de respuesta del servidor.
 
-2: upload_max_filesize = 2M . Cambiamos el 2 por el valor deseado. Esto nos permite cambiar el límite de subida de archivos de 2 megas al valor deseado.
+2: upload_max_filesize = 2M -> 512M. Cambiamos el 2 por el valor deseado. Esto nos permite cambiar el límite de subida de archivos de 2 megas al valor deseado.
 
-4: memory_limit . este parámetro PHP se utiliza para limitar la cantidad de memoria en bytes que un script puede consumir. Debes modificar su valor para aumentar el límite. Ejemplo 256M (64,128,192,256,368 …)
+4: memory_limit ->512M . este parámetro PHP se utiliza para limitar la cantidad de memoria en bytes que un script puede consumir. Debes modificar su valor para aumentar el límite. Ejemplo 256M (64,128,192,256,368 …)

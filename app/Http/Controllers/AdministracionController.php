@@ -30,7 +30,9 @@ class AdministracionController extends Controller
         $persona = DB::table('persona')
             ->join('encuestador', 'persona.id', '=', 'encuestador.persona_id')
             ->where('persona.ci',$request->ci)
-            ->get()->toArray();;
+            ->get()->toArray();
+
+        $persona= Persona::where('persona.ci',$request->ci)->get()->toArray();
 
         return ($persona);
     }
@@ -170,7 +172,7 @@ class AdministracionController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+         // dd($request->all());
 
         $persona = new Persona($request->all());
 

@@ -25,24 +25,38 @@ class EncuestaController extends Controller
     public function listar_tablas_db(Request $request)
     {
         $encuestas_cargadas = Encuesta::select('nombre_tabla')->get()->ToArray();
-
         $tabla_encuestas = array_column($encuestas_cargadas, 'nombre_tabla');
-        $tablas = '';
-        
-        for ($i=0; $i < sizeof($tabla_encuestas); $i++) {
-               $tablas = $tablas."'".$tabla_encuestas[$i]."'";
-               if($i < (sizeof($tabla_encuestas))-1){
-                $tablas = $tablas.",";
-               }
-            }
 
-        $tablas_db = DB::select( DB::raw(" 
+        if(empty($tabla_encuestas)){
+
+             $tablas_db = DB::select( DB::raw(" 
+                    SELECT TABLE_NAME AS tables 
+                    FROM INFORMATION_SCHEMA.TABLES 
+                    WHERE TABLE_SCHEMA = '".$request->name_db."'
+
+
+            "));
+         }
+        else{
+            $tablas = '';               
+            for ($i=0; $i < sizeof($tabla_encuestas); $i++) {
+                   $tablas = $tablas."'".$tabla_encuestas[$i]."'";
+                   if($i < (sizeof($tabla_encuestas))-1){
+                    $tablas = $tablas.",";
+                   }
+                }
+            $tablas_db = DB::select( DB::raw(" 
                     SELECT TABLE_NAME AS tables 
                     FROM INFORMATION_SCHEMA.TABLES 
                     WHERE TABLE_SCHEMA = '".$request->name_db."'
                     AND TABLE_NAME not in (".$tablas.")
 
             "));
+
+        }
+
+
+        
 
        return($tablas_db);
       
