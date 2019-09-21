@@ -122,7 +122,7 @@
         },
         success: function(dataResult)
         {
-          alert(dataResult);
+          // alert(dataResult);
           $('option', '#origen').remove();
           $('#origen').append('<option>Seleccione una tabla</option>');
 

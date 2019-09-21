@@ -1,6 +1,42 @@
 @extends('layouts.main')
 
 @section('content')
+<style type="text/css" media="screen">
+    .mimodal {
+      display:    none;
+      position:   fixed;
+      z-index:    1000;
+      top:        0;
+      left:       0;
+      height:     100%;
+      width:      100%;
+      background: rgba( 255, 255, 255, .8 ) 
+                 
+                  no-repeat;
+  }
+
+  /* When the body has the loading class, we turn
+     the scrollbar off with overflow:hidden */
+  body.loading .mimodal {
+      overflow: hidden;   
+  }
+
+  /* Anytime the body has the loading class, our
+     mimodal element will be visible */
+  body.loading .mimodal {
+      display: block;
+  }
+
+  .centro 
+  {
+     width: 200px;
+     height: 200px;
+     text-align: center;
+     vertical-align: middle;
+  }
+
+
+</style>
 
 <div class="right_col" role="main">
   <div class="">
@@ -23,7 +59,7 @@
                     <th>Base de datos</th>
                     <th>Tabla</th>
                     <th>Observaciones</th>
-                    <th>fecha migracion</th>
+                    <th>Ultima Actualizacion</th>
                     <th>Opciones</th>
                   </tr>
                 </thead>
@@ -35,10 +71,13 @@
                     <td>{{$det->nombre_db}}</td>
                     <td>{{$det->nombre_tabla}}</td>
                     <td>{{$det->observacion}}</td>
-                    <td>{{$det->created_at}}</td>
+                    <td>{{$det->updated_at}}</td>
                     <td align="center">
                        <div class="btn-group" role="group" >
-                          <a href="#" class="btn btn-success btn-xs btn-block btn_ver" id_encuesta = '{{$det->id}}'  >
+                          <a href="#" class="btn btn-success btn-xs  btn_refresh" id_encuesta = '{{$det->id}}'  >
+                            <span class="fa fa-refresh fa-lg"></span> 
+                          </a>
+                          <a href="#" class="btn btn-primary btn-xs btn_ver" id_encuesta = '{{$det->id}}'  >
                             <span class="fa fa-arrow-circle-right fa-lg"></span> 
                           </a>
                         </div>
@@ -50,6 +89,15 @@
             </div>
 
             <div class="detalle">
+
+              <div class="mimodal">
+                <div class="centro">
+                     <i class="fa fa-spinner fa-spin fa-7x" style="font-size:40px"></i>
+                     Estamos trabajando en su solicitud.
+                </div>
+              </div>
+
+
               <a href="#" class="btn btn-primary  btn_volver" data-toggle="tooltip" data-placement="bottom" title="Volver a la lista de encuestas">
                 <span class="fa fa-arrow-circle-left fa-lg"></span> 
               </a>
@@ -99,6 +147,13 @@
 
 @section('scripts')
 <script type="text/javascript">
+
+$body = $("body");
+
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading");    },
+     ajaxStop: function() { $body.removeClass("loading"); }    
+});
 
 var cabecera = $(".cabecera");
 var detalle = $(".detalle").hide();

@@ -24,8 +24,11 @@ class EncuestaController extends Controller
 
     public function listar_tablas_db(Request $request)
     {
-        $tabla_encuestas = Encuesta::select('nombre_tabla')->get()->ToArray();
-        $tablas = "";
+        $encuestas_cargadas = Encuesta::select('nombre_tabla')->get()->ToArray();
+
+        $tabla_encuestas = array_column($encuestas_cargadas, 'nombre_tabla');
+        $tablas = '';
+        
         for ($i=0; $i < sizeof($tabla_encuestas); $i++) {
                $tablas = $tablas."'".$tabla_encuestas[$i]."'";
                if($i < (sizeof($tabla_encuestas))-1){
