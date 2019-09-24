@@ -39,6 +39,6 @@ class CreateVdetalleEncuestaDep extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('v_detalle_encuestas_departamento');
+        DB::statement("DROP VIEW v_detalle_encuestas_departamento");
     }
 }

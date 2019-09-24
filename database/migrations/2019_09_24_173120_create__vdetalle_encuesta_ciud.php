@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVdetalleEncuestaCiudad extends Migration
+class CreateVdetalleEncuestaCiud extends Migration
 {
     /**
      * Run the migrations.
@@ -22,7 +22,6 @@ class CreateVdetalleEncuestaCiudad extends Migration
                 left join (select id_encuesta,count(*) total_encuesta from encuesta_detalle group by id_encuesta) e on e.id_encuesta=d.id_encuesta
                 group by id_encuesta,ciudad,e.total_encuesta ,de.nombre 
         ");
-
     }
 
     /**
@@ -32,6 +31,6 @@ class CreateVdetalleEncuestaCiudad extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('v_detalle_encuestas_ciudad');
+        DB::statement("DROP VIEW v_detalle_encuestas_ciudad");
     }
 }
