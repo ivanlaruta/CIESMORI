@@ -145,6 +145,11 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'as'   =>	'encuesta.contenido_detalle'
 		]);
 
+	route::get('encuesta/dashboard',[
+			'uses' =>'EncuestaController@dashboard',
+			'as'   =>	'encuesta.dashboard'
+		]);
+
 	Route::resource('encuesta', 'EncuestaController');
 
 });

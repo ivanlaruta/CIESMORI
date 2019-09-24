@@ -25,9 +25,11 @@
                     <th>Nombre asiganado</th>
                     <th>Base de datos</th>
                     <th>Tabla</th>
-                    <th>Observaciones</th>
+                    <th>Carpeta de archivos</th>
                     <th>Ultima Actualizacion</th>
+                    <th>Observaciones</th>
                     <th>Opciones</th>
+                    <th>registros</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -37,19 +39,24 @@
                     <td>{{$det->nombre}}</td>
                     <td>{{$det->nombre_db}}</td>
                     <td>{{$det->nombre_tabla}}</td>
-                    <td>{{$det->observacion}}</td>
+                    <td>{{$det->carpeta}}</td>
                     <td>{{$det->updated_at}}</td>
+                    <td>{{$det->observacion}}</td>
                     <td align="center">
-                       <div class="btn-group" role="group" >
-                          <a href="#" class="btn btn-success btn-xs  btn_refresh" id_encuesta = '{{$det->id}}'  >
-                            <span class="fa fa-refresh fa-lg"></span> 
-                          </a>
-                          <a href="#" class="btn btn-primary btn-xs btn_ver" id_encuesta = '{{$det->id}}'  >
-                            <span class="fa fa-arrow-circle-right fa-lg"></span> 
-                          </a>
-                        </div>
-                      </td>        
-                    </tr>
+                      <div class="btn-group" role="group" >
+                        <a href="#" class="btn btn-success btn-xs  btn_refresh" id_encuesta = '{{$det->id}}'  >
+                          <span class="fa fa-refresh fa-lg"></span> 
+                        </a>
+                      </div>
+                    </td>    
+                    <td align="right">
+                      <div class="btn-group" role="group" >
+                        <a href="#" class="btn btn-primary btn-xs btn_ver" id_encuesta = '{{$det->id}}'  >
+                           {{$det->num_registros()}} <span class="fa fa-arrow-circle-right fa-lg"></span> 
+                        </a>
+                      </div>
+                    </td>        
+                  </tr>
                   @endforeach
                 </tbody>
               </table>

@@ -10,20 +10,14 @@
                   <tbody>
                     @foreach($detalle as $det)
                       <tr>
-                         @for  ($i = 0; $i < sizeof($array_campos); $i++)
-                            
+                        @for  ($i = 0; $i < sizeof($array_campos); $i++)
                         <td>
                           @php
                               echo $det->{$array_campos[$i]};
                           @endphp
                           </th>
-                         @endfor
-
-
-                        
+                         @endfor                        
                       </tr>
-                    
-                      
                     @endforeach
                   </tbody>
                 </table>
