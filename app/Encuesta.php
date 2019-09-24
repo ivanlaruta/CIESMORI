@@ -19,9 +19,13 @@ class Encuesta extends Model
       return DB::table('v_encuesta_detalle')->where('id_encuesta','=',$this->id)->count();
     }
 
-   	 public function lista_ciudades()
+   	public function lista_ciudades()
     {
         return $this->hasMany('App\V_detalle_encuesta_ciudad','id_encuesta');
+    }
+    public function lista_departamento()
+    {
+        return $this->hasMany('App\V_detalle_encuesta_departamento','id_encuesta');
     }
 
 }
