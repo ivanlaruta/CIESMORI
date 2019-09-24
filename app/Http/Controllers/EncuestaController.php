@@ -81,6 +81,7 @@ class EncuestaController extends Controller
         $encuesta -> nombre = $request ->nombre;
         $encuesta -> nombre_tabla = $request ->origen;
         $encuesta -> nombre_db = $request ->db;
+        $encuesta -> carpeta = $request ->carpeta;
         $encuesta -> observacion = $request ->observacion;
         $encuesta -> save();
 
