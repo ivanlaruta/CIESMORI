@@ -21,7 +21,7 @@
                   
                     <br />
             
-                    <form method="get" action="{{ route('encuesta.migrar') }}" class="form-horizontal form-label-left">
+                    <form method="post" action="{{ route('encuesta.migrar') }}" class="form-horizontal form-label-left">
                       {{ csrf_field() }}
                       
                       <div class="form-group">
@@ -56,10 +56,18 @@
                       </div>
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Ruta Multimedia
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Ruta Audios
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="carpeta" name="carpeta"  class="form-control col-md-7 col-xs-12" placeholder="Ruta...">
+                          <input type="text" id="carpeta_audios" name="carpeta_audios"  class="form-control col-md-7 col-xs-12" placeholder="D:\Encuestas\encuesta ABC\audios">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Ruta Imagenes
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="carpeta_imagenes" name="carpeta_imagenes"  class="form-control col-md-7 col-xs-12" placeholder="D:\Encuestas\encuesta ABC\imagenes">
                         </div>
                       </div>
 
@@ -99,7 +107,13 @@
 
 <script type="text/javascript">
   
-
+function selectFolder(e) {
+    var theFiles = e.target.files;
+    var relativePath = theFiles[0].mozFullPath;
+    var folder = relativePath.split("/");
+    alert(folder[0]);
+    
+}
 
 
 

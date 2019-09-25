@@ -135,7 +135,7 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'as'   =>	'encuesta.migracion'
 		]);
 
-	route::get('encuesta/migrar',[
+	route::post('encuesta/migrar',[
 			'uses' =>'EncuestaController@migrar',
 			'as'   =>	'encuesta.migrar'
 		]);
