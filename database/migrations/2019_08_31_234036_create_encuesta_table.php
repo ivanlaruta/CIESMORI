@@ -18,7 +18,8 @@ class CreateEncuestaTable extends Migration
             $table->string('nombre');
             $table->string('nombre_db');
             $table->string('nombre_tabla');
-            $table->string('carpeta')->nullable();
+            $table->string('carpeta_audios')->nullable();
+            $table->string('carpeta_imagenes')->nullable();
             $table->string('observacion')->nullable();
             $table->integer('estado')->default(1);
             $table->string('created_by')->nullable();

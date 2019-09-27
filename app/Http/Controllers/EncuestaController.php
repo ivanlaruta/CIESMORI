@@ -76,12 +76,13 @@ class EncuestaController extends Controller
 
     public function migrar(Request $request)
     {
-        dd($request -> all());
+        // dd($request -> all());
         $encuesta = new Encuesta();
         $encuesta -> nombre = $request ->nombre;
         $encuesta -> nombre_tabla = $request ->origen;
         $encuesta -> nombre_db = $request ->db;
-        $encuesta -> carpeta = $request ->carpeta;
+        $encuesta -> carpeta_audios = $request ->carpeta_audios;
+        $encuesta -> carpeta_imagenes = $request ->carpeta_imagenes;
         $encuesta -> observacion = $request ->observacion;
         $encuesta -> save();
 

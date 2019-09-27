@@ -25,7 +25,8 @@
                     <th>Nombre asiganado</th>
                     <th>Base de datos</th>
                     <th>Tabla</th>
-                    <th>Carpeta de archivos</th>
+                    <th>Carpeta Audios</th>
+                    <th>Carpeta Imagenes</th>
                     <th>Ultima Actualizacion</th>
                     <th>Observaciones</th>
                     <th>Opciones</th>
@@ -39,7 +40,8 @@
                     <td>{{$det->nombre}}</td>
                     <td>{{$det->nombre_db}}</td>
                     <td>{{$det->nombre_tabla}}</td>
-                    <td>{{$det->carpeta}}</td>
+                    <td>{{$det->carpeta_audios}}</td>
+                    <td>{{$det->carpeta_imagenes}}</td>
                     <td>{{$det->updated_at}}</td>
                     <td>{{$det->observacion}}</td>
                     <td align="center">
