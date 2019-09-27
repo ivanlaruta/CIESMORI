@@ -28,4 +28,31 @@ class Encuesta extends Model
         return $this->hasMany('App\V_detalle_encuesta_departamento','id_encuesta');
     }
 
+    public function cantidad_imagenes()
+    {
+        $dir = $this->carpeta_imagenes;
+        if(file_exists($dir) && is_dir($dir))
+        {
+             $total_imagenes = count(glob($dir.'/{*.jpg,*.gif,*.png}',GLOB_BRACE));
+             return($total_imagenes);
+        }
+        else
+        {
+             return(0);
+        }
+    }
+    public function cantidad_audios()
+    {
+        $dir = $this->carpeta_audios;
+        if(file_exists($dir) && is_dir($dir))
+        {
+             $total_imagenes = count(glob($dir.'/{*.mp3,*.wav,*.dct,*.wma}',GLOB_BRACE));
+             return($total_imagenes);
+        }
+        else
+        {
+             return(0);
+        }
+    }
+
 }

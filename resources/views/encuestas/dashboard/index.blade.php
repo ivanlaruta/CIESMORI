@@ -14,7 +14,7 @@
               <div class="count green">{{$total_detalle_encuestas}}</div>
               <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>En todas las encuestas</span>
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
+<!--             <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-fast-forward"></i> Total Audios</span>
               <div class="count">512</div>
               <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Todos los audios</span>
@@ -23,7 +23,7 @@
               <span class="count_top"><i class="fa fa-file-image-o"></i> Total Imagenes</span>
               <div class="count">1025</div>
               <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Todas las imagenes</span>
-            </div>
+            </div> -->
           </div>
           
           @foreach($encuestas as $det)
@@ -48,12 +48,12 @@
                     </div>
                     <div class="col-md-4 col-sm-12 col-xs-4 tile_stats_count">
                       <span class="count_top"><i class="fa fa-fast-forward"></i> Total Audios</span>
-                      <div class="count">12</div>
+                      <div class="count">{{$det->cantidad_audios()}}</div>
                       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Todos los audios</span>
                     </div>
                     <div class="col-md-4 col-sm-12 col-xs-4 tile_stats_count">
                       <span class="count_top"><i class="fa fa-file-image-o"></i> Total Imagenes</span>
-                      <div class="count">152</div>
+                      <div class="count">{{$det->cantidad_imagenes()}}</div>
                       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Todas las imagenes</span>
                     </div>
                   </div>

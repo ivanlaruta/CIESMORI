@@ -17,6 +17,7 @@ class EncuestaController extends Controller
      */
     public function dashboard()
     {
+
         $total_encuestas=Encuesta::count();
         $total_detalle_encuestas=V_detalle_encuesta::count();
 
@@ -81,8 +82,8 @@ class EncuestaController extends Controller
         $encuesta -> nombre = $request ->nombre;
         $encuesta -> nombre_tabla = $request ->origen;
         $encuesta -> nombre_db = $request ->db;
-        $encuesta -> carpeta_audios = $request ->carpeta_audios;
-        $encuesta -> carpeta_imagenes = $request ->carpeta_imagenes;
+        $encuesta -> carpeta_audios = str_replace("\\","/", $request ->carpeta_audios);
+        $encuesta -> carpeta_imagenes = str_replace("\\","/", $request ->carpeta_imagenes);
         $encuesta -> observacion = $request ->observacion;
         $encuesta -> save();
 
