@@ -63,8 +63,10 @@
 
         <link href="{{asset('js/cropperjs/cropper.css')}}" rel="stylesheet">
 
-        <!-- animate.css -->
-        <link href="{{asset('animate.css/animate.min.css')}}" rel="stylesheet">
+        <!-- leaflet.css -->
+        <link href="{{asset('leaflet/package/dist/leaflet.css')}}" rel="stylesheet">
+        <script src="{{asset('leaflet/package/dist/leaflet.js')}}"></script>
+
     </head>
 
     <body class="nav-md ">

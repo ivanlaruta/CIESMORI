@@ -15,6 +15,12 @@ class EncuestaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    public function gis()
+    {
+        return view('encuestas.gis.index');
+    }
+
     public function dashboard()
     {
 

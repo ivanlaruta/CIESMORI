@@ -150,6 +150,11 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'as'   =>	'encuesta.dashboard'
 		]);
 
+	route::get('encuesta/gis',[
+			'uses' =>'EncuestaController@gis',
+			'as'   =>	'encuesta.gis'
+		]);
+
 	Route::resource('encuesta', 'EncuestaController');
 
 });
