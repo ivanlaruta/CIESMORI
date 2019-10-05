@@ -11,6 +11,7 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-bar-chart"></i> Encuestas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                      <li><a href="{{ route('encuesta.gis2')}}">GIS2</a></li>
                       <li><a href="{{ route('encuesta.gis')}}">GIS</a></li>
                       <li><a href="{{ route('encuesta.dashboard')}}">Dashboard</a></li>
                       <li><a href="{{ route('encuesta.index')}}">Lista de encuestas</a></li>

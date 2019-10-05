@@ -64,9 +64,11 @@
         <link href="{{asset('js/cropperjs/cropper.css')}}" rel="stylesheet">
 
         <!-- leaflet.css -->
-        <link href="{{asset('leaflet/package/dist/leaflet.css')}}" rel="stylesheet">
+{{--         <link href="{{asset('leaflet/package/dist/leaflet.css')}}" rel="stylesheet">
         <script src="{{asset('leaflet/package/dist/leaflet.js')}}"></script>
+ --}}
 
+    @yield('cabecera')
     </head>
 
     <body class="nav-md ">

@@ -21,6 +21,11 @@ class EncuestaController extends Controller
         return view('encuestas.gis.index');
     }
 
+    public function gis2()
+    {
+        return view('encuestas.gis.index2');
+    }
+
     public function dashboard()
     {
 
