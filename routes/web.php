@@ -130,6 +130,11 @@ route::get('administracion/usuarios/create',[
 
 Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 
+	route::get('encuesta/libroDatos',[
+			'uses' =>'EncuestaController@libroDatos',
+			'as'   =>	'encuesta.libroDatos'
+		]);
+
 	route::get('encuesta/migracion',[
 			'uses' =>'EncuestaController@migracion',
 			'as'   =>	'encuesta.migracion'

@@ -39,6 +39,12 @@ class EncuestaController extends Controller
         ->with('encuestas',$encuestas);
     }
 
+    public function libroDatos()
+    {
+
+        dd('libro');
+    }
+
     public function migracion()
     {
 

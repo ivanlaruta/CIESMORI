@@ -14,8 +14,9 @@
                       <li><a href="{{ route('encuesta.gis2')}}">GIS2</a></li>
                       <li><a href="{{ route('encuesta.gis')}}">GIS</a></li>
                       <li><a href="{{ route('encuesta.dashboard')}}">Dashboard</a></li>
-                      <li><a href="{{ route('encuesta.index')}}">Lista de encuestas</a></li>
                       <li><a href="{{ route('encuesta.migracion')}}">Migracion de encuestas</a></li>
+                      <li><a href="{{ route('encuesta.index')}}">Lista de encuestas</a></li>
+                      <li><a href="{{ route('encuesta.libroDatos')}}">Libro de datos</a></li>
                       
                     </ul>
                   </li>

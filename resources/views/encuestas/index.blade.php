@@ -46,8 +46,12 @@
                     <td>{{$det->observacion}}</td>
                     <td align="center">
                       <div class="btn-group" role="group" >
-                        <a href="#" class="btn btn-success btn-xs  btn_refresh" id_encuesta = '{{$det->id}}'  >
+                        <a href="#" class="btn btn-primary btn-xs  btn_refresh" id_encuesta = '{{$det->id}}'  title="Actualizar">
                           <span class="fa fa-refresh fa-lg"></span> 
+                        </a>
+
+                        <a href="#" class="btn btn-success btn-xs  btn_libro" id_encuesta = '{{$det->id}}'  title="Libro de datos">
+                          <span class="fa fa-book fa-lg"></span> 
                         </a>
                       </div>
                     </td>    
@@ -119,8 +123,6 @@
 @section('scripts')
 <script type="text/javascript">
 
-
-
 var cabecera = $(".cabecera");
 var detalle = $(".detalle").hide();
 var contenido_detalle = $(".contenido_detalle");
@@ -147,6 +149,35 @@ var btnVer = $(".btn_ver");
     puntero_encuesta=$(this).attr("id_encuesta");
     prepara();
 });
+
+function prepara() {
+  lista_campos = [];
+            $.each($("input[name='campos_tabla']:checked"), function(){            
+                lista_campos.push($(this).val());
+            });
+
+
+  ejecuta_ajax(puntero_encuesta,lista_campos);
+}
+
+var ejecuta_ajax = function(encuesta,campos){
+  $.ajax({
+    type: "GET",
+    cache: false,
+    dataType: "html",
+    url: "{{ route('encuesta.contenido_detalle')}}",
+    data: {
+      id_encuesta: encuesta,
+      lista_campos: campos
+    },
+    success: function(dataResult)
+    {
+      contenido_detalle.empty().html(dataResult);
+      aplicardatatable();
+    }
+  });
+};
+
 
 function prepara() {
   lista_campos = [];
