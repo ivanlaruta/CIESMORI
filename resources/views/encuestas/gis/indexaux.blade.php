@@ -195,7 +195,6 @@
 @endsection
 
 @section('content')
-holaaaa
 <div class="claro">
   <div id="mainWindow" data-dojo-type="dijit.layout.BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width:100%; height:100%;">
     <div data-dojo-type="dijit.layout.ContentPane" id="rightPane" data-dojo-props="region:'right'">
@@ -205,7 +204,7 @@ holaaaa
             <form enctype="multipart/form-data" method="post" id="uploadForm">
             <div class="field">
                 <label class="file-upload">
-                    <span><strong>Archivo</strong></span>
+                    
                     <input type="file" name="file" id="inFile" />
                 </label>
             </div>
@@ -213,7 +212,7 @@ holaaaa
             <span class="file-upload-status" style="opacity:1;" id="upload-status"></span>
             <div id="fileInfo">&nbsp;</div>
       </div>
-  </div>
+  </div><br>
   <div id="mapCanvas" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'center'"></div>
 </div>
 </div>

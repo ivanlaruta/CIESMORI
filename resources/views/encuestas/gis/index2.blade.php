@@ -101,7 +101,7 @@ require([
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            holaaaaaaaaaaaaaaaaaaaa
+            
               <div id="viewDiv" style="width: 100%; height: 800px; position: relative;"></div>
 
           </div>
