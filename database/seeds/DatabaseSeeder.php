@@ -11,10 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-    	  $this->call(ParametricaGeneroTableSeeder::class);
+    	$this->call(ParametricaGeneroTableSeeder::class);
         $this->call(CiudadTableSeeder::class);
         $this->call(ParametricaDisponibilidadTiempoTableSeeder::class);
-    	  $this->call(ParametricaEstadoCivTableSeeder::class);
+    	$this->call(ParametricaEstadoCivTableSeeder::class);
         $this->call(ParametricaCargoTableSeeder::class);
         $this->call(ParametricaCswebSeeder::class);  
         $this->call(DepartamentoTableSeeder::class);
@@ -22,11 +22,13 @@ class DatabaseSeeder extends Seeder
         $this->call(ParametricaNivelEduTableSeeder::class);
         $this->call(ParametricaTipoEstudioTableSeeder::class);
         $this->call(ParametricaPosicionesSeeder::class);
+        $this->call(PosicionesEncuestadorSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(PersonaTableSeeder::class);
         $this->call(EncuestadorTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(imagenTableSeeder::class);
+        
 
     }
 }
