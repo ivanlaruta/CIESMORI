@@ -16,7 +16,7 @@
             <h2>Lista de encuesta</h2>
             <div class="pull-right" >
               <a  href="#" class="btn btn-success btn_nuevo " data-toggle="tooltip" data-placement="bottom" title="Agregar Nuevo" ><i class="fa fa-plus"></i></a>
-              <a  href="#" class="btn btn-primary btn_libro_todo " data-toggle="tooltip" data-placement="bottom" title="Administrar libros" ><i class="fa fa-book"></i></a>
+              <a  href="#" class="btn btn-primary btn_libro_datos " data-toggle="tooltip" data-placement="bottom" title="Administrar libros" ><i class="fa fa-book"></i></a>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -33,10 +33,10 @@
                     <th>Carpeta Audios</th>
                     <th>Carpeta Imagenes</th>
                     <th>Ultima Actualizacion</th>
-                    <th>Obs</th>
-                    <th>Libro de Datos</th>
-                    <th>registros</th>
-                    <th style="width: 10%">Opciones</th>
+                    <th style="width: 1%">Obs</th>
+                    <th style="width: 1%">Libro de Datos</th>
+                    <th style="width: 1%">registros</th>
+                    <th style="width: 1%">Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -68,7 +68,7 @@
                           {{ csrf_field() }}
                           <input type="hidden" id="id_encuesta" name="id_encuesta" value="{{$det->id}}">
 
-                          <button type="submit" class="btn btn-success btn-xs btn-block btn_refresh" id="btn_eliminar_run"  title="Actualizar" ><span class="fa fa-refresh fa-lg"></span></button>
+                          <button type="submit" class="btn btn-success btn-xs btn-block btn_refresh" id="btn_eliminar_run"  title="Actualizar" onclick="func_load();"><span class="fa fa-refresh fa-lg"></span></button>
                         </form>
                         
                       <div class="btn-group btn-group-justified" role="group" >
@@ -132,7 +132,7 @@
 
             </div>
 
-             <div class="modal fade modal_datos" id="Modal_nuevo" role="dialog" >
+            <div class="modal fade modal_datos" id="Modal_nuevo" role="dialog" >
               <div class="modal-dialog modal-lg">
                 <div class="modal-content ">
                   <div class="modal-header">
@@ -141,6 +141,43 @@
                     <h4 class="modal-title" id="myModalLabel">Migracion de dato</h4>
                   </div>
                   <div class="modal-body contenido"></div>
+                  <div class="modal-footer">
+                    <br>
+                    <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="modal fade modal_libro_datos" id="modal_libro_datos" role="dialog" >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content ">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">libro de datos</h4>
+                  </div>
+                  <div class="modal-body contenido_libro_datos"></div>
+                  <div class="modal-footer">
+                    <br>
+                    <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade modal_datos_editar_enc" id="Modal_nuevo_editar_enc" role="dialog" >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content ">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Edicion</h4>
+                  </div>
+                  <div class="modal-body contenido_editar_enc"></div>
                   <div class="modal-footer">
                     <br>
                     <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
@@ -163,7 +200,7 @@
 <script type="text/javascript">
 
 
-// ======================= nuevo encuestadpr ==============================
+// ======================= nuevo encuesta ==============================
 
 
 var btn_nuevo = $(".btn_nuevo");
@@ -187,6 +224,108 @@ var btn_nuevo = $(".btn_nuevo");
         console.log(dataResult);
         modalContent.empty().html(dataResult);                        
         modal.modal('show');
+        NProgress.done();
+      },
+      error: function(jqXHR, exception)
+      {
+        var msg = '';
+        if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+        } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+        } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+        NProgress.done();
+      }
+    });
+  };
+
+/*====================================================*/
+
+// ======================= LIBRO DE DATOS ==============================
+
+var btn_libro_datos = $(".btn_libro_datos");
+  btn_libro_datos.on("click",function(){
+    frm_libro_datos($(this));
+  });
+  var modalContent = $(".contenido_libro_datos");
+  var modal=$(".modal_libro_datos");
+
+  var frm_libro_datos = function(objeto){
+    $.ajax({
+      type: "GET",
+      cache: false,
+      dataType: "html",
+      url: "{{ route('encuesta.libroDatos')}}",
+      success: function(dataResult)
+      {
+        console.log(dataResult);
+        modalContent.empty().html(dataResult);                        
+        modal.modal('show');
+        NProgress.done();
+      },
+      error: function(jqXHR, exception)
+      {
+        var msg = '';
+        if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+        } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+        } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+        NProgress.done();
+      }
+    });
+  };
+
+/*====================================================*/
+var cabecera = $(".cabecera");
+
+
+// ======================= edits encuesta ==============================
+
+
+var btn_edit = $(".btn_edit");
+  btn_edit.on("click",function(){
+    frm_edit($(this));
+  });
+  var modalContent_edit = $(".contenido_editar_enc");
+  var modal_edit=$(".modal_datos_editar_enc");
+
+  var frm_edit = function(objeto){
+    $.ajax({
+      type: "GET",
+      cache: false,
+      dataType: "html",
+      url: "{{ route('encuesta.update_form')}}",
+      data: {
+        id: objeto.attr("id_encuesta")
+      },
+      success: function(dataResult)
+      {
+        console.log(dataResult);
+        modalContent_edit.empty().html(dataResult);                        
+        modal_edit.modal('show');
         NProgress.done();
       },
       error: function(jqXHR, exception)
@@ -240,6 +379,10 @@ var btnVer = $(".btn_ver");
     puntero_encuesta=$(this).attr("id_encuesta");
     prepara();
 });
+
+function func_load() {
+  $body.addClass("loading"); 
+}
 
 function prepara() {
   lista_campos = [];

@@ -150,6 +150,11 @@ route::get('administracion/usuarios/editar',[
 
 Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 
+	route::get('encuesta/admin_libro',[
+			'uses' =>'EncuestaController@admin_libro',
+			'as'   =>	'encuesta.admin_libro'
+		]);
+
 	route::get('encuesta/libroDatos',[
 			'uses' =>'EncuestaController@libroDatos',
 			'as'   =>	'encuesta.libroDatos'
@@ -160,9 +165,19 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'as'   =>	'encuesta.migracion'
 		]);
 
+	route::get('encuesta/update_form',[
+			'uses' =>'EncuestaController@update_form',
+			'as'   =>	'encuesta.update_form'
+		]);
+
 	route::post('encuesta/migrar',[
 			'uses' =>'EncuestaController@migrar',
 			'as'   =>	'encuesta.migrar'
+		]);
+
+	route::post('encuesta/editar',[
+			'uses' =>'EncuestaController@editar',
+			'as'   =>	'encuesta.editar'
 		]);
 
 	route::get('encuesta/actualizar',[

@@ -13,8 +13,15 @@ class CreateLibroDatos extends Migration
      */
     public function up()
     {
-        Schema::create('_libro_datos', function (Blueprint $table) {
+        Schema::create('libro_datos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('encuesta_id');
+            $table->string('campo')->nullable();
+            $table->string('codigo')->nullable();
+            $table->string('valor')->nullable();
+            $table->integer('estado')->default(1);
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +33,6 @@ class CreateLibroDatos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_libro_datos');
+        Schema::dropIfExists('libro_datos');
     }
 }

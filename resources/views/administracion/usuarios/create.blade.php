@@ -7,9 +7,6 @@
       <div class="title_left">
         <h3>Formulario de registro</h3>
       </div>
-
-      
-
     </div>
     <div class="clearfix"></div>
     <div class="row">

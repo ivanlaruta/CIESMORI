@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EncuestadorTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(imagenTableSeeder::class);
+        $this->call(ParametricaLibroTableSeeder::class);
         
 
     }
