@@ -37,9 +37,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function persona()
+    public function departamento()
     {
-        return $this->belongsTo(Persona::class,'persona_id');
+        return $this->belongsTo(Departamento::class,'departamento_id');
     }
     public function rol()
     {

@@ -1,8 +1,5 @@
-@extends('layouts.main')
 
-@section('content')
 
-<div class="right_col" role="main">
   <div class="">
     <div class="clearfix"></div>
     <div class="row">
@@ -98,11 +95,9 @@
       </div>
     </div>
   </div>
-</div>
 
-@endsection
 
-@section('scripts')
+
 
 <script type="text/javascript">
   
@@ -152,5 +147,4 @@ function selectFolder(e) {
     };
 
 </script>
-@endsection
 

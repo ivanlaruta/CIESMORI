@@ -19,9 +19,11 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('user');
             $table->string('password');
-            $table->integer('persona_id')->nullable();
             $table->integer('rol_id');
+            $table->string('nombre')->nullable();
+            $table->string('apellido')->nullable();
             $table->string('email')->nullable();
+            $table->string('departamento_id')->nullable();
             $table->integer('estado')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('created_by')->nullable();

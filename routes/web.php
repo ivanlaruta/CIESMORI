@@ -85,6 +85,16 @@ route::get('administracion/encuestadores/edit/form',[
 		'as'   =>	'administracion.encuestadores.baja'
 	]);
 
+	route::get('administracion/encuestador_encuesta/baja',[
+		'uses' =>'administracionController@encuestador_encuesta_baja',
+		'as'   =>	'administracion.encuestador_encuesta.baja'
+	]);
+
+	route::get('administracion/encuestadores/admin_encuesta',[
+		'uses' =>'administracionController@encuestadores_admin_encuesta',
+		'as'   =>	'administracion.encuestadores.admin_encuesta'
+	]);
+
 	route::get('administracion/encuestadores/agrega_encuesta',[
 		'uses' =>'administracionController@encuestadores_agrega_encuesta',
 		'as'   =>	'administracion.encuestadores.agrega_encuesta'
@@ -106,6 +116,11 @@ route::get('administracion/usuarios/create',[
 		'as'   =>	'administracion.usuarios.create'
 	]);
 
+route::get('administracion/usuarios/editar',[
+		'uses' =>'administracionController@usuarios_editar',
+		'as'   =>	'administracion.usuarios.editar'
+	]);
+
 
 	route::get('administracion/usuarios/index',[
 		'uses' =>'administracionController@usuarios_index',
@@ -120,6 +135,11 @@ route::get('administracion/usuarios/create',[
 	route::get('administracion/usuarios/finder',[
 		'uses' =>'administracionController@usuarios_finder',
 		'as'   =>	'administracion.usuarios.finder'
+	]);
+
+	route::get('administracion/usuarios/validar_user',[
+		'uses' =>'administracionController@validar_user',
+		'as'   =>	'administracion.usuarios.validar_user'
 	]);
 
 
@@ -143,6 +163,11 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 	route::post('encuesta/migrar',[
 			'uses' =>'EncuestaController@migrar',
 			'as'   =>	'encuesta.migrar'
+		]);
+
+	route::get('encuesta/actualizar',[
+			'uses' =>'EncuestaController@actualizar',
+			'as'   =>	'encuesta.actualizar'
 		]);
 
 	route::get('encuesta/contenido_detalle',[

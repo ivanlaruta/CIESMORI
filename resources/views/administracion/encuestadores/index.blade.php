@@ -122,8 +122,8 @@
                       
                       <li><i class="fa fa-file"></i> Encuestas asignadas: 
                         @if ($det->lista_encuestas->count() > 0)
-                          @foreach ($det->lista_encuestas as $empresa)
-                            <span class="label label-primary">{{strtoupper($empresa->observacion)}} &nbsp;</span>
+                          @foreach ($det->lista_encuestas as $lista)
+                            <span class="label label-primary">{{strtoupper($lista->encuesta->nombre)}} &nbsp;</span>
                           @endforeach
                         @endif
                      </li>
@@ -137,7 +137,7 @@
                 <td>
                    <div class="btn-group row" role="group" >
                      
-                      <a href="#" class="btn btn-success btn-xs btn_agregar_encuesta" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Agregar encuesta">
+                      <a href="#" class="btn btn-success btn-xs btn_agregar_encuesta" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Administrar encuestas">
                         <span class="fa fa-file"></span> 
                       </a>
 
@@ -216,26 +216,20 @@
               </div>
             </div>
 
-            <div class="modal fade modal_dialog" id="modal_agregar_encuesta" role="dialog" >
-              <div class="modal-dialog">
-                <div class="modal-content">
+          <div class="modal fade modal_admin_enc" id="modal_admin_enc" role="dialog" >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content ">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">Asignacion de encuestas</h4>
+                    <h4 class="modal-title" id="myModalLabel">Formulario Administrar encuestas</h4>
                   </div>
-                  <form method="get" action="{{  route('administracion.encuestadores.agrega_encuesta') }}" class="form-horizontal form-label-left" id="agregarecuesta_form" >
-                  <div class="modal-body">
-                    {{ csrf_field() }}
-                    <input type="hidden" id="id_encuestador_txt2" name="id_encuestador_txt2">
-                    <h4><small>Ingrese encuestas</small></h4><br>
-                    <input id="encuestas" name="encuestas" type="text" class="tags form-control" value="" />
-                  </div>
+                  <div class="modal-body contenido_admin_enc"></div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success btn_sub" id="btn_sub">Guardar  </button>
+                    <br>
+                    <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
+                    
                   </div>
-                  </form>
                 </div>
               </div>
             </div>
@@ -308,11 +302,52 @@ var btn_agregar_encuesta = $(".btn_agregar_encuesta");
     fn_agrega_encuesta($(this));
   });
 
-var fn_agrega_encuesta = function (objeto){
-id_asignar = objeto.attr("id_encuestador");
-$('#id_encuestador_txt2').val(id_asignar);
-$('#modal_agregar_encuesta').modal('show');
-};
+  var modalContent_asign_enc = $(".contenido_admin_enc");
+  var modal_asig_enc=$(".modal_admin_enc");
+
+
+
+  var fn_agrega_encuesta = function(objeto){
+    $.ajax({
+      type: "GET",
+      cache: false,
+      dataType: "html",
+      url: "{{ route('administracion.encuestadores.admin_encuesta')}}",
+      data: {
+        id: objeto.attr("id_encuestador")
+      },
+      success: function(dataResult)
+      {
+        console.log(dataResult);
+        modalContent_asign_enc.empty().html(dataResult);                        
+        modal_asig_enc.modal('show');
+        NProgress.done();
+      },
+      error: function(jqXHR, exception)
+      {
+        var msg = '';
+        if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+        } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+        } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+        NProgress.done();
+      }
+    });
+  };
+
+
 
 // =============== eliminar ============================
 var id_eliminar;

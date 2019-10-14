@@ -9,6 +9,7 @@ use App\User;
 use App\Parametrica;
 use App\Persona;
 use App\Encuestador;
+use App\Encuesta;
 use App\Encuestador_empresa;
 use App\Encuestador_encuesta;
 use App\Encuestador_tipo_estudio;
@@ -25,7 +26,15 @@ use DB;
 
 class AdministracionController extends Controller
 {
-    public function validar_ci(Request $request)
+    public function validar_user(Request $request)
+    {
+       
+        $persona= User::where('user',$request->user)->get()->toArray();
+
+        return ($persona);
+    }
+
+ public function validar_ci(Request $request)
     {
         $persona = DB::table('persona')
             ->join('encuestador', 'persona.id', '=', 'encuestador.persona_id')
@@ -350,22 +359,51 @@ class AdministracionController extends Controller
                 return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido dado de baja exitosamente. "); 
     }
 
+
+
+    public function encuestadores_admin_encuesta(Request $request)
+    {
+           // dd($request->all()); 
+          $encuestador_id = $request->id;
+
+          $encuestas = Encuesta::whereNotExists(function ($query) use ($encuestador_id) {
+                $query->select(DB::raw(1))
+                      ->from('encuestador_encuesta')
+                      ->where('encuestador_encuesta.encuestador_id', '=', $encuestador_id)
+                      ->whereRaw('encuestador_encuesta.encuesta_id = encuesta.id');
+   
+            })
+           ->get();
+
+
+          $encuestador_encuesta=Encuestador_encuesta::where('encuestador_id',$encuestador_id)->get();
+         
+          return view('administracion.encuestadores.admin_encuesta')
+          ->with('encuestador_id',$encuestador_id)
+          ->with('encuestas',$encuestas)
+          ->with('encuestador_encuesta',$encuestador_encuesta);
+
+       
+    }
+
+    public function encuestador_encuesta_baja(Request $request)
+    {
+          
+        // dd($request->all()); 
+          $encuestador_encuesta=Encuestador_encuesta::
+            where('encuestador_id',$request->id_encuestador_txt)
+          ->where('encuesta_id',$request->id_encuesta_txt)
+          ->delete();
+        
+        return redirect()->route('administracion.encuestadores.index')->with('mensaje',"Se elimino correctamente"); 
+    }
+
+
     public function encuestadores_agrega_encuesta(Request $request)
     {
-          // dd($request->all()); 
-
-        $array_encuestas = explode(",", $request->encuestas);
-
-        for ($i=0; $i < count($array_encuestas); $i++) 
-        {
-            $encuestador_encuesta = new Encuestador_encuesta();
-            $encuestador_encuesta -> encuestador_id =  $request->id_encuestador_txt2;
-            $encuestador_encuesta -> encuesta_id =  $request->id_encuestador_txt2;
-            $encuestador_encuesta -> estado_encuesta =  $request->id_encuestador_txt2;
-            $encuestador_encuesta -> observacion = strtoupper($array_encuestas[$i]);
-            // dd($encuestador_encuesta); 
-            $encuestador_encuesta ->save();
-        }
+         $Encuestador_encuesta = new Encuestador_encuesta($request->all());
+          // dd($Encuestador_encuesta); 
+          $Encuestador_encuesta->save();
 
         return redirect()->route('administracion.encuestadores.index')->with('mensaje',"Se asigno correctamente"); 
     }
@@ -391,19 +429,26 @@ class AdministracionController extends Controller
     {
 
         $roles = rol::where('estado',1)->get();
-        $encuestadores = Encuestador::where('estado',1)->get();
+        $departamentos = Departamento::where('estado',1)->get();
+
 
 
         switch ($request->formulario) {
             case 'nuevo':
                 return view('administracion.usuarios.create')
                 ->with('roles',$roles)
-                ->with('encuestadores',$encuestadores)
+                ->with('departamentos',$departamentos)
                 ->with('request',$request);
                 break;
-            case 1:
-                echo "i es igual a 1";
+            case 'editar':
+                $usuario=User::find($request->id_usuario);
+                return view('administracion.usuarios.create')
+                ->with('roles',$roles)
+                ->with('departamentos',$departamentos)
+                ->with('usuario',$usuario)
+                ->with('request',$request);
                 break;
+           
             
         }
         
@@ -435,27 +480,35 @@ class AdministracionController extends Controller
 
      public function usuarios_create(Request $request)
     {
-              // dd($request->all());
+                 // dd($request->all());
         if($request->formulario=="nuevo")
         {
             $user = new User($request->all());
             $user->rol_id = $request->rol_id;
+            $user->nombre = $request->nombre;
+            $user->apellido = $request->apellido;
+            $user->departamento_id = $request->departamento_id;
             $user->password = bcrypt($request->password);
             $user->save();
             return redirect()->route('administracion.usuarios.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
         }
-        // else
-        // {
-        //     // if($request->tipo=="editar")
-        //     // {
-        //     //     $user=User::find($request->id_usuario);
-        //     //     $user->fill($request->all());
-        //     //     $user->password = bcrypt($request->password);
-        //     //     $user->save();
-        //     //     return redirect()->route('administracion.index_users')->with('mensaje',"Editado exitosamente."); 
-        //     // }
+        else
+        {
+            if($request->formulario=="editar")
+                // dd($request->all());
+            {
+                $user=User::find($request->id_usuario);
+               // dd($user);
+                $user->nombre = $request->nombre;
+            $user->apellido = $request->apellido;
+            $user->departamento_id = $request->departamento_id;
+                $user->rol_id = $request->rol_id1;
+                if($request->password != ''){ $user->password = bcrypt($request->password);}
+                $user->save();
+                return redirect()->route('administracion.usuarios.index')->with('mensaje',"Editado exitosamente."); 
+            }
 
-        // }
+        }
     
        
 

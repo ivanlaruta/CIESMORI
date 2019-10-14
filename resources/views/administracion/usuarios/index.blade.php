@@ -25,7 +25,8 @@
                  <th>#</th>
                  <th>Usuario</th>
                  <th>Rol</th>
-                 <th>Datos de Personal</th>
+                 <th>Nombre</th>
+                 <th>Departamento</th>
                  <th>Opciones</th>
                 </tr>
               </thead>
@@ -36,24 +37,12 @@
                 <td>{{$det->user}}</td>
                 <td>
                     <a>{{$det->rol->descripcion}} </a>
-                </td>
-                <td>
-                  @if(isset($det->empleado->persona->id))
-                    <a>
-                      {{$det->empleado->persona->primer_nombre}} {{$det->empleado->persona->segundo_nombre}} {{$det->empleado->persona->apellido_paterno}} {{$det->empleado->persona->apellido_materno}}
-                    </a>
-                    <br /><small><i class="fa fa-credit-card"></i> CI: {{$det->empleado->persona->ci}} </small>
-                  @else
-                    No asignado
-                  @endif
-                      
-                </td> 
-                  
-                
+                </td>             
+                <td>{{$det->nombre}} {{$det->apellido}}</td>
+                <td>@if(isset($det->departamento->nombre)){{$det->departamento->nombre}}@endif</td>
                 <td>
                    <div class="btn-group" role="group" >
                      
-
                       <a href="#" class="btn btn-warning btn-xs btn_editar" id_empleado = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Editar">
                         <span class="fa fa-edit"></span> 
                       </a>
@@ -173,15 +162,14 @@ $('#modal_dialog').modal('show');
 // =====================================================
 
 
+  var modalContent = $(".contenido");
+  var modal=$(".modal_datos");
+
+//==========================
 var btn_nuevo = $(".btn_nuevo");
   btn_nuevo.on("click",function(){
     frm_nuevo($(this));
   });
-
-
-
-  var modalContent = $(".contenido");
-  var modal=$(".modal_datos");
 
   var frm_nuevo = function(objeto){
     $.ajax({
@@ -191,6 +179,54 @@ var btn_nuevo = $(".btn_nuevo");
       url: "{{ route('administracion.usuarios.create.form')}}",
       data: {
         formulario: "nuevo"
+      },
+      success: function(dataResult)
+      {
+        console.log(dataResult);
+        modalContent.empty().html(dataResult);                        
+        modal.modal('show');
+        NProgress.done();
+      },
+      error: function(jqXHR, exception)
+      {
+        var msg = '';
+        if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+        } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+        } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+        NProgress.done();
+      }
+    });
+  };
+
+
+//=============* EDITAR *=============
+var btn_editar = $(".btn_editar");
+  btn_editar.on("click",function(){
+    frm_editar($(this));
+  });
+
+  var frm_editar = function(objeto){
+    $.ajax({
+      type: "GET",
+      cache: false,
+      dataType: "html",
+      url: "{{ route('administracion.usuarios.create.form')}}",
+      data: {
+        formulario: "editar",
+        id_usuario: objeto.attr("id_empleado")
       },
       success: function(dataResult)
       {

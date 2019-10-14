@@ -14,10 +14,15 @@
           <div class="x_title">
            
             <h2>Lista de encuesta</h2>
+            <div class="pull-right" >
+              <a  href="#" class="btn btn-success btn_nuevo " data-toggle="tooltip" data-placement="bottom" title="Agregar Nuevo" ><i class="fa fa-plus"></i></a>
+              <a  href="#" class="btn btn-primary btn_libro_todo " data-toggle="tooltip" data-placement="bottom" title="Administrar libros" ><i class="fa fa-book"></i></a>
+            </div>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
             <div class="cabecera">
+              <div class="table-responsive">
               <table class="table table-bordered table-responsive table-hover">
                 <thead>
                   <tr>
@@ -28,9 +33,10 @@
                     <th>Carpeta Audios</th>
                     <th>Carpeta Imagenes</th>
                     <th>Ultima Actualizacion</th>
-                    <th>Observaciones</th>
-                    <th>Opciones</th>
+                    <th>Obs</th>
+                    <th>Libro de Datos</th>
                     <th>registros</th>
+                    <th style="width: 10%">Opciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -45,15 +51,9 @@
                     <td>{{$det->updated_at}}</td>
                     <td>{{$det->observacion}}</td>
                     <td align="center">
-                      <div class="btn-group" role="group" >
-                        <a href="#" class="btn btn-primary btn-xs  btn_refresh" id_encuesta = '{{$det->id}}'  title="Actualizar">
-                          <span class="fa fa-refresh fa-lg"></span> 
-                        </a>
-
-                        <a href="#" class="btn btn-success btn-xs  btn_libro" id_encuesta = '{{$det->id}}'  title="Libro de datos">
+                        <a href="#" class="btn btn-success btn-xs btn_libro" id_encuesta = '{{$det->id}}'  title="Libro de datos">
                           <span class="fa fa-book fa-lg"></span> 
                         </a>
-                      </div>
                     </td>    
                     <td align="right">
                       <div class="btn-group" role="group" >
@@ -62,10 +62,31 @@
                         </a>
                       </div>
                     </td>        
+                    <td align="center">
+                        <form method="get" action="{{  route('encuesta.actualizar') }}" >
+                       
+                          {{ csrf_field() }}
+                          <input type="hidden" id="id_encuesta" name="id_encuesta" value="{{$det->id}}">
+
+                          <button type="submit" class="btn btn-success btn-xs btn-block btn_refresh" id="btn_eliminar_run"  title="Actualizar" ><span class="fa fa-refresh fa-lg"></span></button>
+                        </form>
+                        
+                      <div class="btn-group btn-group-justified" role="group" >
+                   
+                        <a href="#" class="btn btn-warning btn-xs  btn_edit" id_encuesta = '{{$det->id}}'  title="Modificar">
+                          <span class="fa fa-edit fa-lg"></span> 
+                        </a>
+
+                        {{-- <a href="#" class="btn btn-danger btn-xs  btn_elimina" id_encuesta = '{{$det->id}}'  title="eliminar">
+                          <span class="fa fa-trash fa-lg"></span> 
+                        </a> --}}
+                      </div>
+                    </td>    
                   </tr>
                   @endforeach
                 </tbody>
               </table>
+              </div>
             </div>
 
             <div class="detalle">
@@ -111,6 +132,24 @@
 
             </div>
 
+             <div class="modal fade modal_datos" id="Modal_nuevo" role="dialog" >
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content ">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Migracion de dato</h4>
+                  </div>
+                  <div class="modal-body contenido"></div>
+                  <div class="modal-footer">
+                    <br>
+                    <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -123,6 +162,58 @@
 @section('scripts')
 <script type="text/javascript">
 
+
+// ======================= nuevo encuestadpr ==============================
+
+
+var btn_nuevo = $(".btn_nuevo");
+  btn_nuevo.on("click",function(){
+    frm_nuevo($(this));
+  });
+  var modalContent = $(".contenido");
+  var modal=$(".modal_datos");
+
+  var frm_nuevo = function(objeto){
+    $.ajax({
+      type: "GET",
+      cache: false,
+      dataType: "html",
+      url: "{{ route('encuesta.migracion')}}",
+      data: {
+        formulario: "nuevo"
+      },
+      success: function(dataResult)
+      {
+        console.log(dataResult);
+        modalContent.empty().html(dataResult);                        
+        modal.modal('show');
+        NProgress.done();
+      },
+      error: function(jqXHR, exception)
+      {
+        var msg = '';
+        if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+        } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+        } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+        NProgress.done();
+      }
+    });
+  };
+
+/*====================================================*/
 var cabecera = $(".cabecera");
 var detalle = $(".detalle").hide();
 var contenido_detalle = $(".contenido_detalle");

@@ -11,4 +11,9 @@ class Encuestador_encuesta extends Model
     	'encuestador_id','encuesta_id','observacion','estado'
     ];
      public $incrementing=false;
+
+    public function encuesta()
+    {
+        return $this->belongsTo(Encuesta::class,'encuesta_id');
+    }
 }

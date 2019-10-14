@@ -16,7 +16,7 @@ class CreateEncuestadorEncuestaTable extends Migration
         Schema::create('encuestador_encuesta', function (Blueprint $table) {
             $table->integer('encuestador_id');
             $table->integer('encuesta_id');
-            $table->string('estado_encuesta');
+            // $table->string('estado_encuesta');
             $table->string('observacion')->nullable();
             $table->integer('estado')->default(1);
             $table->string('created_by')->nullable();

@@ -15,22 +15,32 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'user' => '8264209',
-            'persona_id' => 1,
+            
             'rol_id' => 5,
+            'nombre' => 'IVAN',
+            'apellido' => 'LARUTA',
+            'departamento_id' => 2,
             'password' => bcrypt('12345'),
             ]);
 
         DB::table('users')->insert([
             'user' => '4865345',
-            'persona_id' => 2,
+            
             'rol_id' => 5,
+             'nombre' => 'NATHALY',
+            'apellido' => 'ALFARO',
+            'departamento_id' => 2,
             'password' => bcrypt('12345'),
             ]);
 
         DB::table('users')->insert([
             'user' => '6103364',
-            'persona_id' => 3,
+            
             'rol_id' => 5,
+            'nombre' => 'JAVIER',
+            'apellido' => 'CHAVEZ',
+           
+            'departamento_id' => 2,
             'password' => bcrypt('12345'),
             ]);
 
