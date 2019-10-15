@@ -53,7 +53,7 @@
                     <td><input type="text" id="valor"  name="valor"  required="required" class="form-control col-md-7 col-xs-12"></td>
 
                     <td align="center">
-                                            <button type="submit" class="btn btn-success btn-block">Agregar</button>
+                      <button type="submit" class="btn btn-success btn-block"><span class="fa fa-plus fa-lg"></span></button>
 
                     </td> 
                     </form>   
@@ -68,10 +68,10 @@
 
                     <td align="center">
                       <div class="btn-group btn-group-justified" role="group" >
-                        <a href="#" class="btn btn-warning btn-xs  btn_edit" id_encuesta = '{{$det->id}}'  title="Modificar">
+                        <!-- <a href="#" class="btn btn-warning btn-xs  btn_edit" id_encuesta = '{{$det->id}}'  title="Modificar">
                           <span class="fa fa-edit fa-lg"></span> 
-                        </a>
-                        <a href="#" class="btn btn-danger btn-xs  btn_elimina" id_encuesta = '{{$det->id}}'  title="eliminar">
+                        </a> -->
+                        <a href="#" class="btn btn-danger btn-xs btn_eliminar" id = '{{$det->id}}'  title="eliminar">
                           <span class="fa fa-trash fa-lg"></span> 
                         </a>
                       </div>
@@ -82,6 +82,27 @@
                 </tbody>
               </table>
               </div>
+
+
+            <div class="modal fade modal_dialog" id="modal_dialog" role="dialog" >
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <form method="get" action="{{  route('encuesta.baja_libro') }}" class="form-horizontal form-label-left" id="empleados_form" >
+                  <div class="modal-body">
+                    {{ csrf_field() }}
+                    <input type="hidden" id="id" name="id">
+                    <h4>Eliminar!</h4>
+                    <p>Esta tratando de dar de baja este registro.</p>
+                    <p>Desea continuar?.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger btn_eliminar_run" id="btn_eliminar_run">Continuar  <span class="fa fa-trash"></span></button>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
 
 
           
@@ -96,6 +117,18 @@
 
 @section('scripts')
 <script type="text/javascript">
+var id_eliminar;
+
+var btn_eliminar = $(".btn_eliminar");
+  btn_eliminar.on("click",function(){
+    fn_eliminar($(this));
+  });
+
+var fn_eliminar = function (objeto){
+id_eliminar = objeto.attr("id");
+$('#id').val(id_eliminar);
+$('#modal_dialog').modal('show');
+};
 
 
 </script>

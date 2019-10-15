@@ -150,6 +150,11 @@ route::get('administracion/usuarios/editar',[
 
 Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 
+	route::get('encuesta/baja_libro',[
+			'uses' =>'EncuestaController@baja_libro',
+			'as'   =>	'encuesta.baja_libro'
+		]);
+
 	route::get('encuesta/admin_libro',[
 			'uses' =>'EncuestaController@admin_libro',
 			'as'   =>	'encuesta.admin_libro'
