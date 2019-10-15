@@ -14,69 +14,77 @@
           <div class="x_title">
            
             <h2>Libro de Datos</h2>
-
+          
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <br />
-                <form method="post" action="{{ route('encuesta.migrar') }}" class="form-horizontal form-label-left">
+
+            <div class="table-responsive">
+              <table class="table table-bordered table-responsive table-hover">
+                <thead>
+                  <tr>
+                    <th style="width: 1%">#</th>
+                    <th style="width: 25%">Encuesta</th>
+                    <th style="width: 25%">Campo</th>
+                    <th style="width: 15%">Codigo</th>
+                    <th style="width: 15%">Valor</th>
+                    <th style="width: 1%">Opciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                     <form method="post" action="{{ route('encuesta.store_libro') }}" class="form-horizontal form-label-left">
                   {{ csrf_field() }}
-                  
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Encuesta
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <select class="form-control col-md-6 col-xs-12 " id="encuesta_id" name="encuesta_id" required="required" data-width="100%">
-                        <option>Seleccione una encuesta</option>
+                    <td></td>
+                    <td><select class="form-control col-md-6 col-xs-12 " id="encuesta_id" name="encuesta_id" required="required" data-width="100%">
+                        <option></option>
                         @foreach($encuestas as $det)
                           <option value="{{$det->id}}">{{strtoupper($det->nombre)}}</option>
                         @endforeach
                       </select>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Dato
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <select class="form-control col-md-6 col-xs-12 " id="parametrica_libro" name="parametrica_libro" required="required" data-width="100%">
-                        <option>Seleccione un dato</option>
+                    </td>
+                    <td><select class="form-control col-md-6 col-xs-12 " id="parametrica_libro" name="parametrica_libro" required="required" data-width="100%">
+                        <option></option>
                         @foreach($parametrica as $det)
                           <option value="{{$det->codigo}}">{{strtoupper($det->codigo)}}</option>
                         @endforeach
-                      </select>
-                    </div>
-                  </div>
+                      </select></td>
+                    <td><input type="text" id="codigo" name="codigo" required="required" class="form-control col-md-7 col-xs-12"></td>
+                    <td><input type="text" id="valor"  name="valor"  required="required" class="form-control col-md-7 col-xs-12"></td>
 
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Codigo
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="codigo" name="codigo" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
+                    <td align="center">
+                                            <button type="submit" class="btn btn-success btn-block">Agregar</button>
 
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Valor
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="valor"  name="valor"  required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
-                                        
-                  <div class="ln_solid"></div>
-                  <div class="form-group">
-                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                      <button type="submit" class="btn btn-success btn-block">Migrar</button>
-                    </div>
-                  </div>
-                </form>
+                    </td> 
+                    </form>   
+                  </tr>
+                  @foreach($librodatos as $det)
+                  <tr>
+                    <td>{{$det->id}}</td>
+                    <td>{{$det->encuesta->nombre}}</td>
+                    <td>{{$det->campo}}</td>
+                    <td>{{$det->codigo}}</td>
+                    <td>{{$det->valor}}</td>
+
+                    <td align="center">
+                      <div class="btn-group btn-group-justified" role="group" >
+                        <a href="#" class="btn btn-warning btn-xs  btn_edit" id_encuesta = '{{$det->id}}'  title="Modificar">
+                          <span class="fa fa-edit fa-lg"></span> 
+                        </a>
+                        <a href="#" class="btn btn-danger btn-xs  btn_elimina" id_encuesta = '{{$det->id}}'  title="eliminar">
+                          <span class="fa fa-trash fa-lg"></span> 
+                        </a>
+                      </div>
+                    </td>    
+                  </tr>
+                  @endforeach
+
+                </tbody>
+              </table>
               </div>
-            </div>
-            
+
+
+          
           </div>
         </div>
       </div>

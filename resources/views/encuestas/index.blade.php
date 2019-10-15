@@ -16,7 +16,7 @@
             <h2>Lista de encuesta</h2>
             <div class="pull-right" >
               <a  href="#" class="btn btn-success btn_nuevo " data-toggle="tooltip" data-placement="bottom" title="Agregar Nuevo" ><i class="fa fa-plus"></i></a>
-              <a  href="#" class="btn btn-primary btn_libro_datos " data-toggle="tooltip" data-placement="bottom" title="Administrar libros" ><i class="fa fa-book"></i></a>
+           {{--    <a  href="#" class="btn btn-primary btn_libro_datos " data-toggle="tooltip" data-placement="bottom" title="Administrar libros" ><i class="fa fa-book"></i></a> --}}
             </div>
             <div class="clearfix"></div>
           </div>
@@ -254,7 +254,7 @@ var btn_nuevo = $(".btn_nuevo");
 
 // ======================= LIBRO DE DATOS ==============================
 
-var btn_libro_datos = $(".btn_libro_datos");
+var btn_libro_datos = $(".btn_libro");
   btn_libro_datos.on("click",function(){
     frm_libro_datos($(this));
   });
@@ -267,6 +267,9 @@ var btn_libro_datos = $(".btn_libro_datos");
       cache: false,
       dataType: "html",
       url: "{{ route('encuesta.libroDatos')}}",
+      data: {
+        id: objeto.attr("id_encuesta")
+      },
       success: function(dataResult)
       {
         console.log(dataResult);

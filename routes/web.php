@@ -175,6 +175,11 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'as'   =>	'encuesta.migrar'
 		]);
 
+	route::post('encuesta/store_libro',[
+			'uses' =>'EncuestaController@store_libro',
+			'as'   =>	'encuesta.store_libro'
+		]);
+
 	route::post('encuesta/editar',[
 			'uses' =>'EncuestaController@editar',
 			'as'   =>	'encuesta.editar'

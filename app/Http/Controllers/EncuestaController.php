@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Encuesta;
 use App\Parametrica;
+use App\LibroDatos;
 use App\V_detalle_encuesta;
 use Illuminate\Http\Request;
 use DB;
@@ -40,24 +41,21 @@ class EncuestaController extends Controller
         ->with('encuestas',$encuestas);
     }
 
-    public function libroDatos()
+    public function libroDatos(Request $request)
     {
-        $encuestas=Encuesta::all();
-        $parametrica=Parametrica::select('codigo')
-                            ->where('tabla','libro_datos')
-                            ->where('estado','1')
-                            ->orderBy('codigo')->get();
+       $librodatos =LibroDatos::
+                            where('encuesta_id',$request ->id)
+                            ->orderBy('campo')->get();
 
         return view('encuestas.migracion.libroDatos')
-         ->with('parametrica',$parametrica)
-        ->with('encuestas',$encuestas);
-
         
+         ->with('librodatos',$librodatos);
     }
 
 
     public function admin_libro()
     {
+        $librodatos =LibroDatos::all();
 
         $encuestas=Encuesta::all();
         $parametrica=Parametrica::select('codigo')
@@ -67,6 +65,7 @@ class EncuestaController extends Controller
 
         return view('encuestas.migracion.admin_libro')
          ->with('parametrica',$parametrica)
+         ->with('librodatos',$librodatos)
         ->with('encuestas',$encuestas);
     }
 
@@ -76,6 +75,20 @@ class EncuestaController extends Controller
         return view('encuestas.migracion.migrate_form')->with('name_db',$name_db);
     }
 
+
+    public function store_libro(Request $request)
+    {
+        $libro = new LibroDatos();
+        $libro -> encuesta_id = $request ->encuesta_id;
+        $libro -> campo = $request ->parametrica_libro;
+        $libro -> codigo = $request ->codigo;
+        $libro -> valor = $request ->valor;
+        // dd($libro);
+        $libro -> save();
+
+        return redirect()->route('encuesta.admin_libro')->with('mensaje',"Se agrego correctamene. "); 
+
+    }
 
     public function update_form(Request $request)
     {
