@@ -92,13 +92,13 @@ h6 {
 }
 
 #header #logo h1 {
-  font-size: 36px;
+  font-size: 200px;
   margin: -4px 0 0 0;
   padding: 0;
   line-height: 1;
   display: inline-block;
   font-family: "Montserrat", sans-serif;
-  font-weight: 300;
+  font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
 }
@@ -115,8 +115,8 @@ h6 {
 
 #header.header-fixed {
   background: linear-gradient(45deg,  #1dc8cd);
-  padding: 20px 0;
-  height: 72px;
+  padding: 40px 0;
+  height: 92px;
   transition: all 0.5s;
 }
 
