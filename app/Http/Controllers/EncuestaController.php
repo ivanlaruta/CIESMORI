@@ -20,12 +20,14 @@ class EncuestaController extends Controller
     
     public function gis()
     {
-        return view('encuestas.gis.index');
+        $encuestas=Encuesta::all();
+        return view('encuestas.gis.indexx')
+        ->with('encuestas',$encuestas);
     }
 
-    public function gis2()
+    public function map()
     {
-        return view('encuestas.gis.index2');
+        return view('encuestas.gis.map');
     }
 
     public function dashboard()
