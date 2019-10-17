@@ -1,9 +1,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<?php 
+<?php
 	$mysqli = new mysqli('127.0.0.1', 'root', '', 'ciesmoridb');
 	$mysqli->set_charset("utf8");
-    $nombre_archivo = "archivo_dat\encuestadores.dat";
-	unlink($nombre_archivo);
+    $nombre_archivo = "archivo_dat/encuestadores.dat";
+	  unlink($nombre_archivo);
     if($archivo = fopen($nombre_archivo, "a"))
     {
 		$query = "SELECT p.ci,
