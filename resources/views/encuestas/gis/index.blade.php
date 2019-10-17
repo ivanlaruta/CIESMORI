@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.main_map')
 
 @section('content')
 <style type="text/css" media="screen">
@@ -32,6 +32,11 @@
                     @endforeach
 	              </select>
 	            </div>
+	             <div class="col-md-3 col-sm-3 col-xs-12">
+	             	<a href="#" class="btn btn-success btn-block  btn_genera" id_encuesta = '{{$det->id}}'  title="generar">
+                          <span class="fa fa-globe fa-lg"></span> Ver mapa
+                        </a>
+	            </div>
 	            <div class="contenido"></div>
 	         </div>
           	
@@ -48,10 +53,19 @@
 <script type="text/javascript">
 
 var contenido = $(".contenido");
+var select_Val = 0;
+
 
   $('#enceusta').change(function(){
   	// alert($(this).val());
     mapa($(this).val());
+  });
+
+  var btn = $(".btn_genera");
+  btn.on("click",function(){
+  	select_Val =$('#enceusta').val(); 
+  	alert(select_Val);
+    mapa(select_Val);
   });
 
   // $('#enceusta').change(function(){
@@ -77,7 +91,7 @@ var mapa = function(encuesta){
   });
 };
 
-
+mapa(select_Val);
 	
 </script>
 @endsection

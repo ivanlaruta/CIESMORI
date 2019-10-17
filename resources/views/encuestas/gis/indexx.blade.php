@@ -1,14 +1,45 @@
-@extends('layouts.main')
+@extends('layouts.main_map')
 
 @section('cabecera')
 
 
 
-    
-    <link rel="stylesheet" href="https://js.arcgis.com/3.30/esri/css/esri.css">
 
-    <script src="https://js.arcgis.com/3.30/"></script>
+    <link href="{{asset('gis_shape/esri.css')}}" rel="stylesheet">
+    <script src="{{asset('gis_shape/init.js')}}"></script>
+
     <script>
+
+var posicionA = [];
+var ubicacon_a  = <?php echo json_encode($ubicacon_a); ?>;
+for (var i = 0; i < ubicacon_a.length; i++) {
+  var data_temp = [];
+  data_temp.push(parseFloat(ubicacon_a[i].longitud_a)) ;
+  data_temp.push(parseFloat(ubicacon_a[i].latitud_a)) ;
+  posicionA.push(data_temp);
+}
+
+var posicionB = [];
+var ubicacon_b  = <?php echo json_encode($ubicacon_b); ?>;
+for (var i = 0; i < ubicacon_b.length; i++) {
+  var data_temp = [];
+  data_temp.push(parseFloat(ubicacon_b[i].longitud_b)) ;
+  data_temp.push(parseFloat(ubicacon_b[i].latitud_b)) ;
+  posicionB.push(data_temp);
+}
+
+var posicionC = [];
+var ubicacon_c  = <?php echo json_encode($ubicacon_c); ?>;
+for (var i = 0; i < ubicacon_c.length; i++) {
+  var data_temp = [];
+  data_temp.push(parseFloat(ubicacon_c[i].longitud_c)) ;
+  data_temp.push(parseFloat(ubicacon_c[i].latitud_c)) ;
+  posicionC.push(data_temp);
+}
+
+
+console.log(posicionC);
+
       var map;
 
       require([
@@ -51,6 +82,7 @@
           var portalUrl = "https://www.arcgis.com";
 
           esriConfig.defaults.io.proxyUrl = "/proxy/";
+          esriConfig.defaults.io.alwaysUseProxy = false;
 
           on(dom.byId("uploadForm"), "change", function (event) {
             var fileName = event.target.value.toLowerCase();
@@ -75,27 +107,39 @@
 
           map.on("load", mapLoaded);
           map.on("load", mapLoaded2);
+          map.on("load", mapLoaded3);
       
+
+          
+        
         function mapLoaded(){
-          var points = [[-68.092583,-16.540569],[-68.114732,-16.520060],[-68.139244,-16.498281]];
+          var points = posicionA;
           var iconPath = "M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z";
           var initColor = "#be4bdb";
           arrayUtils.forEach(points, function(point) {
             var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor));
             map.graphics.add(graphic);
           });
-          
         }
 
         function mapLoaded2(){
-          var points = [[-68.135598 , -16.502753 ],[-68.140608,-16.497007]];
+          var points = posicionB;
           var iconPath = "M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z";
           var initColor = "#00B982";
           arrayUtils.forEach(points, function(point) {
             var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor));
             map.graphics.add(graphic);
           });
-          
+        }
+
+        function mapLoaded2(){
+          var points = posicionC;
+          var iconPath = "M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z";
+          var initColor = "#b97e26";
+          arrayUtils.forEach(points, function(point) {
+            var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor));
+            map.graphics.add(graphic);
+          });
         }
         
         function createSymbol(path, color){
@@ -203,8 +247,7 @@
                   'xoffset': 0,
                   'yoffset': 0,
                   'type': 'esriPMS',
-                  'url': 'https://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png',
-                  'contentType': 'image/png',
+                  
                   'width': 20,
                   'height': 20
                 });
@@ -242,23 +285,46 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-              <div class="claro">
+            <form method="get" action="{{ route('encuesta.gis') }}" class="form-horizontal form-label-left">
+                      {{ csrf_field() }}
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Encuesta
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select class="form-control col-md-6 col-xs-12 " id="id" name="id"  data-width="100%" required="">
+                      <option ></option>
+                 @foreach($encuestas as $det)
+                      <option value="{{$det->id}}">{{strtoupper($det->nombre)}}</option>
+                    @endforeach
+                </select>
+              </div>
+              <div class="col-md-3 col-sm-3 col-xs-12">
+                          <button type="submit" class="btn btn-success btn-block">Generar</button>
+                        </div>
+           </div>
+         </form>
+           <br>
+
+           @if(!empty($encuesta))
+            <h3>{{strtoupper($encuesta->nombre)}}</h3>
+            @endif
+              <div>
     <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width:100%; height:100%;">
       
       <div data-dojo-type="dijit/layout/ContentPane" >
-        <div class="row">
+       
           <p>
               <form enctype="multipart/form-data" method="post" id="uploadForm">
               <div class="field">
                   <label class="file-upload">
-                      <span><strong>Agregar archivo</strong></span>
+                      <span><strong>Agregar archivo ZIP (Shapes)</strong></span>
                       <input type="file" name="file" id="inFile" />
                   </label>
               </div>
               </form>
               <span class="file-upload-status" style="opacity:1;" id="upload-status"></span>
               <div id="fileInfo"> </div>
-        </div>
+       
     </div>
     
      <div id="mapCanvas"  style="width: 100%; height: 500px; "></div>
