@@ -119,6 +119,7 @@ console.log(posicionC);
           var initColor = "#366EC3";
           arrayUtils.forEach(points, function(point) {
             var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor));
+            
             map.graphics.add(graphic);
           });
         }
