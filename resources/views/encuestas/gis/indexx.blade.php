@@ -1,4 +1,4 @@
-@extends('layouts.main_map')
+@extends('layouts.main')
 
 @section('cabecera')
 
@@ -285,25 +285,31 @@ console.log(posicionC);
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            <form method="get" action="{{ route('encuesta.gis') }}" class="form-horizontal form-label-left">
-                      {{ csrf_field() }}
+          <form method="get" action="{{ route('encuesta.gis') }}" class="form-horizontal form-label-left">{{ csrf_field() }}
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Encuesta
-              </label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Encuesta</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control col-md-6 col-xs-12 " id="id" name="id"  data-width="100%" required="">
-                      <option ></option>
-                 @foreach($encuestas as $det)
-                      <option value="{{$det->id}}">{{strtoupper($det->nombre)}}</option>
-                    @endforeach
+                  <option ></option>
+                  @foreach($encuestas as $det)
+                        <option value="{{$det->id}}">{{strtoupper($det->nombre)}}</option>
+                  @endforeach
                 </select>
               </div>
-              <div class="col-md-3 col-sm-3 col-xs-12">
-                          <button type="submit" class="btn btn-success btn-block">Generar</button>
-                        </div>
-           </div>
-         </form>
-           <br>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">fecha</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="date" id="fecha" name="fecha" class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <button type="submit" class="btn btn-success btn-block">Generar</button>
+              </div>
+            </div>
+          </form>
+          <br>
 
            @if(!empty($encuesta))
             <h3>{{strtoupper($encuesta->nombre)}}</h3>

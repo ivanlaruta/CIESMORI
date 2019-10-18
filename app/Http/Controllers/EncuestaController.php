@@ -23,26 +23,13 @@ class EncuestaController extends Controller
         $encuestas=Encuesta::all();
         $encuesta = Encuesta::find($request->id);
 
-        if(empty($request->id)){
-            $ubicacon_a=DB::table('encuesta_detalle')
-               ->where('encuesta_detalle.id_encuesta', '=', 100000)
-             ->where('encuesta_detalle.longitud_a', '!=', '')
-             ->where('encuesta_detalle.longitud_a', '!=', 0)
-            ->get()->toArray();
-
-             $ubicacon_b=DB::table('encuesta_detalle2')
+        if(empty($request ->id)){
+            $ubicacon_a= $ubicacon_b= $ubicacon_c=DB::table('encuesta_detalle2')
                ->where('encuesta_detalle2.id_encuesta', '=', 100000)
-              ->where('encuesta_detalle2.longitud_b', '!=', '')
-              ->where('encuesta_detalle2.longitud_b', '!=', 0)
-            ->get()->toArray();
-
-             $ubicacon_c=DB::table('encuesta_detalle2')
-               ->where('encuesta_detalle2.id_encuesta', '=', 100000)
-              ->where('encuesta_detalle2.longitud_c', '!=', '')
-              ->where('encuesta_detalle2.longitud_c', '!=', 0)
             ->get()->toArray();
         }
         else{
+            if(empty($request ->fecha)){
 
             $ubicacon_a=DB::table('encuesta_detalle')
                ->where('encuesta_detalle.id_encuesta', '=', $request->id)
@@ -61,6 +48,30 @@ class EncuestaController extends Controller
               ->where('encuesta_detalle2.longitud_c', '!=', '')
               ->where('encuesta_detalle2.longitud_c', '!=', 0)
             ->get()->toArray();
+            }
+            else{
+
+            $ubicacon_a=DB::table('encuesta_detalle')
+               ->where('encuesta_detalle.fecha', '=', $request->fecha)
+               ->where('encuesta_detalle.id_encuesta', '=', $request->id)
+              ->where('encuesta_detalle.longitud_a', '!=', '')
+              ->where('encuesta_detalle.longitud_a', '!=', 0)
+            ->get()->toArray();
+
+             $ubicacon_b=DB::table('encuesta_detalle2')
+               ->where('encuesta_detalle2.fecha', '=', $request->fecha)
+               ->where('encuesta_detalle2.id_encuesta', '=', $request->id)
+              ->where('encuesta_detalle2.longitud_b', '!=', '')
+              ->where('encuesta_detalle2.longitud_b', '!=', 0)
+            ->get()->toArray();
+
+             $ubicacon_c=DB::table('encuesta_detalle2')
+               ->where('encuesta_detalle2.fecha', '=', $request->fecha)
+               ->where('encuesta_detalle2.id_encuesta', '=', $request->id)
+              ->where('encuesta_detalle2.longitud_c', '!=', '')
+              ->where('encuesta_detalle2.longitud_c', '!=', 0)
+            ->get()->toArray();
+            }
         }
         // dd($detalle);
         return view('encuestas.gis.indexx')

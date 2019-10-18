@@ -11,7 +11,8 @@
         <link href="{{asset('gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
         <!-- Font Awesome -->
         <link href="{{asset('gentelella-master/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-       
+       <!-- bootstrap-daterangepicker -->
+        <link href="{{asset('gentelella-master/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="{{asset('gentelella-master/build/css/custom.min.css')}}" rel="stylesheet">
 
@@ -94,6 +95,10 @@
         <!-- Bootstrap -->
         <script src="{{asset('gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
    
+        <!-- bootstrap-daterangepicker -->
+        <script src="{{asset('gentelella-master/vendors/moment/min/moment.min.js')}}"></script>
+        <script src="{{asset('gentelella-master/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+        
 
         <script src="{{asset('js/custom.js')}}"></script>
 
