@@ -68,6 +68,7 @@ console.log(posicionC);
         "dojo/_base/lang",
         "dijit/layout/BorderContainer",
         "dijit/layout/ContentPane",
+        "esri/layers/FeatureLayer",
         "dojo/domReady!"
       ],
         function (
