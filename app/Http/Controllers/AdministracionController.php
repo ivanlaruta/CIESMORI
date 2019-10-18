@@ -250,6 +250,7 @@ class AdministracionController extends Controller
             $encuestador_horario_disponible ->save();
         }
 
+         AdministracionController::generaDat();
         // dd('grabado');
 
         if(\Auth::check()){
@@ -340,6 +341,9 @@ class AdministracionController extends Controller
 
         // dd('grabado');
 
+        AdministracionController::generaDat();
+
+
         if(\Auth::check()){
             return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido modificado exitosamente. "); 
         }
@@ -356,6 +360,9 @@ class AdministracionController extends Controller
                $encuestador=Encuestador::find($request->id_encuestador_txt);
                 $encuestador->estado =0;
                 $encuestador->save();
+
+                 AdministracionController::generaDat();
+
                 return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido dado de baja exitosamente. "); 
     }
 
@@ -394,7 +401,7 @@ class AdministracionController extends Controller
             where('encuestador_id',$request->id_encuestador_txt)
           ->where('encuesta_id',$request->id_encuesta_txt)
           ->delete();
-        
+         AdministracionController::generaDat();
         return redirect()->route('administracion.encuestadores.index')->with('mensaje',"Se elimino correctamente"); 
     }
 
@@ -404,7 +411,7 @@ class AdministracionController extends Controller
          $Encuestador_encuesta = new Encuestador_encuesta($request->all());
           // dd($Encuestador_encuesta); 
           $Encuestador_encuesta->save();
-
+            AdministracionController::generaDat();
         return redirect()->route('administracion.encuestadores.index')->with('mensaje',"Se asigno correctamente"); 
     }
 
@@ -509,11 +516,37 @@ class AdministracionController extends Controller
             }
 
         }
-    
-       
-
-            // return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
-// 
     }
+
+
+    public function generaDat()
+    {
+        
+        $nombre_archivo = public_path('dat/archivo_dat/encuestadores.dat');
+        unlink($nombre_archivo);
+        if($archivo = fopen($nombre_archivo, "a"))
+        {
+            $myquery = DB::select( DB::raw("
+            SELECT DISTINCT p.ci,
+                                             p.primer_nombre,
+                                             p.segundo_nombre,
+                                             p.apellido_paterno,
+                                             p.apellido_materno,
+                                             ed.estudio
+                                  FROM ciesmoridb.persona p
+                             INNER JOIN ciesmoridb.encuestador e ON e.persona_id = p.id
+                      LEFT JOIN ciesmoridb.encuestador_encuesta ee ON ee.encuestador_id = e.persona_id
+                      LEFT JOIN ciesmoridb.encuesta en ON en.id = ee.encuesta_id
+                      LEFT JOIN ciesmoridb.encuesta_detalle ed ON ed.id_encuesta = en.id
+        "));
+            
+            foreach($myquery as $fila)
+            {
+                fwrite($archivo, str_pad($fila->ci,10).str_pad($fila->primer_nombre,30).str_pad($fila->segundo_nombre,30).str_pad($fila->apellido_paterno,30).str_pad($fila->apellido_materno,30).str_pad($fila->estudio,6). "\r\n");
+            }
+            fclose($archivo);
+        }
+    }
+
 
 }
