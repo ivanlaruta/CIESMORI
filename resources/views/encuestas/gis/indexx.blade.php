@@ -47,8 +47,8 @@ console.log(posicionC);
         "esri/InfoTemplate",
         "esri/map",
 
-        "esri/geometry/Point", 
-        "esri/symbols/SimpleMarkerSymbol", 
+        "esri/geometry/Point",
+        "esri/symbols/SimpleMarkerSymbol",
         "esri/graphic",
 
         "esri/request",
@@ -108,14 +108,14 @@ console.log(posicionC);
           map.on("load", mapLoaded);
           map.on("load", mapLoaded2);
           map.on("load", mapLoaded3);
-      
 
-          
-        
+
+
+
         function mapLoaded(){
           var points = posicionA;
-          var iconPath = "M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z";
-          var initColor = "#be4bdb";
+          var iconPath = "M30 15.957V32H20V20h-8v12H2V16H0l6-6V0h6v4l4-4 16 15.957h-2z";
+          var initColor = "#366EC3";
           arrayUtils.forEach(points, function(point) {
             var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor));
             map.graphics.add(graphic);
@@ -124,24 +124,24 @@ console.log(posicionC);
 
         function mapLoaded2(){
           var points = posicionB;
-          var iconPath = "M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z";
-          var initColor = "#00B982";
+          var iconPath = "M16,3.5c-4.142,0-7.5,3.358-7.5,7.5c0,4.143,7.5,18.121,7.5,18.121S23.5,15.143,23.5,11C23.5,6.858,20.143,3.5,16,3.5z M16,14.584c-1.979,0-3.584-1.604-3.584-3.584S14.021,7.416,16,7.416S19.584,9.021,19.584,11S17.979,14.584,16,14.584z";
+          var initColor = "#003A4C";
           arrayUtils.forEach(points, function(point) {
             var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor));
             map.graphics.add(graphic);
           });
         }
 
-        function mapLoaded2(){
+        function mapLoaded3(){
           var points = posicionC;
-          var iconPath = "M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z";
-          var initColor = "#b97e26";
+          var iconPath = "M7.101 12C7.064 11.667 7 11.342 7 11c0-4.963 4.039-9 9.006-9C20.965 2 25 6.037 25 11s-4.035 9-8.994 9a1 1 0 0 0 0 2c5.022 0 9.258-3.39 10.568-8h1.716a1.65 1.65 0 0 0 1.65-1.65v-2.7A1.65 1.65 0 0 0 28.29 8h-1.716c-1.31-4.609-5.546-8-10.568-8C9.938 0 5 4.936 5 11c0 .338.021.67.051 1h2.051zM23 11c0-3.868-3.136-7-6.994-7A7 7 0 1 0 23 11zm8.666 19.848C31.258 25.401 21.447 24 16 24 10.569 24 .741 25.407.332 30.848L.249 32h31.5l-.083-1.152z";
+          var initColor = "#009493";
           arrayUtils.forEach(points, function(point) {
             var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor));
             map.graphics.add(graphic);
           });
         }
-        
+
         function createSymbol(path, color){
           var markerSymbol = new esri.symbol.SimpleMarkerSymbol({  "size": 20});
           markerSymbol.setPath(path);
@@ -247,7 +247,7 @@ console.log(posicionC);
                   'xoffset': 0,
                   'yoffset': 0,
                   'type': 'esriPMS',
-                  
+
                   'width': 20,
                   'height': 20
                 });
@@ -280,7 +280,7 @@ console.log(posicionC);
       <div class="col-md-12">
         <div class="x_panel">
           <div class="x_title">
-           
+
             <h2>Mapa</h2>
             <div class="clearfix"></div>
           </div>
@@ -310,9 +310,9 @@ console.log(posicionC);
             @endif
               <div>
     <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width:100%; height:100%;">
-      
+
       <div data-dojo-type="dijit/layout/ContentPane" >
-       
+
           <p>
               <form enctype="multipart/form-data" method="post" id="uploadForm">
               <div class="field">
@@ -324,9 +324,9 @@ console.log(posicionC);
               </form>
               <span class="file-upload-status" style="opacity:1;" id="upload-status"></span>
               <div id="fileInfo"> </div>
-       
+
     </div>
-    
+
      <div id="mapCanvas"  style="width: 100%; height: 500px; "></div>
   </div>
 </div>
@@ -340,5 +340,5 @@ console.log(posicionC);
 @endsection
 
 @section('scripts')
- 
+
 @endsection
