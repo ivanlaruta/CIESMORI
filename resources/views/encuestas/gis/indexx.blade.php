@@ -315,7 +315,7 @@ console.log(ubicacon_c);
               </div>
             </form>
             <div class="ln_solid"></div>
-            <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width:100%; height:100%;">
+            <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false" >
               <div data-dojo-type="dijit/layout/ContentPane" >
                 <form enctype="multipart/form-data" method="post" id="uploadForm">
                   <div class="field">
@@ -334,7 +334,7 @@ console.log(ubicacon_c);
             @if(!empty($encuesta))
               <h3>{{strtoupper($encuesta->nombre)}}</h3>
             @endif
-            <div id="mapCanvas"  style="width: 100%; height: 500px; "></div>
+            <div id="mapCanvas"  style="width: 100%; height: 100%; "></div>
 
           </div>
 
@@ -350,8 +350,14 @@ console.log(ubicacon_c);
     </div>
   </div>
 
+
 @endsection
 
 @section('scripts')
+<script type="text/javascript">
+  var can = document.getElementById("mapCanvas");
 
+
+can.style.height = window.innerHeight + "px";
+</script>
 @endsection
