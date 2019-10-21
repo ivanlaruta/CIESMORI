@@ -1,4 +1,4 @@
-              <style type="text/css">
+{{--               <style type="text/css">
                   thead,
                   tbody {
                   display: block;
@@ -29,7 +29,7 @@
                     word-break: break-all;
                   }
 
-              </style>
+              </style> --}}
 
                 <h4>Lista de encuesta / {{$encuesta_Cab->nombre}}</h4>
                 <table class="table table-bordered table-responsive table-hover" id="tabla_filtrada">
