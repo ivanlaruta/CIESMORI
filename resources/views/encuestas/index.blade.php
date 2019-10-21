@@ -99,7 +99,7 @@
               </a>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".campos_tabla">editar campos</button>
               <div class="modal fade campos_tabla"  role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-                    <div class="modal-dialog ">
+                    <div class="modal-dialog modal-lg">
                       <div class="modal-content">
 
                         <div class="modal-header">
@@ -107,18 +107,24 @@
                           </button>
                           <h4 class="modal-title" id="myModalLabel2">Lista de Campos</h4>
                         </div>
-                        <div class="modal-body">
-                          
-                          <p>Por defecto se seleccionaron todos los campos, Por favor selccione solo los campos que desea ver en el reporte</p>
-                          <div class="checkbox">
-                          @for($i = 0; $i < sizeof($campos_tabla); $i++) 
-                            <label>
-                              <input type="checkbox" class="flat" value="{{$campos_tabla[$i]->Field}}" name="campos_tabla"> {{$campos_tabla[$i]->Field}}
-                            </label>
-                            <br>
-                          @endfor
+                        <div class="modal-body"> 
+                          <div class="row">
+                          <p>Por defecto se obtienen todos los campos, Por favor selccione solo los campos que desea ver en el reporte</p>
+                          </div>
+                          <div class="row">
+                            <div class="checkbox">
+                            @for($i = 0; $i < sizeof($campos_tabla); $i++) 
+                              <div class="col-md-3 col-sm-3 col-xs-12">
+                                <label>
+                                  <input type="checkbox" class="flat" value="{{$campos_tabla[$i]->Field}}" name="campos_tabla"> {{$campos_tabla[$i]->Field}}
+                                </label>
+                               
+                              </div>
+                            @endfor
+                            </div>
                           </div>
                         </div>
+                      
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                           <button type="button" class="btn btn-primary btn_campos">Aceptar</button>

@@ -38,7 +38,9 @@ for (var i = 0; i < ubicacon_c.length; i++) {
 }
 
 
-console.log(posicionC);
+console.log(ubicacon_a);
+console.log(ubicacon_b);
+console.log(ubicacon_c);
 
       var map;
 
@@ -119,7 +121,7 @@ console.log(posicionC);
           var initColor = "#366EC3";
           arrayUtils.forEach(points, function(point) {
             var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor));
-            
+
             map.graphics.add(graphic);
           });
         }
@@ -283,67 +285,70 @@ console.log(posicionC);
         <div class="x_panel">
           <div class="x_title">
 
-            <h2>Mapa</h2>
+            <h2>GIS</h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-          <form method="get" action="{{ route('encuesta.gis') }}" class="form-horizontal form-label-left">{{ csrf_field() }}
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Encuesta</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="form-control col-md-6 col-xs-12 " id="id" name="id"  data-width="100%" required="">
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <form method="get" action="{{ route('encuesta.gis') }}" class="form-horizontal form-label-left">{{ csrf_field() }}
+              <div class="form-group">
+                <label>Encuesta: </label>
+                <select class="form-control" id="id" name="id"  data-width="100%" required="">
                   <option ></option>
                   @foreach($encuestas as $det)
                         <option value="{{$det->id}}">{{strtoupper($det->nombre)}}</option>
                   @endforeach
                 </select>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">fecha</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="date" id="fecha" name="fecha" class="form-control col-md-7 col-xs-12">
+              <div class="form-group">
+                <label>Desde</label>
+                <input type="date" id="fecha" name="fecha" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>hasta</label>
+                <input type="date" id="fecha2" name="fecha2" class="form-control">
+              </div>
+              <div class="form-group">
+                <div>
+                  <button type="submit" class="btn btn-success btn-block">Generar marcadores <i class="fa fa-map-marker"></i></button>
+                </div>
+              </div>
+            </form>
+            <div class="ln_solid"></div>
+            <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width:100%; height:100%;">
+              <div data-dojo-type="dijit/layout/ContentPane" >
+                <form enctype="multipart/form-data" method="post" id="uploadForm">
+                  <div class="field">
+                    <label class="file-upload">
+                    <label>Cargar Shapes (archivo ZIP)</label>
+                    <input type="file" name="file" id="inFile" />
+                    </label>
+                  </div>
+                </form>
+                <span class="file-upload-status" style="opacity:1;" id="upload-status"></span>
+                <div id="fileInfo"> </div>
               </div>
             </div>
-            <div class="form-group">
-              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button type="submit" class="btn btn-success btn-block">Generar</button>
-              </div>
-            </div>
-          </form>
-          <br>
-
-           @if(!empty($encuesta))
-            <h3>{{strtoupper($encuesta->nombre)}}</h3>
+          </div>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            @if(!empty($encuesta))
+              <h3>{{strtoupper($encuesta->nombre)}}</h3>
             @endif
-              <div>
-    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width:100%; height:100%;">
+            <div id="mapCanvas"  style="width: 100%; height: 500px; "></div>
 
-      <div data-dojo-type="dijit/layout/ContentPane" >
+          </div>
 
-          <p>
-              <form enctype="multipart/form-data" method="post" id="uploadForm">
-              <div class="field">
-                  <label class="file-upload">
-                      <span><strong>Agregar archivo ZIP (Shapes)</strong></span>
-                      <input type="file" name="file" id="inFile" />
-                  </label>
-              </div>
-              </form>
-              <span class="file-upload-status" style="opacity:1;" id="upload-status"></span>
-              <div id="fileInfo"> </div>
+         
 
-    </div>
+          
+              
 
-     <div id="mapCanvas"  style="width: 100%; height: 500px; "></div>
-  </div>
-</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 @endsection
 

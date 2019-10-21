@@ -23,57 +23,40 @@ class EncuestaController extends Controller
         $encuestas=Encuesta::all();
         $encuesta = Encuesta::find($request->id);
 
-        if(empty($request ->id)){
-            $ubicacon_a= $ubicacon_b= $ubicacon_c=DB::table('encuesta_detalle2')
-               ->where('encuesta_detalle2.id_encuesta', '=', 100000)
-            ->get()->toArray();
-        }
-        else{
-            if(empty($request ->fecha)){
-
+        $ubicacon_a=$ubicacon_b=$ubicacon_c =[];
+        if(!empty($request ->id)){
+         
             $ubicacon_a=DB::table('encuesta_detalle')
                ->where('encuesta_detalle.id_encuesta', '=', $request->id)
               ->where('encuesta_detalle.longitud_a', '!=', '')
-              ->where('encuesta_detalle.longitud_a', '!=', 0)
-            ->get()->toArray();
-
+              ->where('encuesta_detalle.longitud_a', '!=', 0);
+            
              $ubicacon_b=DB::table('encuesta_detalle2')
                ->where('encuesta_detalle2.id_encuesta', '=', $request->id)
               ->where('encuesta_detalle2.longitud_b', '!=', '')
-              ->where('encuesta_detalle2.longitud_b', '!=', 0)
-            ->get()->toArray();
-
+              ->where('encuesta_detalle2.longitud_b', '!=', 0);
+           
              $ubicacon_c=DB::table('encuesta_detalle2')
                ->where('encuesta_detalle2.id_encuesta', '=', $request->id)
               ->where('encuesta_detalle2.longitud_c', '!=', '')
-              ->where('encuesta_detalle2.longitud_c', '!=', 0)
-            ->get()->toArray();
+              ->where('encuesta_detalle2.longitud_c', '!=', 0);
+           
+            if(!empty($request ->fecha)){
+                $ubicacon_a=$ubicacon_a->where('encuesta_detalle.fecha', '>=', $request->fecha);
+                $ubicacon_b=$ubicacon_b->where('encuesta_detalle2.fecha', '>=', $request->fecha);
+                $ubicacon_c=$ubicacon_c->where('encuesta_detalle2.fecha', '>=', $request->fecha);
             }
-            else{
-
-            $ubicacon_a=DB::table('encuesta_detalle')
-               ->where('encuesta_detalle.fecha', '=', $request->fecha)
-               ->where('encuesta_detalle.id_encuesta', '=', $request->id)
-              ->where('encuesta_detalle.longitud_a', '!=', '')
-              ->where('encuesta_detalle.longitud_a', '!=', 0)
-            ->get()->toArray();
-
-             $ubicacon_b=DB::table('encuesta_detalle2')
-               ->where('encuesta_detalle2.fecha', '=', $request->fecha)
-               ->where('encuesta_detalle2.id_encuesta', '=', $request->id)
-              ->where('encuesta_detalle2.longitud_b', '!=', '')
-              ->where('encuesta_detalle2.longitud_b', '!=', 0)
-            ->get()->toArray();
-
-             $ubicacon_c=DB::table('encuesta_detalle2')
-               ->where('encuesta_detalle2.fecha', '=', $request->fecha)
-               ->where('encuesta_detalle2.id_encuesta', '=', $request->id)
-              ->where('encuesta_detalle2.longitud_c', '!=', '')
-              ->where('encuesta_detalle2.longitud_c', '!=', 0)
-            ->get()->toArray();
+            if(!empty($request ->fecha2)){
+                $ubicacon_a=$ubicacon_a->where('encuesta_detalle.fecha', '<=', $request->fecha2);
+                $ubicacon_b=$ubicacon_b->where('encuesta_detalle2.fecha', '<=', $request->fecha2);
+                $ubicacon_c=$ubicacon_c->where('encuesta_detalle2.fecha', '<=', $request->fecha2);
             }
+            $ubicacon_a=$ubicacon_a->get()->toArray();
+            $ubicacon_b=$ubicacon_b->get()->toArray();
+            $ubicacon_c=$ubicacon_c->get()->toArray();
+            // dd($ubicacon_a);
+
         }
-        // dd($detalle);
         return view('encuestas.gis.indexx')
         ->with('ubicacon_a',$ubicacon_a)
         ->with('ubicacon_b',$ubicacon_b)
@@ -225,7 +208,15 @@ class EncuestaController extends Controller
 
     public function migrar(Request $request)
     {
-        // dd($request -> all());
+         $query_verifica = DB::select( DB::raw(" 
+                    SELECT * 
+                     from `".$request -> db."`.".$request ->origen."
+                    LIMIT 1;
+
+            "));
+
+        // dd($query_verifica[0]);
+
         $encuesta = new Encuesta();
         $encuesta -> nombre = $request ->nombre;
         $encuesta -> nombre_tabla = $request ->origen;
