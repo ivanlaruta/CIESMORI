@@ -46,7 +46,7 @@ class Encuesta extends Model
         $dir = $this->carpeta_audios;
         if(file_exists($dir) && is_dir($dir))
         {
-             $total_imagenes = count(glob($dir.'/{*.mp3,*.wav,*.dct,*.wma}',GLOB_BRACE));
+             $total_imagenes = count(glob($dir.'/{*.mp3,*.wav,*.dct,*.wma,3gp}',GLOB_BRACE));
              return($total_imagenes);
         }
         else

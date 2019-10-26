@@ -14,31 +14,11 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->delete();
 
         DB::table('users')->insert([
-            'user' => '8264209',
+            'user' => '4262090',
 
             'rol_id' => 5,
             'nombre' => 'IVAN',
-            'apellido' => 'LARUTA',
-            'departamento_id' => 2,
-            'password' => bcrypt('12345'),
-            ]);
-
-        DB::table('users')->insert([
-            'user' => '4865345',
-
-            'rol_id' => 5,
-             'nombre' => 'NATHALY',
-            'apellido' => 'ALFARO',
-            'departamento_id' => 2,
-            'password' => bcrypt('12345'),
-            ]);
-
-        DB::table('users')->insert([
-            'user' => '6103364',
-
-            'rol_id' => 5,
-            'nombre' => 'JAVIER',
-            'apellido' => 'CHAVEZ',
+            'apellido' => 'JIMÉNEZ',
             'departamento_id' => 2,
             'password' => bcrypt('12345'),
             ]);
@@ -47,7 +27,18 @@ class UsersTableSeeder extends Seeder
             'user' => '3347247',
             'rol_id' => 5,
             'nombre' => 'WALTER',
-            'apellido' => 'PARADA', 
+            'apellido' => 'PARADA',
+            'departamento_id' => 2,
+            'password' => bcrypt('12345'),
+            ]);
+
+
+        DB::table('users')->insert([
+            'user' => '4865345',
+
+            'rol_id' => 5,
+             'nombre' => 'NATHALY',
+            'apellido' => 'ALFARO',
             'departamento_id' => 2,
             'password' => bcrypt('12345'),
             ]);

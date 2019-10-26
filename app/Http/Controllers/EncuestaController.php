@@ -17,7 +17,7 @@ class EncuestaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function gis(Request $request)
     {
         $encuestas=Encuesta::all();
@@ -25,22 +25,22 @@ class EncuestaController extends Controller
 
         $ubicacon_a=$ubicacon_b=$ubicacon_c =[];
         if(!empty($request ->id)){
-         
+
             $ubicacon_a=DB::table('encuesta_detalle')
                ->where('encuesta_detalle.id_encuesta', '=', $request->id)
               ->where('encuesta_detalle.longitud_a', '!=', '')
               ->where('encuesta_detalle.longitud_a', '!=', 0);
-            
+
              $ubicacon_b=DB::table('encuesta_detalle2')
                ->where('encuesta_detalle2.id_encuesta', '=', $request->id)
               ->where('encuesta_detalle2.longitud_b', '!=', '')
               ->where('encuesta_detalle2.longitud_b', '!=', 0);
-           
+
              $ubicacon_c=DB::table('encuesta_detalle2')
                ->where('encuesta_detalle2.id_encuesta', '=', $request->id)
               ->where('encuesta_detalle2.longitud_c', '!=', '')
               ->where('encuesta_detalle2.longitud_c', '!=', 0);
-           
+
             if(!empty($request ->fecha)){
                 $ubicacon_a=$ubicacon_a->where('encuesta_detalle.fecha', '>=', $request->fecha);
                 $ubicacon_b=$ubicacon_b->where('encuesta_detalle2.fecha', '>=', $request->fecha);
@@ -90,7 +90,7 @@ class EncuestaController extends Controller
                             ->orderBy('campo')->get();
 
         return view('encuestas.migracion.libroDatos')
-        
+
          ->with('librodatos',$librodatos);
     }
 
@@ -124,9 +124,9 @@ class EncuestaController extends Controller
                             where('encuesta_id',$request ->id)
                             ->delete();
         // dd($request->all());
-        
 
-        return redirect()->route('encuesta.admin_libro')->with('mensaje',"Se agrego correctamene. "); 
+
+        return redirect()->route('encuesta.admin_libro')->with('mensaje',"Se agrego correctamene. ");
 
     }
 
@@ -140,7 +140,7 @@ class EncuestaController extends Controller
         // dd($libro);
         $libro -> save();
 
-        return redirect()->route('encuesta.admin_libro')->with('mensaje',"Se agrego correctamene. "); 
+        return redirect()->route('encuesta.admin_libro')->with('mensaje',"Se agrego correctamene. ");
 
     }
 
@@ -156,14 +156,15 @@ class EncuestaController extends Controller
     {
         $encuesta = Encuesta::find($request->id);
         $encuesta -> nombre = $request ->nombre;
+        $encuesta -> meta_estudio = $request ->meta_estudio;
         $encuesta -> carpeta_audios = str_replace("\\","/", $request ->carpeta_audios);
         $encuesta -> carpeta_imagenes = str_replace("\\","/", $request ->carpeta_imagenes);
         $encuesta -> observacion = $request ->observacion;
-        $encuesta -> updated_at = date("Y-m-d h:i:s");     
+        $encuesta -> updated_at = date("Y-m-d h:i:s");
         $encuesta -> save();
-        
-        return redirect()->route('encuesta.index')->with('mensaje',"Se a editado la encuesta exitosamente. "); 
-        
+
+        return redirect()->route('encuesta.index')->with('mensaje',"Se a editado la encuesta exitosamente. ");
+
     }
 
     public function listar_tablas_db(Request $request)
@@ -173,25 +174,25 @@ class EncuestaController extends Controller
 
         if(empty($tabla_encuestas)){
 
-             $tablas_db = DB::select( DB::raw(" 
-                    SELECT TABLE_NAME AS tables 
-                    FROM INFORMATION_SCHEMA.TABLES 
+             $tablas_db = DB::select( DB::raw("
+                    SELECT TABLE_NAME AS tables
+                    FROM INFORMATION_SCHEMA.TABLES
                     WHERE TABLE_SCHEMA = '".$request->name_db."'
 
 
             "));
          }
         else{
-            $tablas = '';               
+            $tablas = '';
             for ($i=0; $i < sizeof($tabla_encuestas); $i++) {
                    $tablas = $tablas."'".$tabla_encuestas[$i]."'";
                    if($i < (sizeof($tabla_encuestas))-1){
                     $tablas = $tablas.",";
                    }
                 }
-            $tablas_db = DB::select( DB::raw(" 
-                    SELECT TABLE_NAME AS tables 
-                    FROM INFORMATION_SCHEMA.TABLES 
+            $tablas_db = DB::select( DB::raw("
+                    SELECT TABLE_NAME AS tables
+                    FROM INFORMATION_SCHEMA.TABLES
                     WHERE TABLE_SCHEMA = '".$request->name_db."'
                     AND TABLE_NAME not in (".$tablas.")
 
@@ -200,24 +201,25 @@ class EncuestaController extends Controller
         }
 
 
-        
+
 
        return($tablas_db);
-      
+
     }
 
     public function migrar(Request $request)
     {
 
         $campos_tabla =  DB::select( DB::raw("SHOW COLUMNS FROM `".$request -> db."`.".$request ->origen));
-        // dd($campos_tabla);
-  
+        //dd($campos_tabla);
+
 
         if (sizeof($campos_tabla)==23 and $campos_tabla[0]->Field == 'guid' and $campos_tabla[1]->Field == 'caseids') {
                 $encuesta = new Encuesta();
                 $encuesta -> nombre = $request ->nombre;
                 $encuesta -> nombre_tabla = $request ->origen;
                 $encuesta -> nombre_db = $request ->db;
+                $encuesta -> meta_estudio = $request ->meta_estudio;
                 $encuesta -> carpeta_audios = str_replace("\\","/", $request ->carpeta_audios);
                 $encuesta -> carpeta_imagenes = str_replace("\\","/", $request ->carpeta_imagenes);
                 $encuesta -> observacion = $request ->observacion;
@@ -226,7 +228,7 @@ class EncuestaController extends Controller
                 DB::insert("
                     insert into encuesta_detalle
                         (id_encuesta,fecha,hora,ci_enc,ciudad,estudio,periodo,contador,horainisis,horafinsis,duracion,latitud_a,longitud_a,entrevistado,edad,rango_edad,genero,nse,telf,ci,email,zona,manzano,manzano1,direccion,num_casa,referencia,nomb_enc,cod_enc,supervision,tipo_supervision,nom_supervisor,cod_supervisor,id_auxiliar)
-                    select 
+                    select
                     ".$encuesta -> id." encuestaid
                     ,IFNULL(cast(SUBSTR(a.questionnaire,2,6) as date),'') Fecha
                     ,IFNULL(SUBSTR(a.questionnaire,8,6),'')  Hora
@@ -263,14 +265,14 @@ class EncuestaController extends Controller
                     ,SUBSTR(a.questionnaire,885,34) Id_auxiliar
                     from `".$request -> db."`.".$encuesta -> nombre_tabla." a
                      LEFT JOIN ciudad c on c.departamento_id = SUBSTR(a.questionnaire,22,1)
-                    
+
 
                     ");
-             
+
                 DB::insert("
                 insert into encuesta_detalle2
                         (id_encuesta,fecha,hora,ci_enc,ciudad,dataint1,dataint2,dataint3,dataint4,dataint5,dataint6,dataint7,dataint8,dataint9,dataint10,data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,resultado,nom_zona,nom_emp,telf_emp,cargo,direc_c1,direc_calle2,latitud_b,longitud_b,upm,distrito,uni_censal,latitud_c,longitud_c,ap_enc,id_disp)
-                    select 
+                    select
                     ".$encuesta -> id." encuestaid
                     ,SUBSTR(a.questionnaire,2,6) Fecha
                     ,SUBSTR(a.questionnaire,8,6) Hora
@@ -316,19 +318,19 @@ class EncuestaController extends Controller
                     from `".$request -> db."`.".$encuesta -> nombre_tabla." a
 
                     ");
-             
 
-                 return redirect()->route('encuesta.index')->with('mensaje',"Se a enlazado la encuesta exitosamente. "); 
+
+                 return redirect()->route('encuesta.index')->with('mensaje',"Se a enlazado la encuesta exitosamente. ");
 
 
             }
             else
             {
-                 return redirect()->route('encuesta.index')->with('mensaje_error',"La tabla seleccionada no se encuentra en el formato requerido. "); 
+                 return redirect()->route('encuesta.index')->with('mensaje_error',"La tabla seleccionada no se encuentra en el formato requerido. ");
             }
-        
 
-                
+
+
 
     }
 
@@ -336,7 +338,7 @@ class EncuestaController extends Controller
     public function actualizar(Request $request)
     {
         $encuesta = Encuesta::find($request->id_encuesta);
-        $encuesta -> updated_at = date("Y-m-d h:i:s");     
+        $encuesta -> updated_at = date("Y-m-d h:i:s");
         $encuesta -> save();
 
         $borrar = DB::select(  DB::raw("delete from encuesta_detalle where id_encuesta =  (".$encuesta -> id.")"));
@@ -346,7 +348,7 @@ class EncuestaController extends Controller
         DB::insert("
             insert into encuesta_detalle
                 (id_encuesta,fecha,hora,ci_enc,ciudad,estudio,periodo,contador,horainisis,horafinsis,duracion,latitud_a,longitud_a,entrevistado,edad,rango_edad,genero,nse,telf,ci,email,zona,manzano,manzano1,direccion,num_casa,referencia,nomb_enc,cod_enc,supervision,tipo_supervision,nom_supervisor,cod_supervisor,id_auxiliar)
-            select 
+            select
             ".$encuesta -> id." encuestaid
             ,IFNULL(cast(SUBSTR(a.questionnaire,2,6) as date),'') Fecha
             ,IFNULL(SUBSTR(a.questionnaire,8,6),'')  Hora
@@ -384,11 +386,11 @@ class EncuestaController extends Controller
             from `".$encuesta -> nombre_db."`.".$encuesta -> nombre_tabla." a
              LEFT JOIN ciudad c on c.departamento_id = SUBSTR(a.questionnaire,22,1)
             ");
-     
+
         DB::insert("
         insert into encuesta_detalle2
                 (id_encuesta,fecha,hora,ci_enc,ciudad,dataint1,dataint2,dataint3,dataint4,dataint5,dataint6,dataint7,dataint8,dataint9,dataint10,data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,resultado,nom_zona,nom_emp,telf_emp,cargo,direc_c1,direc_calle2,latitud_b,longitud_b,upm,distrito,uni_censal,latitud_c,longitud_c,ap_enc,id_disp)
-            select 
+            select
             ".$encuesta -> id." encuestaid
             ,SUBSTR(a.questionnaire,2,6) Fecha
             ,SUBSTR(a.questionnaire,8,6) Hora
@@ -433,9 +435,9 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,3077,30) Id_del_dispositivo
             from `".$encuesta -> nombre_db."`.".$encuesta -> nombre_tabla." a
             ");
-     
 
-         return redirect()->route('encuesta.index')->with('mensaje',"Se actualizo encuesta exitosamente. "); 
+
+         return redirect()->route('encuesta.index')->with('mensaje',"Se actualizo encuesta exitosamente. ");
 
 
     }
@@ -457,7 +459,7 @@ class EncuestaController extends Controller
             $detalle = V_detalle_encuesta::where('id_encuesta',$request->id_encuesta)->get();
             $campos_tabla =  DB::select( DB::raw("SHOW COLUMNS FROM v_encuesta_detalle"));
 
-            for ($i = 0; $i < sizeof($campos_tabla); $i++) 
+            for ($i = 0; $i < sizeof($campos_tabla); $i++)
             {
                 $array_campos[$i] = $campos_tabla[$i]->Field;
             }
@@ -465,7 +467,7 @@ class EncuestaController extends Controller
         else
         {
             $cadena ="";
-            for ($i = 0; $i < sizeof($array_campos); $i++) 
+            for ($i = 0; $i < sizeof($array_campos); $i++)
             {
                 $cadena = $cadena.$array_campos[$i];
                 if($i < (sizeof($array_campos))-1){
@@ -482,7 +484,7 @@ class EncuestaController extends Controller
                 ->with('detalle',$detalle);
     }
 
-   
+
     public function create()
     {
         //
