@@ -25,7 +25,7 @@
               <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Todas las imagenes</span>
             </div> -->
           </div>
-          
+
           @foreach($encuestas as $det)
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="x_panel tile">
@@ -39,23 +39,29 @@
                   </ul>
                   <div class="clearfix"></div>
                 </div>
-                <div class="x_content">                  
+                <div class="x_content">
                   <div class="row tile_count">
-                    <div class="col-md-4 col-sm-12 col-xs-4 tile_stats_count">
+                    <div class="col-md-3 col-sm-12 col-xs-3 tile_stats_count">
                       <span class="count_top"><i class="fa fa-bar-chart"></i> Total Registros</span>
                       <div class="count">{{$det->num_registros()}}</div>
-                      <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>En todas las encuestas</span>
+                      <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i><?php $val=($det->num_registros() * 100)/ $det->meta_estudio;?>{{$val}}% </span>
                     </div>
-                    <div class="col-md-4 col-sm-12 col-xs-4 tile_stats_count">
+                    <div class="col-md-3 col-sm-12 col-xs-3 tile_stats_count">
+                      <span class="count_top"><i class="fa fa-file-image-o"></i> Meta del Estudio</span>
+                      <div class="count">{{$det->meta_estudio}}</div>
+                      <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Meta del Estudio</span>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-3 tile_stats_count">
                       <span class="count_top"><i class="fa fa-fast-forward"></i> Total Audios</span>
                       <div class="count">{{$det->cantidad_audios()}}</div>
                       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Todos los audios</span>
                     </div>
-                    <div class="col-md-4 col-sm-12 col-xs-4 tile_stats_count">
+                    <div class="col-md-3 col-sm-12 col-xs-3 tile_stats_count">
                       <span class="count_top"><i class="fa fa-file-image-o"></i> Total Imagenes</span>
                       <div class="count">{{$det->cantidad_imagenes()}}</div>
                       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Todas las imagenes</span>
                     </div>
+
                   </div>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <h4>Distribucion por departamento</h4>
@@ -93,17 +99,17 @@
                               </div>
                             </div>
                             <div class="col-md-6 pull-right" align="left">
-                             
+
                                   {{strtoupper($lista->cantidad)}}
                                   <small>({{number_format((float)$lista->porcentaje, 2, '.', '')}}%)</small>
-                             
+
                             </div>
                           </div>
                         </div>
 
                        <!--  <div class="row">
                           <div class="col-md-4" align="right">{{strtoupper($lista->ciudad)}}
-                            
+
                           </div>
                           <div class="col-md-4">
                             <div class="progress">
@@ -112,7 +118,7 @@
 
                           </div>
                           <div class="col-md-4" align="left">{{strtoupper($lista->cantidad)}} Registros (<small>{{number_format((float)$lista->porcentaje, 2, '.', '')}}%</small>)
-                           
+
                           </div>
 
                         </div> -->
@@ -132,15 +138,15 @@
                     </div>
                     @if(!empty($det->observacion))<p>{{$det->observacion}}</p>@endif
                   </div>
-                       
+
                 </div>
               </div>
             </div>
             @endforeach
-          
 
-         
-          
+
+
+
         </div>
 
 @endsection
@@ -157,7 +163,7 @@
   for (var i = 0; i < data_canvas.length; i++) {
     pie_labels.push(data_canvas[i].departamento.trim()) ;
     pie_data.push(data_canvas[i].cantidad) ;
-  } 
+  }
   content_pie = {
           labels: pie_labels,
           datasets: [{
@@ -171,9 +177,9 @@
   pie_settings = {
         type: 'doughnut',
         data: content_pie,
-        options: { 
-          legend: false, 
-          responsive: true 
+        options: {
+          legend: false,
+          responsive: true
         }
       }
   var ctx1 = document.getElementById('myChart_1');

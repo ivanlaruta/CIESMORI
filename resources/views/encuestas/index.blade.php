@@ -12,7 +12,7 @@
       <div class="col-md-12">
         <div class="x_panel">
           <div class="x_title">
-           
+
             <h2>Lista de encuesta</h2>
             <div class="pull-right" >
               <a  href="#" class="btn btn-success btn_nuevo " data-toggle="tooltip" data-placement="bottom" title="Agregar Nuevo" ><i class="fa fa-plus"></i></a>
@@ -27,15 +27,17 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Nombre asiganado</th>
+                    <th>Nombre asignado</th>
                     <th>Base de datos</th>
                     <th>Tabla</th>
+
                     <th>Carpeta Audios</th>
                     <th>Carpeta Imagenes</th>
                     <th>Ultima Actualizacion</th>
                     <th style="width: 1%">Obs</th>
                     <th style="width: 1%">Libro de Datos</th>
                     <th style="width: 1%">registros</th>
+                    <th style="width: 1%">Meta Estudio</th>
                     <th style="width: 1%">Opciones</th>
                   </tr>
                 </thead>
@@ -52,36 +54,39 @@
                     <td>{{$det->observacion}}</td>
                     <td align="center">
                         <a href="#" class="btn btn-success btn-xs btn_libro" id_encuesta = '{{$det->id}}'  title="Libro de datos">
-                          <span class="fa fa-book fa-lg"></span> 
+                          <span class="fa fa-book fa-lg"></span>
                         </a>
-                    </td>    
+                    </td>
+
+                    <td>{{$det->meta_estudio}}</td>
+
                     <td align="right">
                       <div class="btn-group" role="group" >
                         <a href="#" class="btn btn-primary btn-xs btn_ver" id_encuesta = '{{$det->id}}'  >
-                           {{$det->num_registros()}} <span class="fa fa-arrow-circle-right fa-lg"></span> 
+                           {{$det->num_registros()}} <span class="fa fa-arrow-circle-right fa-lg"></span>
                         </a>
                       </div>
-                    </td>        
+                    </td>
                     <td align="center">
                         <form method="get" action="{{  route('encuesta.actualizar') }}" >
-                       
+
                           {{ csrf_field() }}
                           <input type="hidden" id="id_encuesta" name="id_encuesta" value="{{$det->id}}">
 
                           <button type="submit" class="btn btn-success btn-xs btn-block btn_refresh" id="btn_eliminar_run"  title="Actualizar" onclick="func_load();"><span class="fa fa-refresh fa-lg"></span></button>
                         </form>
-                        
+
                       <div class="btn-group btn-group-justified" role="group" >
-                   
+
                         <a href="#" class="btn btn-warning btn-xs  btn_edit" id_encuesta = '{{$det->id}}'  title="Modificar">
-                          <span class="fa fa-edit fa-lg"></span> 
+                          <span class="fa fa-edit fa-lg"></span>
                         </a>
 
                         {{-- <a href="#" class="btn btn-danger btn-xs  btn_elimina" id_encuesta = '{{$det->id}}'  title="eliminar">
-                          <span class="fa fa-trash fa-lg"></span> 
+                          <span class="fa fa-trash fa-lg"></span>
                         </a> --}}
                       </div>
-                    </td>    
+                    </td>
                   </tr>
                   @endforeach
                 </tbody>
@@ -91,11 +96,11 @@
 
             <div class="detalle">
 
-              
+
 
 
               <a href="#" class="btn btn-primary  btn_volver" data-toggle="tooltip" data-placement="bottom" title="Volver a la lista de encuestas">
-                <span class="fa fa-arrow-circle-left fa-lg"></span> 
+                <span class="fa fa-arrow-circle-left fa-lg"></span>
               </a>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".campos_tabla">editar campos</button>
               <div class="modal fade campos_tabla"  role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
@@ -107,24 +112,24 @@
                           </button>
                           <h4 class="modal-title" id="myModalLabel2">Lista de Campos</h4>
                         </div>
-                        <div class="modal-body"> 
+                        <div class="modal-body">
                           <div class="row">
                           <p>Por defecto se obtienen todos los campos, Por favor selccione solo los campos que desea ver en el reporte</p>
                           </div>
                           <div class="row">
                             <div class="checkbox">
-                            @for($i = 0; $i < sizeof($campos_tabla); $i++) 
+                            @for($i = 0; $i < sizeof($campos_tabla); $i++)
                               <div class="col-md-3 col-sm-3 col-xs-12">
                                 <label>
                                   <input type="checkbox" class="flat" value="{{$campos_tabla[$i]->Field}}" name="campos_tabla"> {{$campos_tabla[$i]->Field}}
                                 </label>
-                               
+
                               </div>
                             @endfor
                             </div>
                           </div>
                         </div>
-                      
+
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                           <button type="button" class="btn btn-primary btn_campos">Aceptar</button>
@@ -150,7 +155,7 @@
                   <div class="modal-footer">
                     <br>
                     <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
-                    
+
                   </div>
                 </div>
               </div>
@@ -169,7 +174,7 @@
                   <div class="modal-footer">
                     <br>
                     <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
-                    
+
                   </div>
                 </div>
               </div>
@@ -187,7 +192,7 @@
                   <div class="modal-footer">
                     <br>
                     <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
-                    
+
                   </div>
                 </div>
               </div>
@@ -228,7 +233,7 @@ var btn_nuevo = $(".btn_nuevo");
       success: function(dataResult)
       {
         console.log(dataResult);
-        modalContent.empty().html(dataResult);                        
+        modalContent.empty().html(dataResult);
         modal.modal('show');
         NProgress.done();
       },
@@ -279,7 +284,7 @@ var btn_libro_datos = $(".btn_libro");
       success: function(dataResult)
       {
         console.log(dataResult);
-        modalContent.empty().html(dataResult);                        
+        modalContent.empty().html(dataResult);
         modal.modal('show');
         NProgress.done();
       },
@@ -333,7 +338,7 @@ var btn_edit = $(".btn_edit");
       success: function(dataResult)
       {
         console.log(dataResult);
-        modalContent_edit.empty().html(dataResult);                        
+        modalContent_edit.empty().html(dataResult);
         modal_edit.modal('show');
         NProgress.done();
       },
@@ -390,12 +395,12 @@ var btnVer = $(".btn_ver");
 });
 
 function func_load() {
-  $body.addClass("loading"); 
+  $body.addClass("loading");
 }
 
 function prepara() {
   lista_campos = [];
-            $.each($("input[name='campos_tabla']:checked"), function(){            
+            $.each($("input[name='campos_tabla']:checked"), function(){
                 lista_campos.push($(this).val());
             });
 
@@ -424,7 +429,7 @@ var ejecuta_ajax = function(encuesta,campos){
 
 function prepara() {
   lista_campos = [];
-            $.each($("input[name='campos_tabla']:checked"), function(){            
+            $.each($("input[name='campos_tabla']:checked"), function(){
                 lista_campos.push($(this).val());
             });
 
@@ -452,10 +457,10 @@ var ejecuta_ajax = function(encuesta,campos){
 
 
 function aplicardatatable() {
-    
+
 
     $('#tabla_filtrada').DataTable( { "language": {
-            
+
               "sProcessing":     "Procesando...",
               "sLengthMenu":     "Mostrar _MENU_ registros",
               "sZeroRecords":    "No se encontraron resultados",
@@ -483,7 +488,7 @@ function aplicardatatable() {
         // "bLengthChange" : false,
         "dom": "Bfrti",
         // "dom": "Brti",
-        
+
        "buttons": [ 'copy', 'excel'],
 
        "lengthMenu": [[-1], ["TODO"]],
@@ -493,4 +498,3 @@ function aplicardatatable() {
 
 </script>
 @endsection
-
