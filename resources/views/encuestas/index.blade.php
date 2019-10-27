@@ -36,8 +36,8 @@
                     <th>Ultima Actualizacion</th>
                     <th style="width: 1%">Obs</th>
                     <th style="width: 1%">Libro de Datos</th>
+                    <th style="width: 1%">Meta del Estudio</th>
                     <th style="width: 1%">registros</th>
-                    <th style="width: 1%">Meta Estudio</th>
                     <th style="width: 1%">Opciones</th>
                   </tr>
                 </thead>
