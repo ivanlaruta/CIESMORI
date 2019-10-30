@@ -28,7 +28,7 @@ class AdministracionController extends Controller
 {
     public function validar_user(Request $request)
     {
-       
+
         $persona= User::where('user',$request->user)->get()->toArray();
 
         return ($persona);
@@ -50,12 +50,12 @@ class AdministracionController extends Controller
     {
         $encuestadores = Encuestador::orderBy('id')
         ->where('estado',1)
-        
+
         ->get();
 
         return view('administracion.encuestadores.index')->with('encuestadores',$encuestadores) ;
     }
-   
+
     public function encuestadores_create_form(Request $request)
     {
         $expedido=Departamento::where('estado','1')
@@ -90,9 +90,9 @@ class AdministracionController extends Controller
         					->where('tabla','horario_disponible')
         					->where('estado','1')
         					->orderBy('codigo')->get();
-       
-        
-                
+
+
+
         return view('administracion.encuestadores.create_content_form')
                 ->with('expedido',$expedido)
                 ->with('estado_civil',$estado_civil)
@@ -103,7 +103,7 @@ class AdministracionController extends Controller
                 ->with('disponibilidad_tiempo',$disponibilidad_tiempo)
                 ->with('horario_disponible',$horario_disponible)
                 ->with('ciudad',$ciudad);
-    	
+
     }
     public function encuestadores_edit_form(Request $request)
     {
@@ -140,7 +140,7 @@ class AdministracionController extends Controller
                             ->where('tabla','horario_disponible')
                             ->where('estado','1')
                             ->orderBy('codigo')->get();
-       
+
         $encuestador = Encuestador::find($request->id);
         $encuestador_id = $request->id;
 
@@ -151,8 +151,8 @@ class AdministracionController extends Controller
               $cadena_empresas .=$empresa->empresa.',';
             }
         }
-            
-          
+
+
 
         // dd($cadena_empresas);
 
@@ -169,13 +169,13 @@ class AdministracionController extends Controller
                 ->with('horario_disponible',$horario_disponible)
                 ->with('ciudad',$ciudad)
                 ->with('encuestador_id',$encuestador_id);
-        
+
     }
 
     public function encuestadores_create_nolog_form(Request $request)
     {
 
-        return view('administracion.encuestadores.create_nolog'); 
+        return view('administracion.encuestadores.create_nolog');
 
     }
 
@@ -190,7 +190,7 @@ class AdministracionController extends Controller
             $namefile = $request->ci.'_'.time().'.'.$file->getClientOriginalExtension();
 
 
-            $image_resize = Image::make($file->getRealPath());              
+            $image_resize = Image::make($file->getRealPath());
             // $image_resize->resize(300, 300);
 
             $image_resize->resize(300, null, function ($constraint) {
@@ -208,7 +208,7 @@ class AdministracionController extends Controller
             $imagen->save();
 
             $persona -> imagen_id = $imagen ->id;
-        }      
+        }
         $persona->save();
 
         $encuestador = new Encuestador($request->all());
@@ -217,7 +217,7 @@ class AdministracionController extends Controller
 
         $array_empresas = explode(",", $request->empresas);
 
-        for ($i=0; $i < count($array_empresas); $i++) 
+        for ($i=0; $i < count($array_empresas); $i++)
         {
             $encuestador_empresa = new Encuestador_empresa();
             $encuestador_empresa -> encuestador_id = $encuestador ->id;
@@ -225,7 +225,7 @@ class AdministracionController extends Controller
             $encuestador_empresa ->save();
         }
 
-        for ($i=0; $i < count($request->cod_tipo_estudio); $i++) 
+        for ($i=0; $i < count($request->cod_tipo_estudio); $i++)
         {
             $encuestador_tipo_estudio = new Encuestador_tipo_estudio();
             $encuestador_tipo_estudio -> encuestador_id = $encuestador ->id;
@@ -234,7 +234,7 @@ class AdministracionController extends Controller
         }
 
 
-        for ($i=0; $i < count($request->cargos); $i++) 
+        for ($i=0; $i < count($request->cargos); $i++)
         {
             $encuestador_cargos = new Encuestador_Cargo();
             $encuestador_cargos -> encuestador_id = $encuestador ->id;
@@ -242,7 +242,7 @@ class AdministracionController extends Controller
             $encuestador_cargos ->save();
         }
 
-        for ($i=0; $i < count($request->cod_horario_disponible); $i++) 
+        for ($i=0; $i < count($request->cod_horario_disponible); $i++)
         {
             $encuestador_horario_disponible = new Encuestador_horario_disponible();
             $encuestador_horario_disponible -> encuestador_id = $encuestador ->id;
@@ -254,11 +254,11 @@ class AdministracionController extends Controller
         // dd('grabado');
 
         if(\Auth::check()){
-            return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
+            return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido creado exitosamente. ");
         }
         else{
 
-            return redirect()->route('inicio')->with('mensaje',"El registro a sido creado exitosamente. "); 
+            return redirect()->route('inicio')->with('mensaje',"El registro a sido creado exitosamente. ");
         }
     }
 
@@ -277,7 +277,7 @@ class AdministracionController extends Controller
         if($request->file('image')){
             $file = $request->file('image');
             $namefile = $request->ci.'_'.time().'.'.$file->getClientOriginalExtension();
-            $image_resize = Image::make($file->getRealPath());              
+            $image_resize = Image::make($file->getRealPath());
             // $image_resize->resize(300, 300);
             $image_resize->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
@@ -306,7 +306,7 @@ class AdministracionController extends Controller
 
         $array_empresas = explode(",", $request->empresas);
 
-        for ($i=0; $i < count($array_empresas); $i++) 
+        for ($i=0; $i < count($array_empresas); $i++)
         {
             $encuestador_empresa = new Encuestador_empresa();
             $encuestador_empresa -> encuestador_id = $encuestador ->id;
@@ -314,7 +314,7 @@ class AdministracionController extends Controller
             $encuestador_empresa ->save();
         }
 
-        for ($i=0; $i < count($request->cod_tipo_estudio); $i++) 
+        for ($i=0; $i < count($request->cod_tipo_estudio); $i++)
         {
             $encuestador_tipo_estudio = new Encuestador_tipo_estudio();
             $encuestador_tipo_estudio -> encuestador_id = $encuestador ->id;
@@ -323,7 +323,7 @@ class AdministracionController extends Controller
         }
 
 
-        for ($i=0; $i < count($request->cargos); $i++) 
+        for ($i=0; $i < count($request->cargos); $i++)
         {
             $encuestador_cargos = new Encuestador_Cargo();
             $encuestador_cargos -> encuestador_id = $encuestador ->id;
@@ -331,7 +331,7 @@ class AdministracionController extends Controller
             $encuestador_cargos ->save();
         }
 
-        for ($i=0; $i < count($request->cod_horario_disponible); $i++) 
+        for ($i=0; $i < count($request->cod_horario_disponible); $i++)
         {
             $encuestador_horario_disponible = new Encuestador_horario_disponible();
             $encuestador_horario_disponible -> encuestador_id = $encuestador ->id;
@@ -345,11 +345,11 @@ class AdministracionController extends Controller
 
 
         if(\Auth::check()){
-            return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido modificado exitosamente. "); 
+            return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido modificado exitosamente. ");
         }
         else{
 
-            return redirect()->route('inicio')->with('mensaje',"El registro a sido creado exitosamente. "); 
+            return redirect()->route('inicio')->with('mensaje',"El registro a sido creado exitosamente. ");
         }
     }
 
@@ -363,14 +363,14 @@ class AdministracionController extends Controller
 
                  AdministracionController::generaDat();
 
-                return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido dado de baja exitosamente. "); 
+                return redirect()->route('administracion.encuestadores.index')->with('mensaje',"El registro a sido dado de baja exitosamente. ");
     }
 
 
 
     public function encuestadores_admin_encuesta(Request $request)
     {
-           // dd($request->all()); 
+           // dd($request->all());
           $encuestador_id = $request->id;
 
           $encuestas = Encuesta::whereNotExists(function ($query) use ($encuestador_id) {
@@ -378,41 +378,41 @@ class AdministracionController extends Controller
                       ->from('encuestador_encuesta')
                       ->where('encuestador_encuesta.encuestador_id', '=', $encuestador_id)
                       ->whereRaw('encuestador_encuesta.encuesta_id = encuesta.id');
-   
+
             })
            ->get();
 
 
           $encuestador_encuesta=Encuestador_encuesta::where('encuestador_id',$encuestador_id)->get();
-         
+
           return view('administracion.encuestadores.admin_encuesta')
           ->with('encuestador_id',$encuestador_id)
           ->with('encuestas',$encuestas)
           ->with('encuestador_encuesta',$encuestador_encuesta);
 
-       
+
     }
 
     public function encuestador_encuesta_baja(Request $request)
     {
-          
-        // dd($request->all()); 
+
+        // dd($request->all());
           $encuestador_encuesta=Encuestador_encuesta::
             where('encuestador_id',$request->id_encuestador_txt)
           ->where('encuesta_id',$request->id_encuesta_txt)
           ->delete();
          AdministracionController::generaDat();
-        return redirect()->route('administracion.encuestadores.index')->with('mensaje',"Se elimino correctamente"); 
+        return redirect()->route('administracion.encuestadores.index')->with('mensaje',"Se elimino correctamente");
     }
 
 
     public function encuestadores_agrega_encuesta(Request $request)
     {
          $Encuestador_encuesta = new Encuestador_encuesta($request->all());
-          // dd($Encuestador_encuesta); 
+          // dd($Encuestador_encuesta);
           $Encuestador_encuesta->save();
             AdministracionController::generaDat();
-        return redirect()->route('administracion.encuestadores.index')->with('mensaje',"Se asigno correctamente"); 
+        return redirect()->route('administracion.encuestadores.index')->with('mensaje',"Se asigno correctamente");
     }
 
     /*================================*/
@@ -430,7 +430,7 @@ class AdministracionController extends Controller
                $usuario=User::find($request->id_usuarios_txt);
                 $usuario->estado =0;
                 $usuario->save();
-                return redirect()->route('administracion.usuarios.index')->with('mensaje',"El registro a sido dado de baja exitosamente. "); 
+                return redirect()->route('administracion.usuarios.index')->with('mensaje',"El registro a sido dado de baja exitosamente. ");
     }
     public function usuarios_create_form(Request $request)
     {
@@ -455,10 +455,10 @@ class AdministracionController extends Controller
                 ->with('usuario',$usuario)
                 ->with('request',$request);
                 break;
-           
-            
+
+
         }
-        
+
     }
 
      public function usuarios_finder(Request $request)
@@ -473,7 +473,7 @@ class AdministracionController extends Controller
         $tags =DB::select( DB::raw("
            select e.*,p.ci,p.primer_nombre,p.segundo_nombre,p.apellido_paterno,apellido_materno from encuestador e join persona p on p.id=e.persona_id where concat(p.primer_nombre,' ',IFNULL( p.segundo_nombre, ''),' ',p.apellido_paterno,' ',IFNULL( p.apellido_materno, ''),' ',p.ci) like '%".$term."%'
             "));
-       
+
 
         $formatted_tags = [];
 
@@ -497,7 +497,7 @@ class AdministracionController extends Controller
             $user->departamento_id = $request->departamento_id;
             $user->password = bcrypt($request->password);
             $user->save();
-            return redirect()->route('administracion.usuarios.index')->with('mensaje',"El registro a sido creado exitosamente. "); 
+            return redirect()->route('administracion.usuarios.index')->with('mensaje',"El registro a sido creado exitosamente. ");
         }
         else
         {
@@ -512,7 +512,7 @@ class AdministracionController extends Controller
                 $user->rol_id = $request->rol_id1;
                 if($request->password != ''){ $user->password = bcrypt($request->password);}
                 $user->save();
-                return redirect()->route('administracion.usuarios.index')->with('mensaje',"Editado exitosamente."); 
+                return redirect()->route('administracion.usuarios.index')->with('mensaje',"Editado exitosamente.");
             }
 
         }
@@ -521,7 +521,7 @@ class AdministracionController extends Controller
 
     public function generaDat()
     {
-        
+
         $nombre_archivo = public_path('dat/archivo_dat/encuestadores.dat');
         unlink($nombre_archivo);
         if($archivo = fopen($nombre_archivo, "a"))
@@ -535,11 +535,12 @@ class AdministracionController extends Controller
                                              ed.estudio
                                   FROM ciesmoridb.persona p
                              INNER JOIN ciesmoridb.encuestador e ON e.persona_id = p.id
+                             and e.estado=1
                       LEFT JOIN ciesmoridb.encuestador_encuesta ee ON ee.encuestador_id = e.persona_id
                       LEFT JOIN ciesmoridb.encuesta en ON en.id = ee.encuesta_id
                       LEFT JOIN ciesmoridb.encuesta_detalle ed ON ed.id_encuesta = en.id
         "));
-            
+
             foreach($myquery as $fila)
             {
                 fwrite($archivo, str_pad($fila->ci,10).str_pad($fila->primer_nombre,30).str_pad($fila->segundo_nombre,30).str_pad($fila->apellido_paterno,30).str_pad($fila->apellido_materno,30).str_pad($fila->estudio,6). "\r\n");

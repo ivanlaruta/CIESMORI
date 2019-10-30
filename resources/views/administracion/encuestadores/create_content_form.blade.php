@@ -1,10 +1,10 @@
 
 
-          
+
         <div class="">
             <br />
 
-          
+
 
           <form method="post" action="{{ route('encuestadores.store') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
             {{ csrf_field() }}
@@ -51,8 +51,8 @@
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <input type="text" id="apellido_materno" name="apellido_materno"  class="form-control col-md-7 col-xs-12" placeholder="Apellido materno" onkeyup="this.value = this.value.toUpperCase();">
                 </div>
-              </div>               
-              
+              </div>
+
               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Genero *</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -145,7 +145,7 @@
                  <div class="col-md-10 col-sm-10 col-xs-12">
                   <img id="blah" src="#" alt="Su fotografia" width="50%" height="50%"/>
                   <input type="file" id="image" name="image" accept="image/*" >
-                </div>        
+                </div>
               </div>
 
               <div class="x_title">
@@ -209,8 +209,8 @@
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
                   <input type="number" id="experiencia" name="experiencia" required="required" class="form-control col-md-7 col-xs-12" placeholder="Años de Experiencia" min="1" max="60">
-                </div>                
-              </div>              
+                </div>
+              </div>
 
               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Observacion
@@ -219,18 +219,18 @@
                   <input type="text" id="observacion" name="observacion"  class="form-control col-md-7 col-xs-12" placeholder="Observaciones">
                 </div>
               </div>
-            
+
               <div class="ln_solid"></div>
               <div class="form-group">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  
+
                   {{-- <a class="btn btn-primary" href="{{ route('inicio') }}" role="button">Cancelar</a> --}}
                   <button type="submit" class="btn btn-block btn-success btn_guardar">Guardar</button>
                 </div>
               </div>
             </form>
           </div>
-       
+
 <!-- /page content -->
 
 <script type="text/javascript">
@@ -238,11 +238,11 @@
 function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
-    
+
     reader.onload = function(e) {
       $('#blah').attr('src', e.target.result);
     }
-    
+
     reader.readAsDataURL(input.files[0]);
   }
 }
@@ -303,7 +303,7 @@ $.ajax({
     },
     success: function(dataResult)
     {
-      
+
        func_alerta(dataResult);
     }
   });
@@ -317,8 +317,7 @@ var obj_php = "<?php echo json_encode("+resultado+"); ?>";
 var ecnuestador = JSON.parse(obj_php );
 
   if (ecnuestador.length > 0){
-    // alert('Esta Cedula de Identidad ya se encuentra registrada. NO puede crear un registro duplicado.');
-
+   alert('Esta Cedula de Identidad ya se encuentra registrada. NO puede crear un registro duplicado.');
     new PNotify({title: "Error",type: "error",text: 'El Ci:'+ecnuestador[0].ci+' Ya se encuentra registrado como encuestador con el nombre de '+ecnuestador[0].primer_nombre+' '+ecnuestador[0].apellido_paterno+'. No puede registrarse nuevamente.' ,styling: 'bootstrap3',});
 
 
@@ -331,4 +330,3 @@ var ecnuestador = JSON.parse(obj_php );
 };
 
 </script>
-
