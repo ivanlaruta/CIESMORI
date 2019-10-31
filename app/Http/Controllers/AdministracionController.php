@@ -71,7 +71,8 @@ class AdministracionController extends Controller
         $nivel_educacion=Parametrica::select('codigo','valor_cadena')
         					->where('tabla','nivel_educacion')
         					->where('estado','1')
-        					->orderByRaw('CAST(codigo AS int)')
+                            ->orderBy('codigo')
+        					// ->orderByRaw('CAST(codigo AS int)')
         					// ->orderBy('codigo')
         					->get();
         $tipo_estudio=Parametrica::select('codigo','valor_cadena')
@@ -121,7 +122,8 @@ class AdministracionController extends Controller
         $nivel_educacion=Parametrica::select('codigo','valor_cadena')
                             ->where('tabla','nivel_educacion')
                             ->where('estado','1')
-                            ->orderByRaw('CAST(codigo AS int)')
+                            ->orderBy('codigo')
+                            // ->orderByRaw('CAST(codigo AS int)')
                             // ->orderBy('codigo')
                             ->get();
         $tipo_estudio=Parametrica::select('codigo','valor_cadena')
