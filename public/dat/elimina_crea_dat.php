@@ -11,9 +11,11 @@
 										 p.segundo_nombre,
 										 p.apellido_paterno,
 										 p.apellido_materno,
-										 ed.estudio
+										 ed.estudio,
+										 e.estado
 					 		  FROM ciesmoridb.persona p
-				   		 INNER JOIN ciesmoridb.encuestador e ON e.persona_id = p.id
+				   		 	INNER JOIN ciesmoridb.encuestador e ON e.persona_id = p.id
+							 	AND e.estado = 1
 	              LEFT JOIN ciesmoridb.encuestador_encuesta ee ON ee.encuestador_id = e.persona_id
 	              LEFT JOIN ciesmoridb.encuesta en ON en.id = ee.encuesta_id
 	              LEFT JOIN ciesmoridb.encuesta_detalle ed ON ed.id_encuesta = en.id";
