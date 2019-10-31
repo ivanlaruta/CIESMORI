@@ -18,6 +18,7 @@ class CreateArchivosTable extends Migration
             $table->integer('id_encuesta')->nullable();
             $table->string('nombre_archivo')->nullable();
             $table->integer('codigo_ciudad')->nullable();
+            $table->string('tipo')->nullable();
             $table->integer('estado')->default(1);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
