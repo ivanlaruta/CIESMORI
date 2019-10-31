@@ -319,9 +319,88 @@ class EncuestaController extends Controller
 
                     ");
 
+                 $ruta_audios = $encuesta -> carpeta_audios;
+                 $ruta_imagenes = $encuesta -> carpeta_imagenes;
+                 if (is_dir($ruta_audios))
+               	{
+                       // Abre un gestor de directorios para la ruta indicada
+                       $gestor_audios = opendir($ruta_audios);
+                       // Recorre todos los elementos del directorio
+                       while (($archivo_audios = readdir($gestor_audios)) !== false)
+               		{
+                           $ruta_completa_audios = $ruta_audios . "/" . $archivo_audios;
+                           // Se muestran todos los archivos y carpetas excepto "." y ".."
+                           if ($archivo_audios != "." && $archivo_audios != "..")
+               			{
+                               // Si es un directorio se recorre recursivamente
+                               if (is_dir($ruta_completa_audios))
+               				{
+                                   // Si es una directorio se recorre recursivamente
+                               }
+               				else
+               				{
+               					// Extrae el codigo de la ciudad de las posiciones segun lo indicado del 21,22,23 del nombre del directorio
+               					if(substr($archivo_audios , -4) == ".3gp")
+               					{
+               						//$ciudad => substr($archivo, 20, 3);
+                           DB::insert("
+                           insert into archivos
+                                   (id_encuesta,nombre_archivo,codigo_ciudad,tipo)
 
-                 return redirect()->route('encuesta.index')->with('mensaje',"Se a enlazado la encuesta exitosamente. ");
+                               values
 
+                               (".$encuesta -> id.",'".$archivo_audios."',". (int) substr($archivo_audios, 20, 3) .",'audio')
+
+
+                               ");
+                       					}
+                               }
+                           }
+                       }
+                       // Cierra el gestor de directorios
+                       closedir($gestor_audios);
+                   }
+
+                   if (is_dir($ruta_imagenes))
+                 	{
+                         // Abre un gestor de directorios para la ruta indicada
+                         $gestor_imagenes = opendir($ruta_imagenes);
+                         // Recorre todos los elementos del directorio
+                         while (($archivo_imagenes = readdir($gestor_imagenes)) !== false)
+                 		{
+                             $ruta_completa_imagenes = $ruta_imagenes . "/" . $archivo_imagenes;
+                             // Se muestran todos los archivos y carpetas excepto "." y ".."
+                             if ($archivo_imagenes != "." && $archivo_imagenes != "..")
+                 			{
+                                 // Si es un directorio se recorre recursivamente
+                                 if (is_dir($ruta_completa_imagenes))
+                 				{
+                                     // Si es una directorio se recorre recursivamente
+                                 }
+                 				else
+                 				{
+                 					// Extrae el codigo de la ciudad de las posiciones segun lo indicado del 21,22,23 del nombre del directorio
+                 					if(substr($archivo_imagenes , -4) == ".jpg")
+                 					{
+                 						//$ciudad => substr($archivo, 20, 3);
+                             DB::insert("
+                             insert into archivos
+                                     (id_encuesta,nombre_archivo,codigo_ciudad,tipo)
+
+                                 values
+
+                                 (".$encuesta -> id.",'".$archivo_imagenes."',". (int) substr($archivo_imagenes, 20, 3) .",'imagen')
+
+                                   ");
+                         					}
+                                 }
+                             }
+                         }
+                         // Cierra el gestor de directorios
+                         closedir($gestor_imagenes);
+                     }
+
+             return redirect()->route('encuesta.index')->with('mensaje',"Se a enlazado la encuesta exitosamente. ");
 
             }
             else
@@ -330,9 +409,7 @@ class EncuestaController extends Controller
             }
 
 
-
-
-    }
+        }
 
 
     public function actualizar(Request $request)
@@ -343,6 +420,7 @@ class EncuestaController extends Controller
 
         $borrar = DB::select(  DB::raw("delete from encuesta_detalle where id_encuesta =  (".$encuesta -> id.")"));
         $borrar = DB::select(  DB::raw("delete from encuesta_detalle2 where id_encuesta =  (".$encuesta -> id.")"));
+        $borrar = DB::select(  DB::raw("delete from archivos where id_encuesta =  (".$encuesta -> id.")"));
 
         // dd($encuesta);
         DB::insert("
@@ -435,6 +513,86 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,3077,30) Id_del_dispositivo
             from `".$encuesta -> nombre_db."`.".$encuesta -> nombre_tabla." a
             ");
+            $ruta_audios = $encuesta -> carpeta_audios;
+            $ruta_imagenes = $encuesta -> carpeta_imagenes;
+            if (is_dir($ruta_audios))
+           {
+                  // Abre un gestor de directorios para la ruta indicada
+                  $gestor_audios = opendir($ruta_audios);
+                  // Recorre todos los elementos del directorio
+                  while (($archivo_audios = readdir($gestor_audios)) !== false)
+             {
+                      $ruta_completa_audios = $ruta_audios . "/" . $archivo_audios;
+                      // Se muestran todos los archivos y carpetas excepto "." y ".."
+                      if ($archivo_audios != "." && $archivo_audios != "..")
+               {
+                          // Si es un directorio se recorre recursivamente
+                          if (is_dir($ruta_completa_audios))
+                 {
+                              // Si es una directorio se recorre recursivamente
+                          }
+                 else
+                 {
+                   // Extrae el codigo de la ciudad de las posiciones segun lo indicado del 21,22,23 del nombre del directorio
+                   if(substr($archivo_audios , -4) == ".3gp")
+                   {
+                     //$ciudad => substr($archivo, 20, 3);
+                      DB::insert("
+                      insert into archivos
+                              (id_encuesta,nombre_archivo,codigo_ciudad,tipo)
+
+                          values
+
+                          (".$encuesta -> id.",'".$archivo_audios."',". (int) substr($archivo_audios, 20, 3) .",'audio')
+
+
+                          ");
+                           }
+                          }
+                      }
+                  }
+                  // Cierra el gestor de directorios
+                  closedir($gestor_audios);
+              }
+
+              if (is_dir($ruta_imagenes))
+             {
+                    // Abre un gestor de directorios para la ruta indicada
+                    $gestor_imagenes = opendir($ruta_imagenes);
+                    // Recorre todos los elementos del directorio
+                    while (($archivo_imagenes = readdir($gestor_imagenes)) !== false)
+               {
+                        $ruta_completa_imagenes = $ruta_imagenes . "/" . $archivo_imagenes;
+                        // Se muestran todos los archivos y carpetas excepto "." y ".."
+                        if ($archivo_imagenes != "." && $archivo_imagenes != "..")
+                 {
+                            // Si es un directorio se recorre recursivamente
+                            if (is_dir($ruta_completa_imagenes))
+                   {
+                                // Si es una directorio se recorre recursivamente
+                            }
+                   else
+                   {
+                     // Extrae el codigo de la ciudad de las posiciones segun lo indicado del 21,22,23 del nombre del directorio
+                     if(substr($archivo_imagenes , -4) == ".jpg")
+                     {
+                       //$ciudad => substr($archivo, 20, 3);
+                        DB::insert("
+                        insert into archivos
+                                (id_encuesta,nombre_archivo,codigo_ciudad,tipo)
+
+                            values
+
+                            (".$encuesta -> id.",'".$archivo_imagenes."',". (int) substr($archivo_imagenes, 20, 3) .",'imagen')
+
+                              ");
+                             }
+                            }
+                        }
+                    }
+                    // Cierra el gestor de directorios
+                    closedir($gestor_imagenes);
+                }
 
 
          return redirect()->route('encuesta.index')->with('mensaje',"Se actualizo encuesta exitosamente. ");
@@ -483,6 +641,7 @@ class EncuestaController extends Controller
                 ->with('array_campos',$array_campos)
                 ->with('detalle',$detalle);
     }
+
 
 
     public function create()
