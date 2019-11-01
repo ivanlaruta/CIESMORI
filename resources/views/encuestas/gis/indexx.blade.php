@@ -11,36 +11,68 @@
     <script>
 
 var posicionA = [];
+var etiquetaA = [];
 var ubicacon_a  = <?php echo json_encode($ubicacon_a); ?>;
 for (var i = 0; i < ubicacon_a.length; i++) {
   var data_temp = [];
+  var data_temp2 = [];
   data_temp.push(parseFloat(ubicacon_a[i].longitud_a)) ;
   data_temp.push(parseFloat(ubicacon_a[i].latitud_a)) ;
+  data_temp2.push(ubicacon_a[i].nomb_enc.trim()) ;
+  data_temp2.push(ubicacon_a[i].zona.trim()) ;
+  data_temp2.push(ubicacon_a[i].manzano.trim()) ;
+  data_temp2.push(ubicacon_a[i].fecha.trim()) ;
+  data_temp2.push(ubicacon_a[i].hora.trim()) ;
+
   posicionA.push(data_temp);
+  etiquetaA.push(data_temp2);
 }
 
 var posicionB = [];
+var etiquetaB = [];
 var ubicacon_b  = <?php echo json_encode($ubicacon_b); ?>;
 for (var i = 0; i < ubicacon_b.length; i++) {
   var data_temp = [];
+  var data_temp2 = [];
   data_temp.push(parseFloat(ubicacon_b[i].longitud_b)) ;
   data_temp.push(parseFloat(ubicacon_b[i].latitud_b)) ;
+  data_temp2.push(ubicacon_b[i].nomb_enc.trim()) ;
+  data_temp2.push(ubicacon_b[i].zona.trim()) ;
+  data_temp2.push(ubicacon_b[i].manzano.trim()) ;
+  data_temp2.push(ubicacon_b[i].fecha.trim()) ;
+  data_temp2.push(ubicacon_b[i].hora.trim()) ;
   posicionB.push(data_temp);
+  etiquetaB.push(data_temp2);
 }
 
 var posicionC = [];
+var etiquetaC = [];
 var ubicacon_c  = <?php echo json_encode($ubicacon_c); ?>;
 for (var i = 0; i < ubicacon_c.length; i++) {
   var data_temp = [];
+  var data_temp2 = [];
   data_temp.push(parseFloat(ubicacon_c[i].longitud_c)) ;
   data_temp.push(parseFloat(ubicacon_c[i].latitud_c)) ;
+  data_temp2.push(ubicacon_c[i].nomb_enc.trim()) ;
+  data_temp2.push(ubicacon_c[i].zona.trim()) ;
+  data_temp2.push(ubicacon_c[i].manzano.trim()) ;
+  data_temp2.push(ubicacon_c[i].fecha.trim()) ;
+  data_temp2.push(ubicacon_c[i].hora.trim()) ;
   posicionC.push(data_temp);
+  etiquetaC.push(data_temp2);
+  
+  posicionC.push(data_temp);
+  etiquetaC.push(data_temp2);
+
 }
 
 
 console.log(ubicacon_a);
+console.log(etiquetaA);
 console.log(ubicacon_b);
-console.log(ubicacon_c);
+console.log(etiquetaB);
+console.log(ubicacon_b);
+console.log(etiquetaC);
 
       var map;
 
@@ -117,10 +149,17 @@ console.log(ubicacon_c);
           var iconPath = "M30 15.957V32H20V20h-8v12H2V16H0l6-6V0h6v4l4-4 16 15.957h-2z";
           var initColor = "#366EC3";
           var attr;
+          var cnt = 0;
           arrayUtils.forEach(points, function(point) {
-            var infoTemplate = new InfoTemplate("Vernal Pool Locations","Latitude: ${Ycoord} <br/>Longitude: ${Xcoord} <br/>Plant Name:${Plant}");
+            var infoTemplate = new InfoTemplate("Informacion",
+                "Encuestador:"+etiquetaA[cnt][0]
+                +"<br/>Zona: "+etiquetaA[cnt][1]
+                +"<br/>Manzano: "+etiquetaA[cnt][2]
+                +"<br/>Fecha: "+etiquetaA[cnt][3]
+                +"<br/>Hora: "+etiquetaA[cnt][4]);
             var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor),attr,infoTemplate);
             map.graphics.add(graphic);
+            cnt++;
           });
         }
 
@@ -128,9 +167,18 @@ console.log(ubicacon_c);
           var points = posicionB;
           var iconPath = "M16,3.5c-4.142,0-7.5,3.358-7.5,7.5c0,4.143,7.5,18.121,7.5,18.121S23.5,15.143,23.5,11C23.5,6.858,20.143,3.5,16,3.5z M16,14.584c-1.979,0-3.584-1.604-3.584-3.584S14.021,7.416,16,7.416S19.584,9.021,19.584,11S17.979,14.584,16,14.584z";
           var initColor = "#003A4C";
+          var attr;
+          var cnt = 0;
           arrayUtils.forEach(points, function(point) {
-            var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor));
+            var infoTemplate = new InfoTemplate("Informacion",
+                "Encuestador:"+etiquetaB[cnt][0]
+                +"<br/>Zona: "+etiquetaB[cnt][1]
+                +"<br/>Manzano: "+etiquetaB[cnt][2]
+                +"<br/>Fecha: "+etiquetaB[cnt][3]
+                +"<br/>Hora: "+etiquetaB[cnt][4]);
+            var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor),attr,infoTemplate);
             map.graphics.add(graphic);
+            cnt++;
           });
         }
 
@@ -138,9 +186,18 @@ console.log(ubicacon_c);
           var points = posicionC;
           var iconPath = "M7.101 12C7.064 11.667 7 11.342 7 11c0-4.963 4.039-9 9.006-9C20.965 2 25 6.037 25 11s-4.035 9-8.994 9a1 1 0 0 0 0 2c5.022 0 9.258-3.39 10.568-8h1.716a1.65 1.65 0 0 0 1.65-1.65v-2.7A1.65 1.65 0 0 0 28.29 8h-1.716c-1.31-4.609-5.546-8-10.568-8C9.938 0 5 4.936 5 11c0 .338.021.67.051 1h2.051zM23 11c0-3.868-3.136-7-6.994-7A7 7 0 1 0 23 11zm8.666 19.848C31.258 25.401 21.447 24 16 24 10.569 24 .741 25.407.332 30.848L.249 32h31.5l-.083-1.152z";
           var initColor = "#009493";
+         var attr;
+          var cnt = 0;
           arrayUtils.forEach(points, function(point) {
-            var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor));
+            var infoTemplate = new InfoTemplate("Informacion",
+                "Encuestador:"+etiquetaC[cnt][0]
+                +"<br/>Zona: "+etiquetaC[cnt][1]
+                +"<br/>Manzano: "+etiquetaC[cnt][2]
+                +"<br/>Fecha: "+etiquetaC[cnt][3]
+                +"<br/>Hora: "+etiquetaC[cnt][4]);
+            var graphic = new Graphic(new Point(point), createSymbol(iconPath, initColor),attr,infoTemplate);
             map.graphics.add(graphic);
+            cnt++;
           });
         }
 

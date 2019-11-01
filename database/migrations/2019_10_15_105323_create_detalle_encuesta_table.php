@@ -88,9 +88,8 @@ class CreateDetalleEncuestaTable extends Migration
             d2.longitud_c,
             d2.ap_enc,
             d2.id_disp
-            from encuesta e
-            left join encuesta_detalle d1 on d1.id_encuesta = e.id
-            left join encuesta_detalle2 d2 on d1.id_encuesta = d2.id_encuesta and d1.ci_enc = d2.ci_enc and d1.fecha and d2.fecha and d1.hora = d2.hora and d1.ciudad = d2.ciudad
+            from encuesta_detalle d1 
+            join encuesta_detalle2 d2 on d1.id_encuesta = d2.id_encuesta and d1.ci_enc = d2.ci_enc and d1.fecha and d2.fecha and d1.hora = d2.hora
             left join libro_datos lr on lr.campo = 'rango' and d1.rango_edad = lr.codigo
             left join libro_datos lg on lg.campo = 'genero' and d1.rango_edad = lg.codigo
             left join libro_datos ln on ln.campo = 'nse' and d1.nse = ln.codigo

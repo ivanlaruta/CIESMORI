@@ -15,11 +15,11 @@ class EncuestaDetalle2 extends Migration
     {
       Schema::create('encuesta_detalle2', function (Blueprint $table) {
           $table->bigIncrements('id');
-          $table->integer('id_encuesta');
-          $table->string('fecha');
-          $table->string('hora');
-          $table->string('ci_enc');
-          $table->string('ciudad');
+            $table->integer('id_encuesta');
+            $table->date('fecha');
+            $table->time('hora');
+            $table->string('ci_enc');
+            $table->string('ciudad');
           $table->string('dataint1');
           $table->string('dataint2');
           $table->string('dataint3');

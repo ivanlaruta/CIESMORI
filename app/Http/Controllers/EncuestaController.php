@@ -26,30 +26,30 @@ class EncuestaController extends Controller
         $ubicacon_a=$ubicacon_b=$ubicacon_c =[];
         if(!empty($request ->id)){
 
-            $ubicacon_a=DB::table('encuesta_detalle')
-               ->where('encuesta_detalle.id_encuesta', '=', $request->id)
-              ->where('encuesta_detalle.longitud_a', '!=', '')
-              ->where('encuesta_detalle.longitud_a', '!=', 0);
+            $ubicacon_a=DB::table('v_encuesta_detalle')
+               ->where('v_encuesta_detalle.id_encuesta', '=', $request->id)
+              ->where('v_encuesta_detalle.longitud_a', '!=', '')
+              ->where('v_encuesta_detalle.longitud_a', '!=', 0);
 
-             $ubicacon_b=DB::table('encuesta_detalle2')
-               ->where('encuesta_detalle2.id_encuesta', '=', $request->id)
-              ->where('encuesta_detalle2.longitud_b', '!=', '')
-              ->where('encuesta_detalle2.longitud_b', '!=', 0);
+             $ubicacon_b=DB::table('v_encuesta_detalle')
+               ->where('v_encuesta_detalle.id_encuesta', '=', $request->id)
+              ->where('v_encuesta_detalle.longitud_b', '!=', '')
+              ->where('v_encuesta_detalle.longitud_b', '!=', 0);
 
-             $ubicacon_c=DB::table('encuesta_detalle2')
-               ->where('encuesta_detalle2.id_encuesta', '=', $request->id)
-              ->where('encuesta_detalle2.longitud_c', '!=', '')
-              ->where('encuesta_detalle2.longitud_c', '!=', 0);
+             $ubicacon_c=DB::table('v_encuesta_detalle')
+               ->where('v_encuesta_detalle.id_encuesta', '=', $request->id)
+              ->where('v_encuesta_detalle.longitud_c', '!=', '')
+              ->where('v_encuesta_detalle.longitud_c', '!=', 0);
 
             if(!empty($request ->fecha)){
-                $ubicacon_a=$ubicacon_a->where('encuesta_detalle.fecha', '>=', $request->fecha);
-                $ubicacon_b=$ubicacon_b->where('encuesta_detalle2.fecha', '>=', $request->fecha);
-                $ubicacon_c=$ubicacon_c->where('encuesta_detalle2.fecha', '>=', $request->fecha);
+                $ubicacon_a=$ubicacon_a->where('v_encuesta_detalle.fecha', '>=', $request->fecha);
+                $ubicacon_b=$ubicacon_b->where('v_encuesta_detalle.fecha', '>=', $request->fecha);
+                $ubicacon_c=$ubicacon_c->where('v_encuesta_detalle.fecha', '>=', $request->fecha);
             }
             if(!empty($request ->fecha2)){
-                $ubicacon_a=$ubicacon_a->where('encuesta_detalle.fecha', '<=', $request->fecha2);
-                $ubicacon_b=$ubicacon_b->where('encuesta_detalle2.fecha', '<=', $request->fecha2);
-                $ubicacon_c=$ubicacon_c->where('encuesta_detalle2.fecha', '<=', $request->fecha2);
+                $ubicacon_a=$ubicacon_a->where('v_encuesta_detalle.fecha', '<=', $request->fecha2);
+                $ubicacon_b=$ubicacon_b->where('v_encuesta_detalle.fecha', '<=', $request->fecha2);
+                $ubicacon_c=$ubicacon_c->where('v_encuesta_detalle.fecha', '<=', $request->fecha2);
             }
             $ubicacon_a=$ubicacon_a->get()->toArray();
             $ubicacon_b=$ubicacon_b->get()->toArray();

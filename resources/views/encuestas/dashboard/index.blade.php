@@ -27,7 +27,7 @@
           </div>
 
           @foreach($encuestas as $det)
-            <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel tile">
                 <div class="x_title">
                   <h2>{{$det->id}}.- {{strtoupper($det->nombre)}} </h2>
@@ -63,7 +63,7 @@
                     </div>
 
                   </div>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="col-md-4 col-sm-4 col-xs-12">
                     <h4>Distribucion por departamento</h4>
                     <canvas id="myChart_{{$det->id}}" width="400" height="400"></canvas>
                     <table class="table table-striped table-sm">
@@ -86,7 +86,7 @@
                   </table>
                   </div>
 
-                  <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="col-md-8 col-sm-8 col-xs-12">
                     <h4>Distribucion por ciudad</h4>
                     @if ($det->lista_ciudades->count() > 0)
                       @foreach ($det->lista_ciudades as $lista)
