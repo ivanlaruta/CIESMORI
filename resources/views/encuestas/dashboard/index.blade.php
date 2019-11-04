@@ -93,66 +93,29 @@
                         <div>
                           <p>{{strtoupper($lista->ciudad)}} <small>{{strtoupper($lista->departamento)}}</small></p>
                           <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                               <div class="progress progress_sm" style="width: 100%;">
                                 <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="{{$lista->porcentaje}}"></div>
                               </div>
                             </div>
-                            <div class="col-md-6 pull-right" align="left">
-
+                            <div class="col-md-3" align="left">
                                   {{strtoupper($lista->cantidad)}}
                                   <small>({{number_format((float)$lista->porcentaje, 2, '.', '')}}%)</small>
-
+                            </div>
+                            <div class="col-md-2 pull-right" align="left">
+                                 <i class="fa fa-file-image-o fa-2x"></i> {{$lista->cant_img}}
+                            </div><div class="col-md-2 pull-right" align="left">
+                                 <i class="fa fa-fast-forward fa-2x"></i> {{$lista->cant_audios}}
                             </div>
                           </div>
                         </div>
 
-                       <!--  <div class="row">
-                          <div class="col-md-4" align="right">{{strtoupper($lista->ciudad)}}
-
-                          </div>
-                          <div class="col-md-4">
-                            <div class="progress">
-                              <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="{{$lista->porcentaje}}"></div>
-                            </div>
-
-                          </div>
-                          <div class="col-md-4" align="left">{{strtoupper($lista->cantidad)}} Registros (<small>{{number_format((float)$lista->porcentaje, 2, '.', '')}}%</small>)
-
-                          </div>
-
-                        </div> -->
+                   
                       @endforeach
                     @endif
                   </div>
               </div>
-                  <!-- <div class="col-md-12 col-sm-4 col-xs-12">
-                    <div class="x_panel">
-                      <div class="x_title">
-                        <h2></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                          </li>
-                          <li class="dropdown">
-                            <a href="{{$det->num_registros()}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                            <ul class="dropdown-menu" role="menu">
-                              <li>< <?php $val=($det->num_registros() * 100)/ $det->meta_estudio;?>{{$val}}%>
-                              </li>
-                              <li>{{$det->num_registros()}}
-                              </li>
-                            </ul>
-                          </li>
-                          <li><a class="close-link"><i class="fa fa-close"></i></a>
-                          </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="x_content">
-                        <div id="echart_gauge" style="height:370px;"></div>
-                      </div>
-                    </div>
-                  </div> -->
-
+                  
 
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="ln_solid"></div>
