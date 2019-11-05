@@ -271,8 +271,8 @@ $(document).on({
         }; 
     </script>  
    @endif
- @if (!session('mensaje_error')==null)
-
+ 
+@if (!session('mensaje_error')==null)
     <script type="text/javascript"> 
         var mensaje_error='{{session('mensaje_error')}}';
 
@@ -280,7 +280,7 @@ $(document).on({
             new PNotify({title: "Error",type: "error",text: mensaje_error ,styling: 'bootstrap3',});
         }; 
     </script>  
-    @endif﻿
+   @endif
 
 
 
