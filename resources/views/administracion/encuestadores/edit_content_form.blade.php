@@ -1,10 +1,10 @@
 
 
-          
+
         <div class="">
             <br />
 
-          
+
 
           <form method="post" action="{{ route('encuestadores.editar') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
             {{ csrf_field() }}
@@ -16,7 +16,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Cedula Idenidad *
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Cedula identidad *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <input type="text" id="ci" name="ci" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad" onblur="validar_ci()" value="{{$encuestador->persona->ci}}">
@@ -51,8 +51,8 @@
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <input type="text" id="apellido_materno" name="apellido_materno"  class="form-control col-md-7 col-xs-12" placeholder="Apellido materno" value="{{$encuestador->persona->apellido_materno}}"  onkeyup="this.value = this.value.toUpperCase();">
                 </div>
-              </div>               
-              
+              </div>
+
               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Genero *</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -145,7 +145,7 @@
                  <div class="col-md-10 col-sm-10 col-xs-12">
                   <img src="{{url('/images/personas/'.$encuestador->persona->foto->archivo)}}" id="blah" src="#" alt="Su fotografia" width="50%" height="50%"/>
                   <input type="file" id="image" name="image" accept="image/*" >
-                </div>        
+                </div>
               </div>
 
               <div class="x_title">
@@ -209,8 +209,8 @@
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
                   <input type="number" id="experiencia" name="experiencia" required="required" class="form-control col-md-7 col-xs-12" placeholder="Años de Experiencia" value="{{$encuestador->experiencia}}" min="1" max="60">
-                </div>                
-              </div>              
+                </div>
+              </div>
 
               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Observacion
@@ -219,18 +219,18 @@
                   <input type="text" id="observacion" name="observacion"  class="form-control col-md-7 col-xs-12" placeholder="Observaciones" value="{{$encuestador->observacion}}">
                 </div>
               </div>
-            
+
               <div class="ln_solid"></div>
               <div class="form-group">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                  
+
                   {{-- <a class="btn btn-primary" href="{{ route('inicio') }}" role="button">Cancelar</a> --}}
                   <button type="submit" class="btn btn-block btn-success btn_guardar">Guardar</button>
                 </div>
               </div>
             </form>
           </div>
-       
+
 <!-- /page content -->
 
 <script type="text/javascript">
@@ -240,11 +240,11 @@ var radio = '<?php echo $encuestador->persona->cod_genero;?>';
 function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
-    
+
     reader.onload = function(e) {
       $('#blah').attr('src', e.target.result);
     }
-    
+
     reader.readAsDataURL(input.files[0]);
   }
 }
@@ -270,7 +270,7 @@ for (var i = 0; i < lista_cargos.length; i++) {
   data_temp.push(lista_cargos[i].cod_cargo) ;
   cargos.push(data_temp);
 }
-select_cargos_val.val(cargos).trigger("change"); 
+select_cargos_val.val(cargos).trigger("change");
 
 
 var select_tipo_estudio_val = $('.select_tipo_estudio').select2({placeholder:"Tipo de estudio"});
@@ -283,12 +283,12 @@ for (var i = 0; i < lista_tipo_estudio.length; i++) {
   data_temp.push(lista_tipo_estudio[i].cod_tipo_estudio) ;
   tipo_estudios.push(data_temp);
 }
-select_tipo_estudio_val.val(tipo_estudios).trigger("change"); 
+select_tipo_estudio_val.val(tipo_estudios).trigger("change");
 
 
  $('.select_disponibilidad_tiempo').select2({minimumResultsForSearch:-1,placeholder:"Disponibilidad de tiempo",allowClear:true});
 
- 
+
 var select_horario_disponible = $('.select_horario_disponible').select2({minimumResultsForSearch:-1,placeholder:"Horario disponible"});
 var horario_disponibles =[];
 var data_horario_disponible = '<?php echo json_encode($encuestador->lista_turnos); ?>';
@@ -311,7 +311,7 @@ $('#empresas').tagsInput({
         });
 
 $(function() {
-  
+
   var fnac = '<?php echo $encuestador->persona->fecha_nacimiento;?>';
   var res = fnac.replace(/-/g, "/");
 
@@ -351,7 +351,7 @@ $.ajax({
     },
     success: function(dataResult)
     {
-      
+
        func_alerta(dataResult);
     }
   });
@@ -380,4 +380,3 @@ var ecnuestador = JSON.parse(obj_php );
 };
 
 </script>
-

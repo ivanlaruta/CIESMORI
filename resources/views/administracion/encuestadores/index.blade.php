@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Encuestadores</h2>
+            <h2>Registro de personal</h2>
             <div class="pull-right" >
               <a  href="#" class="btn btn-success btn_nuevo " data-toggle="tooltip" data-placement="bottom" title="Agregar Nuevo" ><i class="fa fa-plus"></i></a>
             </div>
@@ -17,7 +17,7 @@
           </div>
           <div class="x_content">
 
-            <p>Lista del personal registrado, acceda a las opciones para editar la informacion</p>
+            <p>Lista del personal registrado, acceda a las opciones para editar la información</p>
             <div class="table-responsive">
             <table class="table table-striped " id="datatable1">
               <thead>
@@ -25,7 +25,7 @@
                  <th style="width: 1%">#</th>
                  <th style="width: 25%">Datos personales</th>
                  <th style="width: 15%">Educacion y Experiencia</th>
-                 <th style="width: 15%">Area de trabajo</th>
+                 <th style="width: 15%">Área de trabajo</th>
                  <th style="width: 10%">Disponibilidad</th>
                  <th style="width: 10%">Encuestas Asignadas</th>
                  <th style="width: 1%">Obs</th>
@@ -41,9 +41,9 @@
                     <h5 class="brief">
                       <i>
                       <strong>
-                      {{$det->persona->primer_nombre}} 
-                      {{$det->persona->segundo_nombre}} 
-                      {{$det->persona->apellido_paterno}} 
+                      {{$det->persona->primer_nombre}}
+                      {{$det->persona->segundo_nombre}}
+                      {{$det->persona->apellido_paterno}}
                       {{$det->persona->apellido_materno}}
                       </strong>
                       </i>
@@ -64,12 +64,12 @@
                     </div>
                   </div>
                 </td>
-                            
+
                 <td>
                   <ul class="list-unstyled">
                     <br>
                     <li><i class="fa fa-mortar-board"></i> Educacion: {{$det->persona->nivel_educacion()}}  (Nivel: {{$det->persona->nivel_curso}} ) </li>
-                    <li><i class="fa fa-briefcase"></i> Empresas en las que trabajo: 
+                    <li><i class="fa fa-briefcase"></i> Empresas en las que trabajo:
                       @if ($det->lista_empresas->count() > 0)
                         @foreach ($det->lista_empresas as $empresa)
                           <span class="label label-primary">{{strtoupper($empresa->empresa)}} &nbsp;</span>
@@ -84,14 +84,14 @@
                   <ul class="list-unstyled">
                     <br>
                     {{-- <li><i class="fa fa-user"></i> Cargo: {{$det->cargo}} </li> --}}
-                    <li><i class="fa fa-user"></i> Cargo: 
+                    <li><i class="fa fa-user"></i> Cargo:
                       @if ($det->lista_cargos->count() > 0)
                         @foreach ($det->lista_cargos as $lista)
                           <span class="label label-primary">{{strtoupper($lista->cargo_p()->valor_cadena)}} &nbsp;</span>
                         @endforeach
                       @endif
                    </li>
-                   <li><i class="fa fa-cubes"></i> Tipo de estudio: 
+                   <li><i class="fa fa-cubes"></i> Tipo de estudio:
                       @if ($det->lista_tipo_estudio->count() > 0)
                         @foreach ($det->lista_tipo_estudio as $lista)
                           <span class="label label-primary">{{strtoupper($lista->tipo_estudio_p()->valor_cadena)}} &nbsp;</span>
@@ -105,7 +105,7 @@
                   <ul class="list-unstyled">
                     <br>
                     <li><i class="fa fa-adjust"></i> Disponibilidad: {{strtoupper($det->disponibilidad_tiempo())}} </li>
-                    <li><i class="fa fa-sun-o"></i> Turno disponible: 
+                    <li><i class="fa fa-sun-o"></i> Turno disponible:
                       @if ($det->lista_turnos->count() > 0)
                         @foreach ($det->lista_turnos as $lista)
                           <span class="label label-primary">{{$lista->horario_disponible_p()->valor_cadena}} &nbsp;</span>
@@ -115,46 +115,46 @@
                    <li><i class="fa fa-clock-o"></i> Horas que puede trabajar: {{$det->horas_que_puede_trabajar}} </li>
                   </ul>
                 </td>
-              
+
                   <td>
                     <ul class="list-unstyled">
                       <br>
-                      
-                      <li><i class="fa fa-file"></i> Encuestas asignadas: 
+
+                      <li><i class="fa fa-file"></i> Encuestas asignadas:
                         @if ($det->lista_encuestas->count() > 0)
                           @foreach ($det->lista_encuestas as $lista)
                             <span class="label label-primary">{{strtoupper($lista->encuesta->nombre)}} &nbsp;</span>
                           @endforeach
                         @endif
                      </li>
-                    
+
                     </ul>
-                  </td>                   
-              
+                  </td>
+
                 <td>
                     <a><br>{{$det->observacion}}</a>
-                </td> 
+                </td>
                 <td>
                    <div class="btn-group row" role="group" >
-                     
+
                       <a href="#" class="btn btn-success btn-xs btn_agregar_encuesta" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Administrar encuestas">
-                        <span class="fa fa-file"></span> 
+                        <span class="fa fa-file"></span>
                       </a>
 
                       <a href="#" class="btn btn-warning btn-xs btn_editar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Editar">
-                        <span class="fa fa-edit"></span> 
+                        <span class="fa fa-edit"></span>
                       </a>
 
                       <a href="#" class="btn btn-danger btn-xs btn_eliminar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                        <span class="fa fa-trash"></span> 
+                        <span class="fa fa-trash"></span>
                       </a>
 
-                      
+
                     </div>
-                  </td>        
+                  </td>
                 </tr>
                 @endforeach
-                
+
 
               </tbody>
             </table>
@@ -166,13 +166,13 @@
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">Formulario Encuestadores</h4>
+                    <h4 class="modal-title" id="myModalLabel">Formulario de Registro de Personal</h4>
                   </div>
                   <div class="modal-body contenido"></div>
                   <div class="modal-footer">
                     <br>
                     <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
-                    
+
                   </div>
                 </div>
               </div>
@@ -184,13 +184,13 @@
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">Formulario Encuestadores</h4>
+                    <h4 class="modal-title" id="myModalLabel">Formulario de Registro de Personal</h4>
                   </div>
                   <div class="modal-body contenido_edit"></div>
                   <div class="modal-footer">
                     <br>
                     <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
-                    
+
                   </div>
                 </div>
               </div>
@@ -228,7 +228,7 @@
                   <div class="modal-footer">
                     <br>
                     <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancelar</button>
-                    
+
                   </div>
                 </div>
               </div>
@@ -255,7 +255,7 @@
         });
 
     $('#datatable1').DataTable( { "language": {
-            
+
               "sProcessing":     "Procesando...",
               "sLengthMenu":     "Mostrar _MENU_ registros",
               "sZeroRecords":    "No se encontraron resultados",
@@ -281,17 +281,17 @@
         },
 
         "bLengthChange" : false,
-        
+
         "bSort" : false,
          "dom": "lfrti",
         //"dom": "Brti",
-        
+
        // "buttons": [ 'copy', 'excel'],
 
         // "lengthMenu": [[5,10, 25, 50, 100, -1], [5,10, 25, 50, 100, "TODO"]],
         "lengthMenu": [[-1], ["TODO"]],
 
-      
+
     } );
 
 // =============== agrefar_ encuesta ============================
@@ -319,7 +319,7 @@ var btn_agregar_encuesta = $(".btn_agregar_encuesta");
       success: function(dataResult)
       {
         console.log(dataResult);
-        modalContent_asign_enc.empty().html(dataResult);                        
+        modalContent_asign_enc.empty().html(dataResult);
         modal_asig_enc.modal('show');
         NProgress.done();
       },
@@ -387,7 +387,7 @@ var btn_nuevo = $(".btn_nuevo");
       success: function(dataResult)
       {
         console.log(dataResult);
-        modalContent.empty().html(dataResult);                        
+        modalContent.empty().html(dataResult);
         modal.modal('show');
         NProgress.done();
       },
@@ -440,7 +440,7 @@ var btn_editar = $(".btn_editar");
       success: function(dataResult)
       {
         console.log(dataResult);
-        modalContentEdit.empty().html(dataResult);                        
+        modalContentEdit.empty().html(dataResult);
         modal_edita.modal('show');
         NProgress.done();
       },
