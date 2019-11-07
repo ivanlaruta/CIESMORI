@@ -11,7 +11,7 @@
 
 
               <div class="x_title">
-                <h2> INFORMACION PERSONAL</h2>
+                <h2> INFORMACIÓN PERSONAL</h2>
                 <div class="clearfix"></div>
               </div>
 
@@ -54,7 +54,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Genero *</label>
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Género *</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div id="cod_genero" name="genero" class="btn-group" data-toggle="buttons">
                     <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
@@ -287,6 +287,7 @@ $(function() {
       "firstDay": 1
     }
   })
+
 });
 
 function validar_ci() {
