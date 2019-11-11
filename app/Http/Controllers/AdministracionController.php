@@ -68,7 +68,7 @@ class AdministracionController extends Controller
         					->where('tabla','estado_civil')
         					->where('estado','1')
         					->orderBy('codigo')->get();
-        $nivel_educacion=Parametrica::select('codigo','valor_cadena')
+        $nivel_educacion=Parametrica::select('codigo','valor_cadena','inicio','fin')
         					->where('tabla','nivel_educacion')
         					->where('estado','1')
                             ->orderBy('codigo')

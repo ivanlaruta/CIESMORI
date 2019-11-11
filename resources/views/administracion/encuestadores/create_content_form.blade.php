@@ -19,7 +19,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Cédula de Identidad *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="ci" name="ci" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad" onblur="validar_ci()">
+                  <input type="text" id="ci" name="ci" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad" onblur="validar_ci()">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <select class="form-control col-md-7 col-xs-12 select_expedido" data-width="100%" id="cod_expedido" name="cod_expedido" required="required" >
@@ -54,7 +54,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Género *</label>
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Género  *</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div id="cod_genero" name="genero" class="btn-group" data-toggle="buttons">
                     <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
@@ -116,10 +116,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Teléfonos *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="number" id="telefono1" name="telefono1" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 1">
+                  <input type="number" id="telefono1" name="telefono1" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 1" min="60000000" max="80000000">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="number" id="telefono2" name="telefono2" class="form-control col-md-7 col-xs-12" placeholder="Telefono 2">
+                  <input type="number" id="telefono2" name="telefono2" class="form-control col-md-7 col-xs-12" placeholder="Telefono 2" min="60000000" max="80000000">
                 </div>
               </div>
 
@@ -130,7 +130,7 @@
                   <select class="form-control col-md-7 col-xs-12 select_nivel_educacion" data-width="100%" id="cod_nivel_educacion" name="cod_nivel_educacion" required="required">
                     <option></option>
                     @foreach($nivel_educacion as $det)
-                      <option value="{{$det->codigo}}">{{$det->valor_cadena}}</option>
+                      <option value="{{$det->codigo}}" inicio="{{$det->inicio}}" fin="{{$det->fin}}" >{{$det->valor_cadena}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -156,9 +156,7 @@
               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Área de trabajo *
                 </label>
-               {{--  <div class="col-md-3 col-sm-3 col-xs-12">
-                  <input type="text" id="cargo" name="cargo" required="required" class="form-control col-md-7 col-xs-12" placeholder="Cargo" onkeyup="this.value = this.value.toUpperCase();">
-                </div> --}}
+              
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <select class="form-control col-md-7 col-xs-12 select_cargos" data-width="100%" id="cargos" name="cargos[]" required="required" multiple="multiple">
                     <option></option>
@@ -256,11 +254,11 @@ $("#image").change(function() {
  $('.select_expedido').select2({minimumResultsForSearch:-1,placeholder:"Expedido",allowClear:true});
  $('.select_estado_civil').select2({minimumResultsForSearch:-1,placeholder:"Estado civil",allowClear:true});
  $('.select_ciudad').select2({placeholder:"Ciudad de residencia",allowClear:true});
- $('.select_nivel_educacion').select2({minimumResultsForSearch:-1,placeholder:"Nivel de educacion",allowClear:true});
+ var s3 = $('.select_nivel_educacion').select2({minimumResultsForSearch:-1,placeholder:"Nivel de educacion",allowClear:true});
  $('.select_tipo_estudio').select2({placeholder:"Tipo de estudio"});
  $('.select_cargos').select2({placeholder:"Cargo"});
  $('.select_disponibilidad_tiempo').select2({minimumResultsForSearch:-1,placeholder:"Disponibilidad de tiempo",allowClear:true});
- $('.select_horario_disponible').select2({minimumResultsForSearch:-1,placeholder:"Horario disponible"});
+ var s2 = $('.select_horario_disponible').select2({minimumResultsForSearch:-1,placeholder:"Horario disponible"});
 
 $('#empresas').tagsInput({
           width: 'auto',
@@ -287,7 +285,6 @@ $(function() {
       "firstDay": 1
     }
   })
-
 });
 
 function validar_ci() {
@@ -329,5 +326,36 @@ var ecnuestador = JSON.parse(obj_php );
 
   }
 };
+
+$("#cod_disponibilidad_tiempo").change(function() {
+  var valor = $(this).children("option:selected").val();
+  if (valor==2){
+      var vals = ['1','2','3'];
+    s2.val(vals).trigger("change");
+  
+  }
+});
+
+$("#cod_horario_disponible").change(function() {
+  var valor = $("#cod_disponibilidad_tiempo").children("option:selected").val();
+  if (valor==2){
+      var vals = ['1','2','3'];
+    s2.val(vals).trigger("change");
+  }
+});
+
+
+
+
+$("#cod_nivel_educacion").change(function() {
+  var inicio = $(this).children("option:selected").attr('inicio');
+  var fin = $(this).children("option:selected").attr('fin');
+  $("#nivel_curso").attr({
+   "max" : fin,
+   "min" : inicio
+  });
+});
+
+
 
 </script>
