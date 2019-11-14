@@ -19,7 +19,7 @@ class CreatePersonaTable extends Migration
             $table->string('cod_expedido');
             $table->string('primer_nombre');
             $table->string('segundo_nombre')->nullable();
-            $table->string('apellido_paterno');
+            $table->string('apellido_paterno')->nullable();;
             $table->string('apellido_materno')->nullable();
             $table->string('cod_genero');
             $table->date('fecha_nacimiento');

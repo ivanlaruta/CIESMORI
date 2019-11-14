@@ -46,7 +46,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Apellidos *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="apellido_paterno" name="apellido_paterno" required="required" class="form-control col-md-7 col-xs-12" placeholder="Apellido paterno" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="apellido_paterno" name="apellido_paterno" class="form-control col-md-7 col-xs-12" placeholder="Apellido paterno" onkeyup="this.value = this.value.toUpperCase();">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <input type="text" id="apellido_materno" name="apellido_materno"  class="form-control col-md-7 col-xs-12" placeholder="Apellido materno" onkeyup="this.value = this.value.toUpperCase();">
@@ -156,7 +156,7 @@
               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Área de trabajo *
                 </label>
-              
+
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <select class="form-control col-md-7 col-xs-12 select_cargos" data-width="100%" id="cargos" name="cargos[]" required="required" multiple="multiple">
                     <option></option>
@@ -332,7 +332,7 @@ $("#cod_disponibilidad_tiempo").change(function() {
   if (valor==2){
       var vals = ['1','2','3'];
     s2.val(vals).trigger("change");
-  
+
   }
 });
 

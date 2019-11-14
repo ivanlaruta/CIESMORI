@@ -16,7 +16,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Cedula identidad *
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Cédula identidad *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <input type="text" id="ci" name="ci" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad" onblur="validar_ci()" value="{{$encuestador->persona->ci}}">
@@ -46,7 +46,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Apellidos *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="apellido_paterno" name="apellido_paterno" required="required" class="form-control col-md-7 col-xs-12" placeholder="Apellido paterno" value="{{$encuestador->persona->apellido_paterno}}"  onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="apellido_paterno" name="apellido_paterno" class="form-control col-md-7 col-xs-12" placeholder="Apellido paterno" value="{{$encuestador->persona->apellido_paterno}}"  onkeyup="this.value = this.value.toUpperCase();">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <input type="text" id="apellido_materno" name="apellido_materno"  class="form-control col-md-7 col-xs-12" placeholder="Apellido materno" value="{{$encuestador->persona->apellido_materno}}"  onkeyup="this.value = this.value.toUpperCase();">
@@ -54,7 +54,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Genero *</label>
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Género *</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <div id="cod_genero" name="genero" class="btn-group" data-toggle="buttons">
                     <label class="btn btn-default @if($encuestador->persona->cod_genero ==1) active @endif" data-toggle-class="btn-primary " data-toggle-passive-class="btn-default">
@@ -102,7 +102,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Direccion *
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Dirección *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <input type="text" id="zona" name="zona" required="required" class="form-control col-md-7 col-xs-12" placeholder="Zona" value="{{$encuestador->persona->zona}}" onkeyup="this.value = this.value.toUpperCase();">
@@ -113,7 +113,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Telefonos *
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Teléfonos *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <input type="number" id="telefono1" name="telefono1" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 1" value="{{$encuestador->persona->telefono1}}">
@@ -124,7 +124,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Educacion *
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Educación *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <select class="form-control col-md-7 col-xs-12 select_nivel_educacion" data-width="100%" id="cod_nivel_educacion" name="cod_nivel_educacion" required="required">
@@ -140,7 +140,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Fotografia *
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Fotografía *
                 </label>
                  <div class="col-md-10 col-sm-10 col-xs-12">
                   <img src="{{url('/images/personas/'.$encuestador->persona->foto->archivo)}}" id="blah" src="#" alt="Su fotografia" width="50%" height="50%"/>
@@ -149,12 +149,12 @@
               </div>
 
               <div class="x_title">
-                <h2> INFORMACION DE CAMPO</h2>
+                <h2> INFORMACIóN DE CAMPO</h2>
                 <div class="clearfix"></div>
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Area de trabajo *
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Área de trabajo *
                 </label>
                {{--  <div class="col-md-3 col-sm-3 col-xs-12">
                   <input type="text" id="cargo" name="cargo" required="required" class="form-control col-md-7 col-xs-12" placeholder="Cargo" onkeyup="this.value = this.value.toUpperCase();">
@@ -213,7 +213,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Observacion
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Observación
                 </label>
                 <div class="col-md-10 col-sm-10 col-xs-12">
                   <input type="text" id="observacion" name="observacion"  class="form-control col-md-7 col-xs-12" placeholder="Observaciones" value="{{$encuestador->observacion}}">
