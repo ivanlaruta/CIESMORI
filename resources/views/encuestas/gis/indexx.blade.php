@@ -130,7 +130,7 @@ console.log(etiquetaC);
               generateFeatureCollection(fileName);
             }
             else {
-              dom.byId('upload-status').innerHTML = '<p style="color:red">Add shapefile as .zip file</p>';
+              dom.byId('upload-status').innerHTML = '<p style="color:red">Añadir un archivo válido, con extension .zip</p>';
             }
           });
 
