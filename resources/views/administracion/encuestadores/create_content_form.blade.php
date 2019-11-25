@@ -35,10 +35,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Nombres *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="primer_nombre" name="primer_nombre" required="required" class="form-control col-md-7 col-xs-12" placeholder=" Primer nombre" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="primer_nombre" name="primer_nombre" required="required" class="form-control col-md-7 col-xs-12" placeholder=" Primer nombre" onkeyup="this.value = this.value.toUpperCase();" maxlength="30">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="segundo_nombre" name="segundo_nombre" class="form-control col-md-7 col-xs-12" placeholder=" Segundo nombre" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="segundo_nombre" name="segundo_nombre" class="form-control col-md-7 col-xs-12" placeholder=" Segundo nombre" onkeyup="this.value = this.value.toUpperCase();" maxlength="30">
                 </div>
               </div>
 
@@ -46,10 +46,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Apellidos *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="apellido_paterno" name="apellido_paterno" class="form-control col-md-7 col-xs-12" placeholder="Apellido paterno" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="apellido_paterno" name="apellido_paterno" class="form-control col-md-7 col-xs-12" placeholder="Apellido paterno" onkeyup="this.value = this.value.toUpperCase();" maxlength="30">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="apellido_materno" name="apellido_materno"  class="form-control col-md-7 col-xs-12" placeholder="Apellido materno" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="apellido_materno" name="apellido_materno"  class="form-control col-md-7 col-xs-12" placeholder="Apellido materno" onkeyup="this.value = this.value.toUpperCase();" maxlength="30">
                 </div>
               </div>
 
