@@ -160,6 +160,11 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'as'   =>	'encuesta.admin_libro'
 		]);
 
+  route::get('encuesta/cuota_ciudad',[
+      'uses' =>'EncuestaController@cuota_ciudad',
+      'as'   =>	'encuesta.cuota_ciudad'
+    ]);
+
 	route::get('encuesta/libroDatos',[
 			'uses' =>'EncuestaController@libroDatos',
 			'as'   =>	'encuesta.libroDatos'

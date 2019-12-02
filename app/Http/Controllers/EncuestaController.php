@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Encuesta;
 use App\Parametrica;
 use App\LibroDatos;
+use App\CuotaCiudad;
+use App\Ciudad;
+use App\EncuestaDetalle;
 use App\V_detalle_encuesta;
 use Illuminate\Http\Request;
 use DB;
@@ -110,6 +113,30 @@ class EncuestaController extends Controller
          ->with('librodatos',$librodatos)
         ->with('encuestas',$encuestas);
     }
+
+    public function cuota_ciudad()
+    {
+        $cuotaciudad =CuotaCiudad::all();
+        $encuestadetalle =EncuestaDetalle::all();
+        $encuestas=Encuesta::all();
+        $parametrica=Parametrica::select('codigo')
+                            ->where('tabla','libro_datos')
+                            ->where('estado','1')
+                            ->orderBy('codigo')->get();
+
+        $ciudad=EncuestaDetalle::select('ciudad')
+                            // ->where('id_encuesta=2')
+                            ->where('estado','1')
+                            ->groupBy('ciudad')
+                            ->orderBy('id_encuesta')->get();
+
+        return view('encuestas.migracion.cuota_ciudad')
+         ->with('parametrica',$parametrica)
+         //->with('librodatos',$librodatos)
+         ->with('cuotaciudad',$cuotaciudad)
+        ->with('encuestas',$encuestas);
+    }
+
 
     public function migracion()
     {

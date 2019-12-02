@@ -13,7 +13,7 @@
         <div class="x_panel">
           <div class="x_title">
 
-            <h2>Libro de Datos</h2>
+            <h2>Cuotas por Ciudad</h2>
 
             <div class="clearfix"></div>
           </div>
@@ -25,9 +25,8 @@
                   <tr>
                     <th style="width: 1%">#</th>
                     <th style="width: 25%">Encuesta</th>
-                    <th style="width: 25%">Campo</th>
-                    <th style="width: 15%">Codigo</th>
-                    <th style="width: 15%">Valor</th>
+                    <th style="width: 25%">Ciudad</th>
+                    <th style="width: 15%">Meta</th>
                     <th style="width: 1%">Opciones</th>
                   </tr>
                 </thead>
@@ -43,28 +42,34 @@
                         @endforeach
                       </select>
                     </td>
-                    <td><select class="form-control col-md-6 col-xs-12 " id="parametrica_libro" name="parametrica_libro" required="required" data-width="100%">
+                    <!-- <td><select class="form-control col-md-6 col-xs-12 " id="parametrica_libro" name="parametrica_libro" required="required" data-width="100%">
                         <option></option>
                         @foreach($parametrica as $det)
                           <option value="{{$det->codigo}}">{{strtoupper($det->codigo)}}</option>
                         @endforeach
-                      </select></td>
-                    <td><input type="text" id="codigo" name="codigo" required="required" class="form-control col-md-7 col-xs-12"></td>
-                    <td><input type="text" id="valor"  name="valor"  required="required" class="form-control col-md-7 col-xs-12"></td>
+                      </select></td> -->
 
+
+                      <td><select class="form-control col-md-6 col-xs-12 " id="cuota_ciudad" name="cuota_ciudad" required="required" data-width="100%">
+                          <option></option>
+                          @foreach($cuotaciudad as $det)
+                            <option value="{{$det->id_ciudad}}">{{strtoupper($det->id_ciudad)}}</option>
+                          @endforeach
+                        </select></td>
+
+                    <td><input type="text" id="meta" name="codigo" required="required" class="form-control col-md-7 col-xs-12"></td>
                     <td align="center">
                       <button type="submit" class="btn btn-success btn-block"><span class="fa fa-plus fa-lg"></span></button>
-
                     </td>
                     </form>
                   </tr>
-                  @foreach($librodatos as $det)
+                  @foreach($cuotaciudad as $det)
                   <tr>
                     <td>{{$det->id}}</td>
                     <td>{{$det->encuesta->nombre}}</td>
-                    <td>{{$det->campo}}</td>
-                    <td>{{$det->codigo}}</td>
-                    <td>{{$det->valor}}</td>
+                    <td>{{$det->ciudad}}</td>
+                    <td>{{$det->meta}}</td>
+
 
                     <td align="center">
                       <div class="btn-group btn-group-justified" role="group" >

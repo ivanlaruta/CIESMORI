@@ -13,12 +13,13 @@
                     <ul class="nav child_menu">
                       <li><a href="{{ route('encuesta.index')}}">Lista de encuestas</a></li>
                       <li><a href="{{ route('encuesta.admin_libro')}}">Libro de datos</a></li>
+                      <li><a href="{{ route('encuesta.cuota_ciudad')}}">Cuotas por Ciudad</a></li>
                       <li><a href="{{ route('encuesta.dashboard')}}">Dashboard</a></li>
                       {{-- <li><a href="{{ route('encuesta.gis2')}}">GIS PUNTOS</a></li> --}}
                       <li><a href="{{ route('encuesta.gis')}}">GIS</a></li>
                       {{-- <li><a href="{{ route('encuesta.migracion')}}">Migración de encuestas</a></li> --}}
                       {{-- <li><a href="{{ route('encuesta.libroDatos')}}">Libro de datos</a></li> --}}
-
+z
                     </ul>
                   </li>
 
