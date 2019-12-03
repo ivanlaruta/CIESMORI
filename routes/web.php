@@ -180,6 +180,16 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'as'   =>	'encuesta.update_form'
 		]);
 
+	route::get('encuesta/cuota_cuidad',[
+			'uses' =>'EncuestaController@cuota_cuidad',
+			'as'   =>	'encuesta.cuota_cuidad'
+		]);
+	
+	route::get('encuesta/asigna_cliente',[
+			'uses' =>'EncuestaController@asigna_cliente',
+			'as'   =>	'encuesta.asigna_cliente'
+		]);
+
 	route::post('encuesta/migrar',[
 			'uses' =>'EncuestaController@migrar',
 			'as'   =>	'encuesta.migrar'

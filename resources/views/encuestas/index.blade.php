@@ -69,23 +69,22 @@
                     </td>
                     <td align="center">
                         <form method="get" action="{{  route('encuesta.actualizar') }}" >
-
                           {{ csrf_field() }}
                           <input type="hidden" id="id_encuesta" name="id_encuesta" value="{{$det->id}}">
 
                           <button type="submit" class="btn btn-success btn-xs btn-block btn_refresh" id="btn_eliminar_run"  title="Actualizar" onclick="func_load();"><span class="fa fa-refresh fa-lg"></span></button>
                         </form>
-
-                      <div class="btn-group btn-group-justified" role="group" >
-
-                        <a href="#" class="btn btn-warning btn-xs  btn_edit" id_encuesta = '{{$det->id}}'  title="Modificar">
+                     
+                        <a href="#" class="btn btn-warning btn-xs  btn_edit btn-block" id_encuesta = '{{$det->id}}'  title="Modificar">
                           <span class="fa fa-edit fa-lg"></span>
                         </a>
-
-                        {{-- <a href="#" class="btn btn-danger btn-xs  btn_elimina" id_encuesta = '{{$det->id}}'  title="eliminar">
-                          <span class="fa fa-trash fa-lg"></span>
-                        </a> --}}
-                      </div>
+                        <a href="#" class="btn btn-info btn-xs  btn_ciudad btn-block" id_encuesta = '{{$det->id}}'  title="Cuota por ciudad">
+                          <span class="fa fa-map fa-lg"></span>
+                        </a>
+                        <a href="#" class="btn btn-default btn-xs  btn_cliente btn-block" id_encuesta = '{{$det->id}}'  title="Asignar clientes">
+                          <span class="fa fa-user fa-lg"></span>
+                        </a>
+              
                     </td>
                   </tr>
                   @endforeach
@@ -186,7 +185,7 @@
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">Edicion</h4>
+                    <h4 class="modal-title" id="myModalLabel">Formulario</h4>
                   </div>
                   <div class="modal-body contenido_editar_enc"></div>
                   <div class="modal-footer">
@@ -332,6 +331,106 @@ var btn_edit = $(".btn_edit");
       cache: false,
       dataType: "html",
       url: "{{ route('encuesta.update_form')}}",
+      data: {
+        id: objeto.attr("id_encuesta")
+      },
+      success: function(dataResult)
+      {
+        console.log(dataResult);
+        modalContent_edit.empty().html(dataResult);
+        modal_edit.modal('show');
+        NProgress.done();
+      },
+      error: function(jqXHR, exception)
+      {
+        var msg = '';
+        if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+        } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+        } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+        NProgress.done();
+      }
+    });
+  };
+
+/*====================================================*/
+
+// ======================= cuota ciudad ==============================
+var btn_edit = $(".btn_ciudad");
+  btn_edit.on("click",function(){
+    frm_cuota($(this));
+  });
+  var modalContent_edit = $(".contenido_editar_enc");
+  var modal_edit=$(".modal_datos_editar_enc");
+
+  var frm_cuota = function(objeto){
+    $.ajax({
+      type: "GET",
+      cache: false,
+      dataType: "html",
+      url: "{{ route('encuesta.cuota_cuidad')}}",
+      data: {
+        id: objeto.attr("id_encuesta")
+      },
+      success: function(dataResult)
+      {
+        console.log(dataResult);
+        modalContent_edit.empty().html(dataResult);
+        modal_edit.modal('show');
+        NProgress.done();
+      },
+      error: function(jqXHR, exception)
+      {
+        var msg = '';
+        if (jqXHR.status === 0) {
+            msg = 'Not connect.\n Verify Network.';
+        } else if (jqXHR.status == 404) {
+            msg = 'Requested page not found. [404]';
+        } else if (jqXHR.status == 500) {
+            msg = 'Internal Server Error [500].';
+        } else if (exception === 'parsererror') {
+            msg = 'Requested JSON parse failed.';
+        } else if (exception === 'timeout') {
+            msg = 'Time out error.';
+        } else if (exception === 'abort') {
+            msg = 'Ajax request aborted.';
+        } else {
+            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+        }
+        alert(msg);
+        NProgress.done();
+      }
+    });
+  };
+
+/*====================================================*/
+
+// ======================= asigncion cliente==============================
+var btn_edit = $(".btn_cliente");
+  btn_edit.on("click",function(){
+    frm_cuota($(this));
+  });
+  var modalContent_edit = $(".contenido_editar_enc");
+  var modal_edit=$(".modal_datos_editar_enc");
+
+  var frm_cuota = function(objeto){
+    $.ajax({
+      type: "GET",
+      cache: false,
+      dataType: "html",
+      url: "{{ route('encuesta.asigna_cliente')}}",
       data: {
         id: objeto.attr("id_encuesta")
       },

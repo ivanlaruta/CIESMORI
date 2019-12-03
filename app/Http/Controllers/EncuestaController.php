@@ -198,6 +198,22 @@ class EncuestaController extends Controller
         ->with('encuesta',$encuesta);
     }
 
+    public function cuota_cuidad(Request $request)
+    {
+        $encuesta_id= $request->id;
+        $encuesta = Encuesta::find($encuesta_id);
+        return view('encuestas.migracion.edita')
+        ->with('encuesta',$encuesta);
+    }
+    
+    public function asigna_cliente(Request $request)
+    {
+        $encuesta_id= $request->id;
+        $encuesta = Encuesta::find($encuesta_id);
+        return view('encuestas.migracion.edita')
+        ->with('encuesta',$encuesta);
+    }
+
     public function editar(Request $request)
     {
         $encuesta = Encuesta::find($request->id);
