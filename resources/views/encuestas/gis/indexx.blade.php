@@ -356,6 +356,19 @@ console.log(etiquetaC);
                 </select>
               </div>
               <div class="form-group">
+                <label>ciudad</label>
+                <select name="ciudad" id="ciudad" class="form-control">
+                  <option ></option>
+                  @foreach($ciudades as $det)
+                        <option value="{{$det->ciudad}}">{{strtoupper($det->ciudad)}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Ci encuestador</label>
+                <input type="text" id="ci" name="ci" class="form-control">
+              </div>
+              <div class="form-group">
                 <label>Desde</label>
                 <input type="date" id="fecha" name="fecha" class="form-control">
               </div>
@@ -387,7 +400,12 @@ console.log(etiquetaC);
           </div>
           <div class="col-md-9 col-sm-9 col-xs-12">
             @if(!empty($encuesta))
-              <h3>{{strtoupper($encuesta->nombre)}}</h3>
+            @php
+              $marck = sizeof($ubicacon_a)+sizeof($ubicacon_b)+sizeof($ubicacon_c);
+            @endphp
+              <h3>{{strtoupper($encuesta->nombre)}} </h3>
+                <h4>Cantidad de registros: {{$cantidad}}  / <small>Cantidad de marcadores: {{$marck}} </small></h4>
+                
             @endif
             <div id="mapCanvas"  style="width: 100%; height: 100%; "></div>
 

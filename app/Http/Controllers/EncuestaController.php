@@ -24,10 +24,14 @@ class EncuestaController extends Controller
     public function gis(Request $request)
     {
         $encuestas=Encuesta::all();
+        $ciudades=EncuestaDetalle::select('ciudad')->distinct()->get();
+        $cantidad = 0;
         $encuesta = Encuesta::find($request->id);
 
         $ubicacon_a=$ubicacon_b=$ubicacon_c =[];
         if(!empty($request ->id)){
+            $cantidad=DB::table('v_encuesta_detalle')->where('v_encuesta_detalle.id_encuesta', '=', $request->id)->count();
+             
 
             $ubicacon_a=DB::table('v_encuesta_detalle')
                ->where('v_encuesta_detalle.id_encuesta', '=', $request->id)
@@ -54,6 +58,18 @@ class EncuestaController extends Controller
                 $ubicacon_b=$ubicacon_b->where('v_encuesta_detalle.fecha', '<=', $request->fecha2);
                 $ubicacon_c=$ubicacon_c->where('v_encuesta_detalle.fecha', '<=', $request->fecha2);
             }
+            if(!empty($request ->ciudad)){
+                $ubicacon_a=$ubicacon_a->where('v_encuesta_detalle.ciudad', '=', $request->ciudad);
+                $ubicacon_b=$ubicacon_b->where('v_encuesta_detalle.ciudad', '=', $request->ciudad);
+                $ubicacon_c=$ubicacon_c->where('v_encuesta_detalle.ciudad', '=', $request->ciudad);
+            }
+            if(!empty($request ->ci)){
+                $ubicacon_a=$ubicacon_a->where('v_encuesta_detalle.ci_enc', '=', $request->ci);
+                $ubicacon_b=$ubicacon_b->where('v_encuesta_detalle.ci_enc', '=', $request->ci);
+                $ubicacon_c=$ubicacon_c->where('v_encuesta_detalle.ci_enc', '=', $request->ci);
+            }
+
+
             $ubicacon_a=$ubicacon_a->get()->toArray();
             $ubicacon_b=$ubicacon_b->get()->toArray();
             $ubicacon_c=$ubicacon_c->get()->toArray();
@@ -65,6 +81,8 @@ class EncuestaController extends Controller
         ->with('ubicacon_b',$ubicacon_b)
         ->with('ubicacon_c',$ubicacon_c)
         ->with('encuesta',$encuesta)
+        ->with('ciudades',$ciudades)
+        ->with('cantidad',$cantidad)
         ->with('encuestas',$encuestas);
     }
 
