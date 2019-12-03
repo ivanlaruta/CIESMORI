@@ -83,6 +83,7 @@ class EncuestaController extends Controller
         ->with('encuesta',$encuesta)
         ->with('ciudades',$ciudades)
         ->with('cantidad',$cantidad)
+        ->with('request',$request)
         ->with('encuestas',$encuestas);
     }
 

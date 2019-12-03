@@ -351,7 +351,7 @@ console.log(etiquetaC);
                 <select class="form-control" id="id" name="id"  data-width="100%" required="">
                   <option ></option>
                   @foreach($encuestas as $det)
-                        <option value="{{$det->id}}">{{strtoupper($det->nombre)}}</option>
+                        <option value="{{$det->id}}" @if(!empty($request->id) && $det->id==$request->id) selected="" @endif >{{strtoupper($det->nombre)}}</option>
                   @endforeach
                 </select>
               </div>
@@ -360,13 +360,13 @@ console.log(etiquetaC);
                 <select name="ciudad" id="ciudad" class="form-control">
                   <option ></option>
                   @foreach($ciudades as $det)
-                        <option value="{{$det->ciudad}}">{{strtoupper($det->ciudad)}}</option>
+                        <option value="{{$det->ciudad}}" @if(!empty($request ->ciudad) && $det->ciudad==$request ->ciudad) selected="" @endif>{{strtoupper($det->ciudad)}}</option>
                   @endforeach
                 </select>
               </div>
               <div class="form-group">
                 <label>Ci encuestador</label>
-                <input type="text" id="ci" name="ci" class="form-control">
+                <input type="text" id="ci" name="ci" class="form-control" @if(!empty($request ->ci)) value="{{$request ->ci}}" @endif>
               </div>
               <div class="form-group">
                 <label>Desde</label>
