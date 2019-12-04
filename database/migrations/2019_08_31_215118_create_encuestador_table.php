@@ -20,6 +20,7 @@ class CreateEncuestadorTable extends Migration
             $table->integer('horas_que_puede_trabajar');
             $table->integer('experiencia');      
             $table->string('observacion')->nullable();
+            $table->integer('calificacion')->nullable();
             $table->integer('estado')->default(1);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

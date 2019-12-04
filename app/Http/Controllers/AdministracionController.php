@@ -395,6 +395,21 @@ class AdministracionController extends Controller
 
     }
 
+
+    public function encuestadores_store_califica (Request $request)
+    {
+
+          $encuestador_id = $request->encuestador;
+          $Calificacion = $request->Calificacion;
+
+            $encuestadores=Encuestador::find($encuestador_id);
+                $encuestadores->calificacion =$Calificacion;
+                $encuestadores->save();
+                return redirect()->route('administracion.encuestadores.index')->with('mensaje',"La calificacion a sido registrada exitosamente. ");
+
+
+    }
+
     public function encuestador_encuesta_baja(Request $request)
     {
 

@@ -28,6 +28,7 @@
                  <th style="width: 15%">Área de trabajo</th>
                  <th style="width: 10%">Disponibilidad</th>
                  <th style="width: 10%">Encuestas Asignadas</th>
+                 <th style="width: 10%">Calificacion</th>
                  <th style="width: 1%">Obs</th>
                  <th style="width: 1%">Opciones</th>
                 </tr>
@@ -130,27 +131,28 @@
 
                     </ul>
                   </td>
-
+                  <td>{{$det->calificacion}}</td>
                 <td>
                     <a><br>{{$det->observacion}}</a>
                 </td>
                 <td>
-                   <div class="btn-group row" role="group" >
 
-                      <a href="#" class="btn btn-success btn-xs btn_agregar_encuesta" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Administrar encuestas">
+                       <button type="button" class="btn btn-info btn-block  btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg" title="Calificar" onclick="fn_idEncuestador({{$det->id}});"><span class="fa fa-star"></span></button>
+
+                      <a href="#" class="btn-block btn btn-success btn-xs btn_agregar_encuesta" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Administrar encuestas">
                         <span class="fa fa-file"></span>
                       </a>
 
-                      <a href="#" class="btn btn-warning btn-xs btn_editar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Editar">
+                      <a href="#" class="btn-block btn btn-warning btn-xs btn_editar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Editar">
                         <span class="fa fa-edit"></span>
                       </a>
 
-                      <a href="#" class="btn btn-danger btn-xs btn_eliminar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+                      <a href="#" class="btn-block btn btn-danger btn-xs btn_eliminar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Eliminar">
                         <span class="fa fa-trash"></span>
                       </a>
 
 
-                    </div>
+                   
                   </td>
                 </tr>
                 @endforeach
@@ -234,6 +236,42 @@
               </div>
             </div>
 
+           
+                  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Calificacion</h4>
+                        </div>
+                        <div class="modal-body">
+                          <form method="post" action="{{ route('encuestadores.store_califica') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
+                          {{ csrf_field() }}
+
+                          <input type="hidden" name="encuestador" id="encuestador">
+                          <h4><small>  Ingrese un valor entre 1 y 100</small></h4>
+                          <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12">Calificacion
+                            </label>
+                            
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                              <input type="number" id="Calificacion" name="Calificacion" required="required" class="form-control col-md-7 col-xs-12" placeholder="Calificacion" min="0" max="100">
+                            </div>
+                          </div>
+                           <button type="submit" class="btn btn-block btn-success btn_guardar btn-block">Guardar</button>
+                          </form>
+                          
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
           </div>
         </div>
       </div>
@@ -294,6 +332,11 @@
 
     } );
 
+function fn_idEncuestador(valor) {
+    // alert(valor);
+    $('#encuestador').val(valor);
+  };
+ 
 // =============== agrefar_ encuesta ============================
 var id_asignar;
 
@@ -346,6 +389,9 @@ var btn_agregar_encuesta = $(".btn_agregar_encuesta");
       }
     });
   };
+
+
+
 
 
 

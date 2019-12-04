@@ -368,8 +368,8 @@ var btn_edit = $(".btn_edit");
 /*====================================================*/
 
 // ======================= cuota ciudad ==============================
-var btn_edit = $(".btn_ciudad");
-  btn_edit.on("click",function(){
+var btn_ciudad = $(".btn_ciudad");
+  btn_ciudad.on("click",function(){
     frm_cuota($(this));
   });
   var modalContent_edit = $(".contenido_editar_enc");
@@ -386,6 +386,7 @@ var btn_edit = $(".btn_ciudad");
       },
       success: function(dataResult)
       {
+        modalContent_edit.empty();
         console.log(dataResult);
         modalContent_edit.empty().html(dataResult);
         modal_edit.modal('show');
@@ -418,8 +419,8 @@ var btn_edit = $(".btn_ciudad");
 /*====================================================*/
 
 // ======================= asigncion cliente==============================
-var btn_edit = $(".btn_cliente");
-  btn_edit.on("click",function(){
+var btn_cliente = $(".btn_cliente");
+  btn_cliente.on("click",function(){
     frm_cuota($(this));
   });
   var modalContent_edit = $(".contenido_editar_enc");

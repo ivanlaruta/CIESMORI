@@ -90,10 +90,17 @@ route::get('administracion/encuestadores/edit/form',[
 		'as'   =>	'administracion.encuestador_encuesta.baja'
 	]);
 
-	route::get('administracion/encuestadores/admin_encuesta',[
+	route::get('administracion/encuestadores/encuestadores_admin_encuesta',[
 		'uses' =>'administracionController@encuestadores_admin_encuesta',
 		'as'   =>	'administracion.encuestadores.admin_encuesta'
 	]);
+
+	route::post('administracion/encuestadores/store_califica',[
+		'uses' =>'administracionController@encuestadores_store_califica',
+		'as'   =>	'encuestadores.store_califica'
+	]);
+
+
 
 	route::get('administracion/encuestadores/agrega_encuesta',[
 		'uses' =>'administracionController@encuestadores_agrega_encuesta',

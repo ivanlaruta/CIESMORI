@@ -200,12 +200,22 @@ class EncuestaController extends Controller
 
     public function cuota_cuidad(Request $request)
     {
+dd('as');
         $encuesta_id= $request->id;
-        $encuesta = Encuesta::find($encuesta_id);
-        return view('encuestas.migracion.edita')
-        ->with('encuesta',$encuesta);
+
+        $cuotas = DB::table('ciudad')
+            ->leftJoin('cuota_ciudad', function($join)
+                         {
+                             $join->on('ciudad.id', '=', 'cuota_ciudad.id_ciudad');
+                             $join->on('cuota_ciudad','=',$encuesta_id);
+                         })
+            ->get();
+        dd($cuotas);
+        
+        return view('encuestas.cuota_ciudad')
+        ->with('encuesta_id',$encuesta_id);
     }
-    
+
     public function asigna_cliente(Request $request)
     {
         $encuesta_id= $request->id;
