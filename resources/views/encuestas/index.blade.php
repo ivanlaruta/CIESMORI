@@ -370,12 +370,12 @@ var btn_edit = $(".btn_edit");
 // ======================= cuota ciudad ==============================
 var btn_ciudad = $(".btn_ciudad");
   btn_ciudad.on("click",function(){
-    frm_cuota($(this));
+    frm_cuota_ciudad($(this));
   });
   var modalContent_edit = $(".contenido_editar_enc");
   var modal_edit=$(".modal_datos_editar_enc");
 
-  var frm_cuota = function(objeto){
+  var frm_cuota_ciudad = function(objeto){
     $.ajax({
       type: "GET",
       cache: false,

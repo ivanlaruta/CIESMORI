@@ -200,20 +200,38 @@ class EncuestaController extends Controller
 
     public function cuota_cuidad(Request $request)
     {
-dd('as');
         $encuesta_id= $request->id;
 
-        $cuotas = DB::table('ciudad')
-            ->leftJoin('cuota_ciudad', function($join)
-                         {
-                             $join->on('ciudad.id', '=', 'cuota_ciudad.id_ciudad');
-                             $join->on('cuota_ciudad','=',$encuesta_id);
-                         })
-            ->get();
-        dd($cuotas);
-        
-        return view('encuestas.cuota_ciudad')
-        ->with('encuesta_id',$encuesta_id);
+        $cuotas = CuotaCiudad::where('id_encuesta',$encuesta_id)->get();
+
+        $ciudades = DB::select( DB::raw("
+
+            SELECT distinct c.id,c.nombre
+            FROM ciudad c
+            join encuesta_detalle d on d.id_ciudad = c.id and d.id_encuesta = ".$encuesta_id."
+            and not EXISTS (select 1 from cuota_ciudad o where o.id_ciudad = c.id and o.id_encuesta = d.id_encuesta)
+
+            "));
+            return view('encuestas.opciones.cuota_clientes')
+        ->with('encuesta_id',$encuesta_id)
+        ->with('cuotas',$cuotas)
+        ->with('ciudades',$ciudades);
+         
+    }
+
+    public function cuota_cuidad_store(Request $request)
+    {
+        $Cuota = new CuotaCiudad($request->all());
+        $Cuota->save();
+        return redirect()->route('encuesta.index')->with('mensaje',"Se asigno correctamente");
+    }
+
+    public function cuota_cuidad_delete(Request $request)
+    {
+        $Cuota=CuotaCiudad::
+            where('id',$request->id_encuesta_txt)
+          ->delete();
+        return redirect()->route('encuesta.index')->with('mensaje',"Se elimino correctamente");
     }
 
     public function asigna_cliente(Request $request)
@@ -299,13 +317,14 @@ dd('as');
 
                 DB::insert("
                     insert into encuesta_detalle
-                        (id_encuesta,fecha,hora,ci_enc,ciudad,estudio,periodo,contador,horainisis,horafinsis,duracion,latitud_a,longitud_a,entrevistado,edad,rango_edad,genero,nse,telf,ci,email,zona,manzano,manzano1,direccion,num_casa,referencia,nomb_enc,cod_enc,supervision,tipo_supervision,nom_supervisor,cod_supervisor,id_auxiliar)
+                        (id_encuesta,fecha,hora,ci_enc,ciudad,id_ciudad,estudio,periodo,contador,horainisis,horafinsis,duracion,latitud_a,longitud_a,entrevistado,edad,rango_edad,genero,nse,telf,ci,email,zona,manzano,manzano1,direccion,num_casa,referencia,nomb_enc,cod_enc,supervision,tipo_supervision,nom_supervisor,cod_supervisor,id_auxiliar)
                     select
                     ".$encuesta -> id." encuestaid
                     ,IFNULL(cast(SUBSTR(a.questionnaire,2,6) as date),'') Fecha
                     ,IFNULL(SUBSTR(a.questionnaire,8,6),'')  Hora
                     ,SUBSTR(a.questionnaire,14,8) CI_del_Encuestador
                     ,IFNULL(c.nombre,'SIN CIUDAD') ciudad
+                    ,SUBSTR(a.questionnaire,22,1)
                     ,SUBSTR(a.questionnaire,23,4) Estudio
                     ,SUBSTR(a.questionnaire,27,4) Periodo
                     ,SUBSTR(a.questionnaire,31,3) Contador
@@ -336,7 +355,7 @@ dd('as');
                     ,SUBSTR(a.questionnaire,881,4) Código_del_supervisor
                     ,SUBSTR(a.questionnaire,885,34) Id_auxiliar
                     from `".$request -> db."`.".$encuesta -> nombre_tabla." a
-                     LEFT JOIN ciudad c on c.departamento_id = SUBSTR(a.questionnaire,22,1)
+                     LEFT JOIN ciudad c on c.id = SUBSTR(a.questionnaire,22,1)
 
 
                     ");
@@ -497,13 +516,14 @@ dd('as');
         // dd($encuesta);
         DB::insert("
             insert into encuesta_detalle
-                (id_encuesta,fecha,hora,ci_enc,ciudad,estudio,periodo,contador,horainisis,horafinsis,duracion,latitud_a,longitud_a,entrevistado,edad,rango_edad,genero,nse,telf,ci,email,zona,manzano,manzano1,direccion,num_casa,referencia,nomb_enc,cod_enc,supervision,tipo_supervision,nom_supervisor,cod_supervisor,id_auxiliar)
+                (id_encuesta,fecha,hora,ci_enc,ciudad,id_ciudad,estudio,periodo,contador,horainisis,horafinsis,duracion,latitud_a,longitud_a,entrevistado,edad,rango_edad,genero,nse,telf,ci,email,zona,manzano,manzano1,direccion,num_casa,referencia,nomb_enc,cod_enc,supervision,tipo_supervision,nom_supervisor,cod_supervisor,id_auxiliar)
             select
             ".$encuesta -> id." encuestaid
             ,IFNULL(cast(SUBSTR(a.questionnaire,2,6) as date),'') Fecha
             ,IFNULL(SUBSTR(a.questionnaire,8,6),'')  Hora
             ,SUBSTR(a.questionnaire,14,8) CI_del_Encuestador
             ,IFNULL(c.nombre,'SIN CIUDAD') ciudad
+            ,SUBSTR(a.questionnaire,22,1) Ciudad2
             ,SUBSTR(a.questionnaire,23,4) Estudio
             ,SUBSTR(a.questionnaire,27,4) Periodo
             ,SUBSTR(a.questionnaire,31,3) Contador
@@ -534,7 +554,7 @@ dd('as');
             ,SUBSTR(a.questionnaire,881,4) Código_del_supervisor
             ,SUBSTR(a.questionnaire,885,34) Id_auxiliar
             from `".$encuesta -> nombre_db."`.".$encuesta -> nombre_tabla." a
-             LEFT JOIN ciudad c on c.departamento_id = SUBSTR(a.questionnaire,22,1)
+             LEFT JOIN ciudad c on c.id = SUBSTR(a.questionnaire,22,1)
             ");
 
         DB::insert("

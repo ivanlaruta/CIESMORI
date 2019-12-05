@@ -20,6 +20,7 @@ class CreateEncuestaDetalleTable extends Migration
             $table->time('hora');
             $table->string('ci_enc');
             $table->string('ciudad');
+            $table->string('id_ciudad')->nullable();
             $table->string('estudio');
             $table->string('periodo');
             $table->string('contador');
