@@ -9,6 +9,8 @@ use App\CuotaCiudad;
 use App\Ciudad;
 use App\EncuestaDetalle;
 use App\V_detalle_encuesta;
+use App\EncuestaCliente;
+use App\User;
 use Illuminate\Http\Request;
 use DB;
 
@@ -212,7 +214,7 @@ class EncuestaController extends Controller
             and not EXISTS (select 1 from cuota_ciudad o where o.id_ciudad = c.id and o.id_encuesta = d.id_encuesta)
 
             "));
-            return view('encuestas.opciones.cuota_clientes')
+            return view('encuestas.opciones.cuota_ciudad')
         ->with('encuesta_id',$encuesta_id)
         ->with('cuotas',$cuotas)
         ->with('ciudades',$ciudades);
@@ -237,9 +239,15 @@ class EncuestaController extends Controller
     public function asigna_cliente(Request $request)
     {
         $encuesta_id= $request->id;
-        $encuesta = Encuesta::find($encuesta_id);
-        return view('encuestas.migracion.edita')
-        ->with('encuesta',$encuesta);
+
+        $users = DB::table('users')
+            ->join('roles', 'users.rol_id', '=', 'roles.id')
+            ->where('roles.descripcion','CLIENTE')
+            ->get();
+
+        $clientes = EncuestaCliente::where('encuesta_id',$encuesta_id)->get();
+
+        return view('encuestas.opciones.encuesta_clientes');
     }
 
     public function editar(Request $request)

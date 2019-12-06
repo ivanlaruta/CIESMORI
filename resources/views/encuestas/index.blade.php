@@ -421,12 +421,12 @@ var btn_ciudad = $(".btn_ciudad");
 // ======================= asigncion cliente==============================
 var btn_cliente = $(".btn_cliente");
   btn_cliente.on("click",function(){
-    frm_cuota($(this));
+    frm_cliente($(this));
   });
   var modalContent_edit = $(".contenido_editar_enc");
   var modal_edit=$(".modal_datos_editar_enc");
 
-  var frm_cuota = function(objeto){
+  var frm_cliente = function(objeto){
     $.ajax({
       type: "GET",
       cache: false,

@@ -16,7 +16,7 @@ class CreateEncuestaClienteTable extends Migration
         Schema::create('encuesta_cliente', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('encuesta_id');
-            $table->string('usuario_id');
+            $table->integer('usuario_id');
             $table->integer('estado')->default(1);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
