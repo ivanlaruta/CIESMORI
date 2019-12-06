@@ -108,7 +108,7 @@ class EncuestaController extends Controller
         }
         else
         {
-            dd('no cliente');
+            
             $encuestas=Encuesta::all();
         }
 
@@ -746,7 +746,7 @@ class EncuestaController extends Controller
         }
         else
         {
-            dd('no cliente');
+            
             $encuesta=Encuesta::all();
         }
 
