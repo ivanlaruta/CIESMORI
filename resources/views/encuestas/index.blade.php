@@ -12,12 +12,15 @@
       <div class="col-md-12">
         <div class="x_panel">
           <div class="x_title">
-
-            <h2>Lista de encuesta</h2>
+            
+            
+            <h2>Lista de encuestas</h2>
+            @if(Auth::user()->rol->descripcion != 'CLIENTE')
             <div class="pull-right" >
               <a  href="#" class="btn btn-success btn_nuevo " data-toggle="tooltip" data-placement="bottom" title="Agregar Nuevo" ><i class="fa fa-plus"></i></a>
-           {{--    <a  href="#" class="btn btn-primary btn_libro_datos " data-toggle="tooltip" data-placement="bottom" title="Administrar libros" ><i class="fa fa-book"></i></a> --}}
+          
             </div>
+            @endif
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
@@ -38,7 +41,9 @@
                     <th style="width: 1%">Libro de Datos</th>
                     <th style="width: 1%">Meta del Estudio</th>
                     <th style="width: 1%">registros</th>
+                    @if(Auth::user()->rol->descripcion != 'CLIENTE')
                     <th style="width: 1%">Opciones</th>
+                    @endif
                   </tr>
                 </thead>
                 <tbody>
@@ -67,6 +72,7 @@
                         </a>
                       </div>
                     </td>
+                    @if(Auth::user()->rol->descripcion != 'CLIENTE')
                     <td align="center">
                         <form method="get" action="{{  route('encuesta.actualizar') }}" >
                           {{ csrf_field() }}
@@ -85,7 +91,8 @@
                           <span class="fa fa-user fa-lg"></span>
                         </a>
               
-                    </td>
+                    </td>@endif
+
                   </tr>
                   @endforeach
                 </tbody>

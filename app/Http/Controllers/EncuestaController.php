@@ -11,21 +11,17 @@ use App\EncuestaDetalle;
 use App\V_detalle_encuesta;
 use App\EncuestaCliente;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use DB;
 
 
 class EncuestaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public function gis(Request $request)
     {
         $encuestas=Encuesta::all();
+        
         $ciudades=EncuestaDetalle::select('ciudad')->distinct()->get();
         $cantidad = 0;
         $encuesta = Encuesta::find($request->id);
@@ -100,7 +96,23 @@ class EncuestaController extends Controller
         $total_encuestas=Encuesta::count();
         $total_detalle_encuestas=V_detalle_encuesta::count();
 
-        $encuestas=Encuesta::all();
+
+        $id_user = Auth::user()->rol_id;
+        if(Auth::user()->rol->descripcion == 'CLIENTE'){
+            
+            $encuestas=Encuesta::whereIn('id', function($query) use ($id_user) {
+            $query->select('encuesta_id')
+            ->from(with(new EncuestaCliente)->getTable())
+            ->where('usuario_id',$id_user);
+        })->get();
+        }
+        else
+        {
+            dd('no cliente');
+            $encuestas=Encuesta::all();
+        }
+
+
         return view('encuestas.dashboard.index')
         ->with('total_encuestas',$total_encuestas)
         ->with('total_detalle_encuestas',$total_detalle_encuestas)
@@ -722,7 +734,23 @@ class EncuestaController extends Controller
 
     public function index()
     {
-        $encuesta = Encuesta::all();
+
+        $id_user = Auth::user()->rol_id;
+        if(Auth::user()->rol->descripcion == 'CLIENTE'){
+            
+            $encuesta=Encuesta::whereIn('id', function($query) use ($id_user) {
+            $query->select('encuesta_id')
+            ->from(with(new EncuestaCliente)->getTable())
+            ->where('usuario_id',$id_user);
+        })->get();
+        }
+        else
+        {
+            dd('no cliente');
+            $encuesta=Encuesta::all();
+        }
+
+
         $campos_tabla =  DB::select( DB::raw("SHOW COLUMNS FROM v_encuesta_detalle"));
         // dd($campos_tabla);
         return view('encuestas.index')->with('encuesta',$encuesta)->with('campos_tabla',$campos_tabla);
