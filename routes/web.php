@@ -207,10 +207,21 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'as'   =>	'encuesta.asigna_cliente'
 		]);
 
+	route::get('encuesta/asigna_cliente_store',[
+			'uses' =>'EncuestaController@asigna_cliente_store',
+			'as'   =>	'encuesta.asigna_cliente_store'
+		]);
+
+	route::get('encuesta/asigna_cliente_delete',[
+			'uses' =>'EncuestaController@asigna_cliente_delete',
+			'as'   =>	'encuesta.asigna_cliente_delete'
+		]);
+
 	route::post('encuesta/migrar',[
 			'uses' =>'EncuestaController@migrar',
 			'as'   =>	'encuesta.migrar'
 		]);
+
 
 	route::post('encuesta/store_libro',[
 			'uses' =>'EncuestaController@store_libro',

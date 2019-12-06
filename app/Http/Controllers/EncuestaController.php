@@ -246,9 +246,29 @@ class EncuestaController extends Controller
             ->get();
 
         $clientes = EncuestaCliente::where('encuesta_id',$encuesta_id)->get();
-
-        return view('encuestas.opciones.encuesta_clientes');
+        // dd($clientes);
+        return view('encuestas.opciones.encuesta_clientes')
+        ->with('encuesta_id',$encuesta_id)
+        ->with('users',$users)
+        ->with('clientes',$clientes);
     }
+
+     public function asigna_cliente_store(Request $request)
+    {
+        $EncuestaCliente = new EncuestaCliente($request->all());
+        $EncuestaCliente->save();
+        return redirect()->route('encuesta.index')->with('mensaje',"Se asigno correctamente");
+    }
+
+    public function asigna_cliente_delete(Request $request)
+    {
+        $EncuestaCliente=EncuestaCliente::
+            where('id',$request->id_encuesta_txt)
+          ->delete();
+        return redirect()->route('encuesta.index')->with('mensaje',"Se elimino correctamente");
+    }
+
+
 
     public function editar(Request $request)
     {
