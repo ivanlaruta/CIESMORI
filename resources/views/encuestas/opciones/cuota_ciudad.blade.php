@@ -10,7 +10,7 @@
 
               <input type="hidden" name="id_encuesta" value="{{$encuesta_id}}" >
               <div class="form-group">
-                
+
                 <div class="col-md-5 col-sm-5 col-xs-6">
                   <select class="form-control col-md-7 col-xs-12 "  data-width="100%" id="id_ciudad" name="id_ciudad" required="required">
                     <option> Seleccione una ciudad ...</option>
@@ -44,25 +44,25 @@
               <tr>
                 <td>{{$det->ciudad->nombre}}</td>
                 <td>{{$det->meta}}</td>
-                
+
                 <td>
                    <div class="btn-group" role="group" >
                       <a href="#" class="btn btn-danger btn-xs btn_eliminar" id_cuota = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                        <span class="fa fa-trash"></span> 
+                        <span class="fa fa-trash"></span>
                       </a>
                     </div>
-                  </td>        
+                  </td>
                 </tr>
                 @endforeach
-                
+
 
               </tbody>
             </table>
 
-          
 
-         
-          
+
+
+
 
 </div>
 <div class="modal fade modal_dialog_enc" id="modal_dialog_enc" role="dialog" >
