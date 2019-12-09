@@ -147,28 +147,7 @@ class EncuestaController extends Controller
         ->with('encuestas',$encuestas);
     }
 
-    // public function cuota_ciudad()
-    // {
-    //     $cuotaciudad =CuotaCiudad::all();
-    //     $encuestadetalle =EncuestaDetalle::all();
-    //     $encuestas=Encuesta::all();
-    //     $parametrica=Parametrica::select('codigo')
-    //                         ->where('tabla','libro_datos')
-    //                         ->where('estado','1')
-    //                         ->orderBy('codigo')->get();
-    //
-    //     $ciudad=EncuestaDetalle::select('ciudad')
-    //                         // ->where('id_encuesta=2')
-    //                         ->where('estado','1')
-    //                         ->groupBy('ciudad')
-    //                         ->orderBy('id_encuesta')->get();
-    //
-    //     return view('encuestas.migracion.cuota_ciudad')
-    //      ->with('parametrica',$parametrica)
-    //      //->with('librodatos',$librodatos)
-    //      ->with('cuotaciudad',$cuotaciudad)
-    //     ->with('encuestas',$encuestas);
-    // }
+
 
 
     public function migracion()
@@ -394,9 +373,7 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,881,4) Código_del_supervisor
             ,SUBSTR(a.questionnaire,885,34) Id_auxiliar
             from `".$request -> db."`.".$encuesta -> nombre_tabla." a
-             LEFT JOIN ciudad c on c.departamento_id = SUBSTR(a.questionnaire,22,1)
-
-
+            LEFT JOIN ciudad c on c.id = SUBSTR(a.questionnaire,22,1)
             ");
 
         DB::insert("
