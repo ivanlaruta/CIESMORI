@@ -231,11 +231,20 @@ class EncuestaController extends Controller
     {
         $encuesta_id= $request->id;
 
-        $users = DB::table('users')
+        $usersss = DB::table('users')
             ->join('roles', 'users.rol_id', '=', 'roles.id')
             ->where('roles.descripcion','CLIENTE')
             ->get();
 
+         $users = DB::select( DB::raw("
+
+            SELECT c.*
+            FROM users c
+            join roles d on d.id = c.rol_id and d.descripcion ='CLIENTE'
+            and not EXISTS (select 1 from encuesta_cliente o where o.usuario_id = c.id and o.encuesta_id = ".$encuesta_id.")
+
+            "));
+         // dd($users);
         $clientes = EncuestaCliente::where('encuesta_id',$encuesta_id)->get();
         // dd($clientes);
         return view('encuestas.opciones.encuesta_clientes')
@@ -246,6 +255,7 @@ class EncuestaController extends Controller
 
      public function asigna_cliente_store(Request $request)
     {
+        // dd($request->all());
         $EncuestaCliente = new EncuestaCliente($request->all());
         $EncuestaCliente->save();
         return redirect()->route('encuesta.index')->with('mensaje',"Se asigno correctamente");
@@ -374,6 +384,7 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,885,34) Id_auxiliar
             from `".$request -> db."`.".$encuesta -> nombre_tabla." a
             LEFT JOIN ciudad c on c.id = SUBSTR(a.questionnaire,22,1)
+            where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
             ");
 
         DB::insert("
@@ -423,6 +434,7 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,2997,80) Apellido_encuestador
             ,SUBSTR(a.questionnaire,3077,30) Id_del_dispositivo
             from `".$request -> db."`.".$encuesta -> nombre_tabla." a
+            where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
 
             ");
 
@@ -572,6 +584,7 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,885,34) Id_auxiliar
             from `".$encuesta -> nombre_db."`.".$encuesta -> nombre_tabla." a
              LEFT JOIN ciudad c on c.id = SUBSTR(a.questionnaire,22,1)
+             where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
             ");
 
         DB::insert("
@@ -621,6 +634,7 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,2997,80) Apellido_encuestador
             ,SUBSTR(a.questionnaire,3077,30) Id_del_dispositivo
             from `".$encuesta -> nombre_db."`.".$encuesta -> nombre_tabla." a
+            where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
             ");
             $ruta_audios = $encuesta -> carpeta_audios;
             $ruta_imagenes = $encuesta -> carpeta_imagenes;
