@@ -187,7 +187,7 @@ class AdministracionController extends Controller
 
         $persona = new Persona($request->all());
         $persona -> fecha_nacimiento = date("Y-m-d",strtotime(str_replace('/', '-',$request->fecha_nacimiento))) ;
-        dd($persona);
+        // dd($persona);
 
         if($request->file('image')){
             $file = $request->file('image');
