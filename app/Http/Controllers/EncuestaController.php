@@ -9,6 +9,7 @@ use App\CuotaCiudad;
 use App\Ciudad;
 use App\EncuestaDetalle;
 use App\V_detalle_encuesta;
+use App\V_detalle_multimedia;
 use App\EncuestaCliente;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -781,6 +782,39 @@ class EncuestaController extends Controller
                 ->with('detalle',$detalle);
     }
 
+    public function contenido_multimedia(Request $request)
+    {
+        $encuesta_Cab = Encuesta::find($request->id_encuesta);
+        $array_campos = $request->lista_campos;
+        if(empty($array_campos))
+        {
+            $detalle = V_detalle_multimedia::where('id_encuesta',$request->id_encuesta)->get();
+            $campos_tabla =  DB::select( DB::raw("SHOW COLUMNS FROM v_encuesta_multimedia"));
+
+            for ($i = 0; $i < sizeof($campos_tabla); $i++)
+            {
+                $array_campos[$i] = $campos_tabla[$i]->Field;
+            }
+        }
+        else
+        {
+            $cadena ="";
+            for ($i = 0; $i < sizeof($array_campos); $i++)
+            {
+                $cadena = $cadena.$array_campos[$i];
+                if($i < (sizeof($array_campos))-1){
+                $cadena = $cadena.',';
+               }
+            }
+            $detalle = V_detalle_multimedia::query();
+            $detalle = $detalle->select(DB::raw($cadena));
+            $detalle = $detalle->where('id_encuesta',$request->id_encuesta)->get();
+        }
+        return view('encuestas.contenido_multimedia')
+                ->with('encuesta_Cab',$encuesta_Cab)
+                ->with('array_campos',$array_campos)
+                ->with('detalle',$detalle);
+    }
 
 
     public function create()

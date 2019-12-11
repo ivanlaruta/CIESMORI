@@ -201,7 +201,7 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'uses' =>'EncuestaController@cuota_cuidad_delete',
 			'as'   =>	'encuesta.cuota_cuidad_delete'
 		]);
-	
+
 	route::get('encuesta/asigna_cliente',[
 			'uses' =>'EncuestaController@asigna_cliente',
 			'as'   =>	'encuesta.asigna_cliente'
@@ -242,6 +242,12 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'uses' =>'EncuestaController@contenido_detalle',
 			'as'   =>	'encuesta.contenido_detalle'
 		]);
+
+  route::get('encuesta/contenido_multimedia',[
+  			'uses' =>'EncuestaController@contenido_multimedia',
+  			'as'   =>	'encuesta.contenido_multimedia'
+	]);
+
 
 	route::get('encuesta/dashboard',[
 			'uses' =>'EncuestaController@dashboard',
