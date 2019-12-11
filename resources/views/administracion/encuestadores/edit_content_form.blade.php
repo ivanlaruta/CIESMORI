@@ -19,7 +19,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Cédula identidad *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="ci" name="ci" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad" onblur="validar_ci()" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+                  <input type="text" id="ci" name="ci" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad" value="{{$encuestador->persona->ci}}" onblur="validar_ci()" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <select class="form-control col-md-7 col-xs-12 select_expedido" data-width="100%" id="cod_expedido" name="cod_expedido" required="required" >
@@ -35,7 +35,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Nombres *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="primer_nombre" name="primer_nombre" class="form-control col-md-7 col-xs-12" placeholder=" Primer nombre" onkeyup="this.value = this.value.toUpperCase();" maxlength="30" required pattern="[A-Za-z]+">
+                  <input type="text" id="primer_nombre" name="primer_nombre" class="form-control col-md-7 col-xs-12" value="{{$encuestador->persona->primer_nombre}}" placeholder=" Primer nombre" onkeyup="this.value = this.value.toUpperCase();" maxlength="30" required pattern="[A-Za-z]+">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <input type="text" id="segundo_nombre" name="segundo_nombre" class="form-control col-md-7 col-xs-12" placeholder=" Segundo nombre" value="{{$encuestador->persona->segundo_nombre}}"  onkeyup="this.value = this.value.toUpperCase();" maxlength="30" pattern="[A-Za-z]+">
@@ -71,7 +71,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Fecha de nacimiento *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="fecha_nacimiento" value="2000/12/04" name="fecha_nacimiento" required="required" class="form-control col-md-7 col-xs-12">
+                  <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" required="required" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
 
@@ -116,10 +116,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Teléfonos *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="telefono1" name="telefono1" minlengh="6" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 1" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                  <input type="text" id="telefono1" name="telefono1" minlengh="6" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" value="{{$encuestador->persona->telefono1}}" placeholder="Telefono 1" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="telefono2" name="telefono2" minlengh="6" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 2" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                  <input type="text" id="telefono2" name="telefono2" minlengh="6" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" value="{{$encuestador->persona->telefono2}}" placeholder="Telefono 2" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                 </div>
               </div>
 
@@ -321,7 +321,7 @@ $(function() {
     "maxDate": moment().subtract(17, 'years'),
     "startDate": res,
     "locale": {
-      "format": "YYYY/MM/DD",
+      "format": "DD/MM/YYYY",
       "separator": " - ",
       "applyLabel": "Aceptar",
       "cancelLabel": "Cancelar",

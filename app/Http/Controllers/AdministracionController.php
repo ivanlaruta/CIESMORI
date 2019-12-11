@@ -186,6 +186,8 @@ class AdministracionController extends Controller
          // dd($request->all());
 
         $persona = new Persona($request->all());
+        $persona -> fecha_nacimiento = date("Y-m-d",strtotime(str_replace('/', '-',$request->fecha_nacimiento))) ;
+        dd($persona);
 
         if($request->file('image')){
             $file = $request->file('image');
@@ -273,6 +275,9 @@ class AdministracionController extends Controller
 
         $persona = Persona::find($encuestador->persona_id);
         $persona->fill($request->all());
+        $persona -> fecha_nacimiento = date("Y-m-d",strtotime(str_replace('/', '-',$request->fecha_nacimiento))) ;
+
+     
 
 
 

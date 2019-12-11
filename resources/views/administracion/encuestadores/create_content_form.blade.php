@@ -71,7 +71,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Fecha de nacimiento *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" required="required" class="form-control col-md-7 col-xs-12" value="1999-01-01" min="1960-12-31" max="2002-01-01">
+                  <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" required="required" class="form-control col-md-7 col-xs-12" value="01-01-1999" min="31-12-1960" max="01-01-2002">
                   <!-- <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required="required" value="1999-01-01" min="1960-12-31" max="2002-01-01" class="form-control col-md-7 col-xs-12"> -->
                 </div>
               </div>
@@ -274,7 +274,7 @@ $(function() {
     "maxDate": moment().subtract(17, 'years'),
     "startDate": moment().subtract(17, 'years'),
     "locale": {
-      "format": "YYYY/MM/DD",
+      "format": "DD/MM/YYYY",
       "separator": " - ",
       "applyLabel": "Aceptar",
       "cancelLabel": "Cancelar",

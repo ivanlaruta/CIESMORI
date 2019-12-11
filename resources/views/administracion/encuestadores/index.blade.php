@@ -58,7 +58,7 @@
                         <li><i class="fa fa-credit-card"></i> Ci: {{$det->persona->ci}} {{$det->persona->expedido->nombre_corto}} </li>
                         <li><i class="fa fa-intersex"></i> Genero: {{$det->persona->genero()}} </li>
                         <li><i class="fa fa-child"></i> Estado civil: {{$det->persona->estado_civil()}} </li>
-                        <li><i class="fa fa-calendar"></i> Nacimiento: {{$det->persona->fecha_nacimiento}} </li>
+                        <li><i class="fa fa-calendar"></i> Nacimiento: {{date("d/m/Y",strtotime($det->persona->fecha_nacimiento)) }} </li>
                         <li><i class="fa fa-phone"></i> Telefonos: {{$det->persona->telefono1}} {{$det->persona->telefono2}}</li>
                         <li><i class="fa fa-map-marker"></i> Direccion: {{$det->persona->zona}}, {{$det->persona->direccion}},{{$det->persona->ciudad->nombre}}</li>
                       </ul>
