@@ -31,20 +31,6 @@ class ParametricaTipoEstudioTableSeeder extends Seeder
         'codigo' => '4',
         'valor_cadena' => 'Punto de Encuentros',
       ]);
-      DB::table('parametrica')->insert([
-        'tabla' => 'tipo_estudio',
-        'codigo' => '5',
-        'valor_cadena' => 'Recludator',
-      ]);
-      DB::table('parametrica')->insert([
-        'tabla' => 'tipo_estudio',
-        'codigo' => '6',
-        'valor_cadena' => 'Entrevistador',
-      ]);
-      DB::table('parametrica')->insert([
-        'tabla' => 'tipo_estudio',
-        'codigo' => '7',
-        'valor_cadena' => 'Supervision',
-      ]);
+  
     }
 }

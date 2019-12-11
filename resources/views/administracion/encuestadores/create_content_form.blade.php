@@ -120,7 +120,7 @@
                   <input type="text" id="telefono1" name="telefono1" minlengh="6" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 1" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="telefono2" name="telefono2" minlengh="6" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 2" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                  <input type="text" id="telefono2" name="telefono2" minlengh="6" maxlength="8" class="form-control col-md-7 col-xs-12" placeholder="Telefono 2" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                 </div>
               </div>
 
@@ -196,7 +196,7 @@
                   </select>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                  <input type="number" id="horas_que_puede_trabajar" name="horas_que_puede_trabajar" required="required" class="form-control col-md-7 col-xs-12" placeholder="Horas que puede trabajar" minlengh="0" maxlength="2" min="0" max="12">
+                  <input type="text" id="horas_que_puede_trabajar" name="horas_que_puede_trabajar" required="required" class="form-control col-md-7 col-xs-12" placeholder="Horas que puede trabajar" minlengh="0" maxlength="2" min="0" max="12">
                 </div>
               </div>
 
@@ -207,7 +207,7 @@
                   <input id="empresas" name="empresas" type="text" class="tags form-control" value="" />
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                  <input type="number" id="experiencia" name="experiencia" required="required" class="form-control col-md-7 col-xs-12" placeholder="Años de Experiencia" minlengh="0" maxlength="2" min="0" max="60">
+                  <input type="text" id="experiencia" name="experiencia" required="required" class="form-control col-md-7 col-xs-12" placeholder="Años de Experiencia" minlengh="0" maxlength="2" min="0" max="60">
                 </div>
               </div>
 
