@@ -19,7 +19,7 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Cédula identidad *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="ci" name="ci" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad" onblur="validar_ci()" value="{{$encuestador->persona->ci}}">
+                  <input type="text" id="ci" name="ci" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" placeholder="Carnet de identidad" onblur="validar_ci()" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
                   <select class="form-control col-md-7 col-xs-12 select_expedido" data-width="100%" id="cod_expedido" name="cod_expedido" required="required" >
@@ -35,21 +35,21 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Nombres *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="primer_nombre" name="primer_nombre" required="required" class="form-control col-md-7 col-xs-12" placeholder=" Primer nombre"  value="{{$encuestador->persona->primer_nombre}}" onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="primer_nombre" name="primer_nombre" class="form-control col-md-7 col-xs-12" placeholder=" Primer nombre" onkeyup="this.value = this.value.toUpperCase();" maxlength="30" required pattern="[A-Za-z]+">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="segundo_nombre" name="segundo_nombre" class="form-control col-md-7 col-xs-12" placeholder=" Segundo nombre" value="{{$encuestador->persona->segundo_nombre}}"  onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="segundo_nombre" name="segundo_nombre" class="form-control col-md-7 col-xs-12" placeholder=" Segundo nombre" value="{{$encuestador->persona->segundo_nombre}}"  onkeyup="this.value = this.value.toUpperCase();" maxlength="30" pattern="[A-Za-z]+">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-2 col-xs-12">Apellidos *
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">Apellidos
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="apellido_paterno" name="apellido_paterno" class="form-control col-md-7 col-xs-12" placeholder="Apellido paterno" value="{{$encuestador->persona->apellido_paterno}}"  onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="apellido_paterno" name="apellido_paterno" class="form-control col-md-7 col-xs-12" placeholder="Apellido paterno" value="{{$encuestador->persona->apellido_paterno}}"  onkeyup="this.value = this.value.toUpperCase();" maxlength="30" pattern="[A-Za-z]+">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" id="apellido_materno" name="apellido_materno"  class="form-control col-md-7 col-xs-12" placeholder="Apellido materno" value="{{$encuestador->persona->apellido_materno}}"  onkeyup="this.value = this.value.toUpperCase();">
+                  <input type="text" id="apellido_materno" name="apellido_materno"  class="form-control col-md-7 col-xs-12" placeholder="Apellido materno" value="{{$encuestador->persona->apellido_materno}}"  onkeyup="this.value = this.value.toUpperCase();" maxlength="30" pattern="[A-Za-z]+">
                 </div>
               </div>
 
@@ -116,10 +116,10 @@
                 <label class="control-label col-md-2 col-sm-2 col-xs-12">Teléfonos *
                 </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="number" id="telefono1" name="telefono1" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 1" value="{{$encuestador->persona->telefono1}}">
+                  <input type="text" id="telefono1" name="telefono1" minlengh="6" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 1" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="number" id="telefono2" name="telefono2" class="form-control col-md-7 col-xs-12" placeholder="Telefono 2" value="{{$encuestador->persona->telefono2}}">
+                  <input type="text" id="telefono2" name="telefono2" minlengh="6" maxlength="8" required="required" class="form-control col-md-7 col-xs-12" placeholder="Telefono 2" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                 </div>
               </div>
 
@@ -197,7 +197,7 @@
                   </select>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                  <input type="number" id="horas_que_puede_trabajar" name="horas_que_puede_trabajar" required="required" class="form-control col-md-7 col-xs-12" placeholder="Horas que puede trabajar" value="{{$encuestador->horas_que_puede_trabajar}}" min="1" max="24">
+                  <input type="number" id="horas_que_puede_trabajar" name="horas_que_puede_trabajar" required="required" class="form-control col-md-7 col-xs-12" placeholder="Horas que puede trabajar" value="{{$encuestador->horas_que_puede_trabajar}}" minlengh="0" maxlength="2" min="0" max="12">
                 </div>
               </div>
 
@@ -208,7 +208,7 @@
                   <input id="empresas" name="empresas" type="text" class="tags form-control" value="{{$cadena_empresas}}" />
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                  <input type="number" id="experiencia" name="experiencia" required="required" class="form-control col-md-7 col-xs-12" placeholder="Años de Experiencia" value="{{$encuestador->experiencia}}" min="1" max="60">
+                  <input type="number" id="experiencia" name="experiencia" required="required" class="form-control col-md-7 col-xs-12" placeholder="Años de Experiencia" value="{{$encuestador->experiencia}}" minlengh="0" maxlength="2" min="0" max="60">
                 </div>
               </div>
 
