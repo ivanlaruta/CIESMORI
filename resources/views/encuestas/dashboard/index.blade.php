@@ -130,6 +130,7 @@
                          <th>Nombre del encuestador</th>
                          <th>id_auxiliar</th>
                          <th>Nombre del archivo</th>
+                         <th>Tipo de archivo</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -138,6 +139,7 @@
                         <td>{{$lista->nomb_enc}}</td>
                         <td>{{$lista->id_auxiliar}}</td>
                         <td>{{$lista->nombre_archivo}}</td>
+                        <td>{{$lista->tipo}}</td>
 
                       </tr>
                       @endforeach
