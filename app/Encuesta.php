@@ -14,6 +14,11 @@ class Encuesta extends Model
         return $this->hasMany('App\V_detalle_encuesta','id_encuesta');
     }
 
+    public function multimedia_encuestadores()
+    {
+        return $this->hasMany('App\V_detalle_multimedia','id_encuesta');
+    }
+
     public function num_registros()
     {
       return DB::table('v_encuesta_detalle')->where('id_encuesta','=',$this->id)->count();
@@ -54,5 +59,6 @@ class Encuesta extends Model
              return(0);
         }
     }
+
 
 }

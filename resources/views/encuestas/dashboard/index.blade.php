@@ -86,6 +86,8 @@
                   </table>
                   </div>
 
+
+
                   <div class="col-md-8 col-sm-8 col-xs-12">
                     <h4>Distribucion por ciudad</h4>
                     @if ($det->lista_ciudades->count() > 0)
@@ -117,7 +119,33 @@
               </div>
 
 
+
+
                   <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h4>Multimedia por encustador</h4>
+
+                    <table class="table table-striped table-sm">
+                      <thead>
+                        <tr>
+                         <th>Nombre del encuestador</th>
+                         <th>id_auxiliar</th>
+                         <th>Nombre del archivo</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      @foreach ($det->multimedia_encuestadores as $lista)
+                      <tr>
+                        <td>{{$lista->nomb_enc}}</td>
+                        <td>{{$lista->id_auxiliar}}</td>
+                        <td>{{$lista->nombre_archivo}}</td>
+
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                  </div>
+
+                  <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="ln_solid"></div>
                     <div class="project_detail">
                       <p class="title">Origen Base de datos/tabla:</p>

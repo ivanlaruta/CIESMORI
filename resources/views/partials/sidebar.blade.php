@@ -15,7 +15,6 @@
                     <ul class="nav child_menu">
                       <li><a href="{{ route('encuesta.index')}}">Lista de encuestas</a></li>
                       <li><a href="{{ route('encuesta.admin_libro')}}">Libro de datos</a></li>
-                      <li><a href="{{ route('encuesta.index')}}">Lista de Audios e Imagenes</a></li>
                       <li><a href="{{ route('encuesta.dashboard')}}">Dashboard</a></li>
                       <li><a href="{{ route('encuesta.gis')}}">GIS</a></li>
                     </ul>
@@ -32,7 +31,6 @@
                   <li><a><i class="fa fa-bar-chart"></i> Encuestas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{ route('encuesta.admin_libro')}}">Libro de datos</a></li>
-                      <li><a href="{{ route('encuesta.cuota_ciudad')}}">Cuotas por Ciudad</a></li>
                       <li><a href="{{ route('encuesta.dashboard')}}">Dashboard</a></li>
                       <li><a href="{{ route('encuesta.gis')}}">GIS</a></li>
                     </ul>
@@ -127,7 +125,6 @@
                     <ul class="nav child_menu">
                       <li><a href="{{ route('encuesta.index')}}">Lista de encuestas</a></li>
                       <li><a href="{{ route('encuesta.admin_libro')}}">Libro de datos</a></li>
-                      <li><a href="{{ route('encuesta.cuota_ciudad')}}">Cuotas por Ciudad</a></li>
                       <li><a href="{{ route('encuesta.dashboard')}}">Dashboard</a></li>
                       <li><a href="{{ route('encuesta.gis')}}">GIS</a></li>
                     </ul>

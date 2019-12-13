@@ -782,9 +782,9 @@ class EncuestaController extends Controller
                 ->with('detalle',$detalle);
     }
 
-    public function contenido_multimedia(Request $request)
+    public function detalle_multimedia(Request $request)
     {
-        $encuesta_Cab = Encuesta::find($request->id_encuesta);
+
         $array_campos = $request->lista_campos;
         if(empty($array_campos))
         {
@@ -810,8 +810,7 @@ class EncuestaController extends Controller
             $detalle = $detalle->select(DB::raw($cadena));
             $detalle = $detalle->where('id_encuesta',$request->id_encuesta)->get();
         }
-        return view('encuestas.contenido_multimedia')
-                ->with('encuesta_Cab',$encuesta_Cab)
+        return view('encuesta.detalle_multimedia')
                 ->with('array_campos',$array_campos)
                 ->with('detalle',$detalle);
     }
