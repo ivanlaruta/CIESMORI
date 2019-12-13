@@ -12,13 +12,13 @@
       <div class="col-md-12">
         <div class="x_panel">
           <div class="x_title">
-            
-            
+
+
             <h2>Lista de encuestas</h2>
             @if(Auth::user()->rol->descripcion != 'CLIENTE')
             <div class="pull-right" >
               <a  href="#" class="btn btn-success btn_nuevo " data-toggle="tooltip" data-placement="bottom" title="Agregar Nuevo" ><i class="fa fa-plus"></i></a>
-          
+
             </div>
             @endif
             <div class="clearfix"></div>
@@ -80,7 +80,7 @@
 
                           <button type="submit" class="btn btn-success btn-xs btn-block btn_refresh" id="btn_eliminar_run"  title="Actualizar" onclick="func_load();"><span class="fa fa-refresh fa-lg"></span></button>
                         </form>
-                     
+
                         <a href="#" class="btn btn-warning btn-xs  btn_edit btn-block" id_encuesta = '{{$det->id}}'  title="Modificar">
                           <span class="fa fa-edit fa-lg"></span>
                         </a>
@@ -90,7 +90,7 @@
                         <a href="#" class="btn btn-default btn-xs  btn_cliente btn-block" id_encuesta = '{{$det->id}}'  title="Asignar clientes">
                           <span class="fa fa-user fa-lg"></span>
                         </a>
-              
+
                     </td>@endif
 
                   </tr>
@@ -174,7 +174,7 @@
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">libro de datos</h4>
+                    <h4 class="modal-title" id="myModalLabel">Migración de datos</h4>
                   </div>
                   <div class="modal-body contenido_libro_datos"></div>
                   <div class="modal-footer">

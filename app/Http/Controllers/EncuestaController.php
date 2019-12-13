@@ -297,8 +297,7 @@ class EncuestaController extends Controller
              $tablas_db = DB::select( DB::raw("
                     SELECT TABLE_NAME AS tables
                     FROM INFORMATION_SCHEMA.TABLES
-                    WHERE TABLE_SCHEMA = '".$request->name_db."'
-
+                    WHERE TABLE_SCHEMA = '".$request->name_db."' AND RIGHT(RTRIM(TABLE_NAME),4) = 'dict'
 
             "));
          }
@@ -314,7 +313,7 @@ class EncuestaController extends Controller
                     SELECT TABLE_NAME AS tables
                     FROM INFORMATION_SCHEMA.TABLES
                     WHERE TABLE_SCHEMA = '".$request->name_db."'
-                    AND TABLE_NAME not in (".$tablas.")
+                    AND TABLE_NAME not in (".$tablas.")  AND RIGHT(RTRIM(TABLE_NAME),4) = 'dict'
 
             "));
 
