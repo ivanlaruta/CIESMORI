@@ -41,7 +41,7 @@
   <div class="container">
 
     <div id="logo" class="pull-left">
-      <img src="{{asset('Avilon/img/image002.png')}}"/>
+      <img src="{{asset('Avilon/img/image002ant.png')}}"/>
     </div>
 
   </div>

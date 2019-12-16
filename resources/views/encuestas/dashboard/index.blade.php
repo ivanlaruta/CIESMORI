@@ -41,25 +41,31 @@
                 </div>
                 <div class="x_content">
                   <div class="row tile_count">
-                    <div class="col-md-3 col-sm-12 col-xs-3 tile_stats_count">
+                    <div class="col-md-2 col-sm-12 col-xs-3 tile_stats_count">
                       <span class="count_top"><i class="fa fa-bar-chart"></i> Total Registros</span>
                       <div class="count">{{$det->num_registros()}}</div>
                       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i><?php $val=($det->num_registros() * 100)/ $det->meta_estudio;?>{{$val}}% </span>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-3 tile_stats_count">
-                      <span class="count_top"><i class="fa fa-file-image-o"></i> Meta del Estudio</span>
+                    <div class="col-md-2 col-sm-12 col-xs-3 tile_stats_count">
+                      <span class="count_top"><i class="fa fa-area-chart"></i> Meta del Estudio</span>
                       <div class="count">{{$det->meta_estudio}}</div>
                       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Meta del Estudio</span>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-3 tile_stats_count">
+                    <div class="col-md-2 col-sm-12 col-xs-3 tile_stats_count">
                       <span class="count_top"><i class="fa fa-fast-forward"></i> Total Audios</span>
                       <div class="count">{{$det->cantidad_audios()}}</div>
                       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Todos los audios</span>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-3 tile_stats_count">
+                    <div class="col-md-2 col-sm-12 col-xs-3 tile_stats_count">
                       <span class="count_top"><i class="fa fa-file-image-o"></i> Total Imagenes</span>
                       <div class="count">{{$det->cantidad_imagenes()}}</div>
                       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Todas las imagenes</span>
+                    </div>
+
+                    <div class="col-md-2 col-sm-12 col-xs-3 tile_stats_count">
+                      <span class="count_top"><i class="fa fa-users"></i> Total de Personal Asignado</span>
+                      <div class="count">{{$det->cantidad_imagenes()}}</div>
+                      <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Número de Encuestadores</span>
                     </div>
 
                   </div>
