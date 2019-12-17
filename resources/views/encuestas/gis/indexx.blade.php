@@ -356,7 +356,7 @@ console.log(etiquetaC);
                 </select>
               </div>
               <div class="form-group">
-                <label>ciudad</label>
+                <label>Ciudad</label>
                 <select name="ciudad" id="ciudad" class="form-control">
                   <option ></option>
                   @foreach($ciudades as $det)
@@ -405,7 +405,7 @@ console.log(etiquetaC);
             @endphp
               <h3>{{strtoupper($encuesta->nombre)}} </h3>
                 <h4>Cantidad de registros: {{$cantidad}}  / <small>Cantidad de marcadores: {{$marck}} </small></h4>
-                
+
             @endif
             <div id="mapCanvas"  style="width: 100%; height: 100%; "></div>
 

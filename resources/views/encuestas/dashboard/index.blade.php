@@ -47,7 +47,7 @@
                       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i><?php $val=($det->num_registros() * 100)/ $det->meta_estudio;?>{{$val}}% </span>
                     </div>
                     <div class="col-md-2 col-sm-12 col-xs-3 tile_stats_count">
-                      <span class="count_top"><i class="fa fa-area-chart"></i> Meta del Estudio</span>
+                      <span class="count_top"><i class="fa fa-file-image-o"></i> Meta del Estudio</span>
                       <div class="count">{{$det->meta_estudio}}</div>
                       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Meta del Estudio</span>
                     </div>
@@ -64,7 +64,7 @@
 
                     <div class="col-md-2 col-sm-12 col-xs-3 tile_stats_count">
                       <span class="count_top"><i class="fa fa-users"></i> Total de Personal Asignado</span>
-                      <div class="count">{{$det->cantidad_imagenes()}}</div>
+                      <div class="count">{{$det->cantidad_empleados()}}</div>
                       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>Número de Encuestadores</span>
                     </div>
 
@@ -134,6 +134,7 @@
                       <thead>
                         <tr>
                          <th>Nombre del encuestador</th>
+                         <th>Ciudad</th>
                          <th>id_auxiliar</th>
                          <th>Nombre del archivo</th>
                          <th>Tipo de archivo</th>
@@ -143,6 +144,7 @@
                       @foreach ($det->multimedia_encuestadores as $lista)
                       <tr>
                         <td>{{$lista->nomb_enc}}</td>
+                        <td>{{$lista->ciudad}}</td>
                         <td>{{$lista->id_auxiliar}}</td>
                         <td>{{$lista->nombre_archivo}}</td>
                         <td>{{$lista->tipo}}</td>

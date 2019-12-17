@@ -19,7 +19,7 @@ class CreateVdetalleMultimediaTable extends Migration
           FROM ciesmoridb.encuesta_detalle d
           LEFT JOIN ciesmoridb.archivos a on a.nombre_archivo= d.id_auxiliar
           INNER JOIN ciesmoridb.encuesta e ON e.id = d.id_encuesta
-          order by d.nomb_enc
+          order by d.nomb_enc,d.ciudad
 
         ");
     }

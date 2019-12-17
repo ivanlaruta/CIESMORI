@@ -62,8 +62,13 @@ class Encuesta extends Model
 
     public function cantidad_empleados()
     {
-         $v= encuestador_encuesta::where('tabla','=', 'cargo')->where('codigo','=',$this->cod_cargo)->get();
-          return($v[0]);
+         $cantidad_empleados= DB::table('encuestador_encuesta')
+         ->where('encuesta_id','=',$this->id)
+         ->groupBy('encuesta_id')
+         ->count();
+
+         return($cantidad_empleados);
+
     }
 
 
