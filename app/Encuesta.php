@@ -14,6 +14,11 @@ class Encuesta extends Model
         return $this->hasMany('App\V_detalle_encuesta','id_encuesta');
     }
 
+    public function encabezado_multimedia()
+    {
+        return $this->hasMany('App\V_encabezado_multimedia','id_encuesta');
+    }
+
     public function multimedia_encuestadores()
     {
         return $this->hasMany('App\V_detalle_multimedia','id_encuesta');
@@ -70,6 +75,7 @@ class Encuesta extends Model
          return($cantidad_empleados);
 
     }
+
 
 
 }

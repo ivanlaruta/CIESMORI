@@ -127,7 +127,7 @@
 
 
 
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                     <h4>Multimedia por Personal</h4>
 
                     <table class="table table-striped table-sm" id="datatable1" >
@@ -153,7 +153,37 @@
                       @endforeach
                     </tbody>
                   </table>
+                  </div> -->
+
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h4>Multimedia por Personal</h4>
+
+                    <table class="table table-striped table-sm"  >
+                      <thead>
+                        <tr>
+                         <th>Nombre del encuestador</th>
+                          <th>Ciudad</th>
+                          <th>Numero de boletas</th>
+                           <th>cantidad_de_archivos</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                      @foreach ($det->encabezado_multimedia as $lista)
+                      <tr>
+                        <td>{{$lista->nomb_enc}}</td>
+                        <td>{{$lista->ciudad}}</td>
+                        <td>{{$lista->numero_boletas_cuidad}}</td>
+                        <td>{{$lista->cantidad_de_archivos}}</td>
+
+
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
                   </div>
+
+
 
                   <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="ln_solid"></div>
