@@ -366,8 +366,13 @@ console.log(etiquetaC);
               </div>
               <div class="form-group">
                 <label>C.I.Encuestador</label>
-                            
-                <input type="text" id="ci" name="ci" class="form-control" @if(!empty($request ->ci)) value="{{$request ->ci}}" @endif>
+                <select name="ci" id="ci" class="form-control">
+                  <option ></option>
+                  @foreach($ci as $det)
+                        <option value="{{$det->ci_enc}}" @if(!empty($request ->ci_enc) && $det->ci_enc==$request ->ci_enc) selected="" @endif>{{strtoupper($det->ci_enc)}}</option>
+                  @endforeach
+                </select>
+                <!-- <input type="text" id="ci" name="ci" class="form-control" @if(!empty($request ->ci)) value="{{$request ->ci}}" @endif> -->
               </div>
               <div class="form-group">
                 <label>Desde</label>

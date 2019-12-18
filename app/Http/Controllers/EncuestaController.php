@@ -26,9 +26,10 @@ class EncuestaController extends Controller
         $ciudades=EncuestaDetalle::select('ciudad')->distinct()->get();
         $cantidad = 0;
         $encuesta = Encuesta::find($request->id);
-
+        $ci=[];
         $ubicacon_a=$ubicacon_b=$ubicacon_c =[];
         if(!empty($request ->id)){
+            $ci=DB::table('v_encuesta_detalle')->where('v_encuesta_detalle.id_encuesta', '=', $request->id)->get();
             $cantidad=DB::table('v_encuesta_detalle')->where('v_encuesta_detalle.id_encuesta', '=', $request->id)->count();
 
 
@@ -83,6 +84,7 @@ class EncuestaController extends Controller
         ->with('ciudades',$ciudades)
         ->with('cantidad',$cantidad)
         ->with('request',$request)
+        ->with('ci',$ci)
         ->with('encuestas',$encuestas);
     }
 

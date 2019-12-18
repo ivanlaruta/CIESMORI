@@ -216,7 +216,20 @@
                           <?php $cont_acordion = $cont_acordion + 1; ?>
                           <div class="panel">
                             <a class="panel-heading collapsed" role="tab" id="heading<?php echo $cont_acordion; ?>" data-toggle="collapse" data-parent="#accordion1" href="#collapse<?php echo $cont_acordion; ?>" aria-expanded="false" aria-controls="collapse<?php echo $cont_acordion; ?>">
-                              <h4 class="panel-title">{{$lista->nomb_enc}}</h4>
+                              <h4 class="panel-title">
+
+
+                                    <tr>
+                                      <li>{{$lista->nomb_enc}}</li>
+                                      <li>{{$lista->ciudad}}</li>
+                                      <li>{{$lista->numero_boletas_cuidad}}</li>
+                                      <li>{{$lista->cantidad_de_archivos}}</li>
+
+                                    </tr>
+
+
+
+                              </h4>
                             </a>
                             <div id="collapse<?php echo $cont_acordion; ?>" class="panel-collapse collapse" role="tabpane<?php echo $cont_acordion; ?>" aria-labelledby="heading<?php echo $cont_acordion; ?>">
                               <div class="panel-body">
@@ -232,6 +245,7 @@
                                   </thead>
                                   <tbody>
                                   @foreach ($det->multimedia_encuestadores as $lista1)
+                                  @if($lista1->nomb_enc == $lista->nomb_enc )
                                   <tr>
                                     <td>{{$lista1->nomb_enc}}</td>
                                     <td>{{$lista1->ciudad}}</td>
@@ -240,6 +254,7 @@
                                     <td>{{$lista1->tipo}}</td>
 
                                   </tr>
+                                  @endif
                                   @endforeach
                                 </tbody>
                               </table>
