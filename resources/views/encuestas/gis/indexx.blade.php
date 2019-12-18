@@ -365,7 +365,8 @@ console.log(etiquetaC);
                 </select>
               </div>
               <div class="form-group">
-                <label>Ci encuestador</label>
+                <label>C.I.Encuestador</label>
+                            
                 <input type="text" id="ci" name="ci" class="form-control" @if(!empty($request ->ci)) value="{{$request ->ci}}" @endif>
               </div>
               <div class="form-group">
@@ -373,7 +374,7 @@ console.log(etiquetaC);
                 <input type="date" id="fecha" name="fecha" class="form-control">
               </div>
               <div class="form-group">
-                <label>hasta</label>
+                <label>Hasta</label>
                 <input type="date" id="fecha2" name="fecha2" class="form-control">
               </div>
               <div class="form-group">
@@ -408,14 +409,7 @@ console.log(etiquetaC);
 
             @endif
             <div id="mapCanvas"  style="width: 100%; height: 100%; "></div>
-
-          </div>
-
-
-
-
-
-
+              </div>
             </div>
           </div>
         </div>

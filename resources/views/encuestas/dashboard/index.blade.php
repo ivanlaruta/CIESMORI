@@ -1,3 +1,4 @@
+<?php $cont_acordion = 0; ?>
 @extends('layouts.main')
 
 @section('content')
@@ -155,7 +156,7 @@
                   </table>
                   </div> -->
 
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                     <h4>Multimedia por Personal</h4>
 
                     <table class="table table-striped table-sm"  >
@@ -164,7 +165,7 @@
                          <th>Nombre del encuestador</th>
                           <th>Ciudad</th>
                           <th>Numero de boletas</th>
-                           <th>cantidad_de_archivos</th>
+                          <th>cantidad_de_archivos</th>
 
                         </tr>
                       </thead>
@@ -181,7 +182,89 @@
                       @endforeach
                     </tbody>
                   </table>
+                  </div> -->
+
+                  <!---DESDE ACA -->
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2><i class="fa fa-align-left"></i> Detalle Multimedia / Personal Asignado </h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Settings 1</a>
+                              </li>
+                              <li><a href="#">Settings 2</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+
+                        <!-- start accordion -->
+
+                        <div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
+                          @foreach ($det->encabezado_multimedia as $lista)
+                          <?php $cont_acordion = $cont_acordion + 1; ?>
+                          <div class="panel">
+                            <a class="panel-heading collapsed" role="tab" id="heading<?php echo $cont_acordion; ?>" data-toggle="collapse" data-parent="#accordion1" href="#collapse<?php echo $cont_acordion; ?>" aria-expanded="false" aria-controls="collapse<?php echo $cont_acordion; ?>">
+                              <h4 class="panel-title">{{$lista->nomb_enc}}</h4>
+                            </a>
+                            <div id="collapse<?php echo $cont_acordion; ?>" class="panel-collapse collapse" role="tabpane<?php echo $cont_acordion; ?>" aria-labelledby="heading<?php echo $cont_acordion; ?>">
+                              <div class="panel-body">
+                                <table class="table table-striped table-sm" id="datatable1" >
+                                  <thead>
+                                    <tr>
+                                     <th>Nombre del encuestador</th>
+                                     <th>Ciudad</th>
+                                     <th>id_auxiliar</th>
+                                     <th>Nombre del archivo</th>
+                                     <th>Tipo de archivo</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  @foreach ($det->multimedia_encuestadores as $lista1)
+                                  <tr>
+                                    <td>{{$lista1->nomb_enc}}</td>
+                                    <td>{{$lista1->ciudad}}</td>
+                                    <td>{{$lista1->id_auxiliar}}</td>
+                                    <td>{{$lista1->nombre_archivo}}</td>
+                                    <td>{{$lista1->tipo}}</td>
+
+                                  </tr>
+                                  @endforeach
+                                </tbody>
+                              </table>
+                              </div>
+                            </div>
+                          </div>
+                          @endforeach
+                        </div>
+
+                        <!-- end of accordion -->
+
+
+                      </div>
+                    </div>
                   </div>
+
+
+
+                  <!-- HASTA ACA- -->
+
+
+
+
+
+
 
 
 
@@ -214,6 +297,11 @@
 @section('scripts')
 
 <script type="text/javascript">
+
+
+$('.collapse').on('show.bs.collapse', function () {
+    $('.collapse.in').collapse('hide');
+});
 
 $('#datatable1').DataTable( { "language": {
 
