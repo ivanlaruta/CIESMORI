@@ -76,17 +76,19 @@
                     <table class="table table-striped table-sm">
                       <thead>
                         <tr>
-                         <th>Dep</th>
+                         <th>Ciudad</th>
                          <th>Total</th>
-                         <th>%</th>
+                         <th>% cuota</th>
+                         <th>Personal por ciudad</th>
                         </tr>
                       </thead>
                       <tbody>
                       @foreach ($det->lista_departamento as $lista)
                       <tr>
                         <td>{{$lista->departamento}}</td>
-                        <td>{{$lista->cantidad}}</td>
-                        <td>{{number_format((float)$lista->porcentaje, 2, '.', '')}}%</td>
+                        <td align="center">{{$lista->cantidad}}</td>
+                        <td align="center">{{number_format((float)$lista->porcentaje, 2, '.', '')}}%</td>
+                        <td align="center">{{$lista->cantidad}}</td>
                       </tr>
                       @endforeach
                     </tbody>
@@ -124,69 +126,9 @@
                     @endif
                   </div>
               </div>
-
-
-
-
-                  <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                    <h4>Multimedia por Personal</h4>
-
-                    <table class="table table-striped table-sm" id="datatable1" >
-                      <thead>
-                        <tr>
-                         <th>Nombre del encuestador</th>
-                         <th>Ciudad</th>
-                         <th>id_auxiliar</th>
-                         <th>Nombre del archivo</th>
-                         <th>Tipo de archivo</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      @foreach ($det->multimedia_encuestadores as $lista)
-                      <tr>
-                        <td>{{$lista->nomb_enc}}</td>
-                        <td>{{$lista->ciudad}}</td>
-                        <td>{{$lista->id_auxiliar}}</td>
-                        <td>{{$lista->nombre_archivo}}</td>
-                        <td>{{$lista->tipo}}</td>
-
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                  </div> -->
-
-                  <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                    <h4>Multimedia por Personal</h4>
-
-                    <table class="table table-striped table-sm"  >
-                      <thead>
-                        <tr>
-                         <th>Nombre del encuestador</th>
-                          <th>Ciudad</th>
-                          <th>Numero de boletas</th>
-                          <th>cantidad_de_archivos</th>
-
-                        </tr>
-                      </thead>
-                      <tbody>
-                      @foreach ($det->encabezado_multimedia as $lista)
-                      <tr>
-                        <td>{{$lista->nomb_enc}}</td>
-                        <td>{{$lista->ciudad}}</td>
-                        <td>{{$lista->numero_boletas_cuidad}}</td>
-                        <td>{{$lista->cantidad_de_archivos}}</td>
-
-
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                  </div> -->
-
-                  <!---DESDE ACA -->
-
-                  <div class="col-md-6 col-sm-6 col-xs-12">
+          <!---DESDE ACA -->
+            @if(Auth::user()->rol->descripcion == 'ADMINISTRADOR')
+               <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="x_panel">
                       <div class="x_title">
                         <h2><i class="fa fa-align-left"></i> Detalle Multimedia / Personal Asignado </h2>
@@ -217,17 +159,24 @@
                           <div class="panel">
                             <a class="panel-heading collapsed" role="tab" id="heading<?php echo $cont_acordion; ?>" data-toggle="collapse" data-parent="#accordion1" href="#collapse<?php echo $cont_acordion; ?>" aria-expanded="false" aria-controls="collapse<?php echo $cont_acordion; ?>">
                               <h4 class="panel-title">
-
-
+                                <table class="table table-responsive table-hover">
+                                  <body>
                                     <tr>
-                                      <li>{{$lista->nomb_enc}}</li>
-                                      <li>{{$lista->ciudad}}</li>
-                                      <li>{{$lista->numero_boletas_cuidad}}</li>
-                                      <li>{{$lista->cantidad_de_archivos}}</li>
+                                     <th>Nombre del encuestador</th>
+                                      <th>Ciudad</th>
+                                      <th>Numero de boletas</th>
+                                      <th>cantidad_de_archivos</th>
 
                                     </tr>
+                                    <tr>
+                                      <td align="center">{{$lista->nomb_enc}}</td>
+                                      <td align="center"> {{$lista->ciudad}}</td>
+                                      <td align="center">{{$lista->numero_boletas_cuidad}}</td>
+                                      <td align="center">{{$lista->cantidad_de_archivos}}</td>
 
-
+                                    </tr>
+                                  </body>
+                              </table>
 
                               </h4>
                             </a>
@@ -274,16 +223,8 @@
 
 
                   <!-- HASTA ACA- -->
-
-
-
-
-
-
-
-
-
-                  <div class="col-md-4 col-sm-6 col-xs-12">
+            @endif
+                  <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="ln_solid"></div>
                     <div class="project_detail">
                       <p class="title">Origen Base de datos/tabla:</p>
@@ -294,18 +235,10 @@
                       @endif
                     </div>
                     @if(!empty($det->observacion))<p>{{$det->observacion}}</p>@endif
-
                   </div>
-
-
-
               </div>
             </div>
             @endforeach
-
-
-
-
         </div>
 
 @endsection
@@ -317,46 +250,6 @@
 $('.collapse').on('show.bs.collapse', function () {
     $('.collapse.in').collapse('hide');
 });
-
-$('#datatable1').DataTable( { "language": {
-
-          "sProcessing":     "Procesando...",
-          "sLengthMenu":     "Mostrar _MENU_ registros",
-          "sZeroRecords":    "No se encontraron resultados",
-          "sEmptyTable":     "Ningún dato disponible en esta tabla",
-          "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-          "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-          "sInfoPostFix":    "",
-          "sSearch":         "Buscar:",
-          "sUrl":            "",
-          "sInfoThousands":  ",",
-          "sLoadingRecords": "Cargando...",
-          "oPaginate": {
-              "sFirst":    "Primero",
-              "sLast":     "Último",
-              "sNext":     "Siguiente",
-              "sPrevious": "Anterior"
-          },
-          "oAria": {
-              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-          },
-    },
-
-    "bLengthChange" : false,
-
-    "bSort" : false,
-     "dom": "lfrti",
-    //"dom": "Brti",
-
-   // "buttons": [ 'copy', 'excel'],
-
-    // "lengthMenu": [[5,10, 25, 50, 100, -1], [5,10, 25, 50, 100, "TODO"]],
-    "lengthMenu": [[-1], ["TODO"]],
-
-
-} );
 
 @foreach ($encuestas as $det)
   canvas_id='myChart_'+<?php echo json_encode($det->id); ?> ;

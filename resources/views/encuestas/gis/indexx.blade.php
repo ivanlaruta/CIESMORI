@@ -369,7 +369,7 @@ console.log(etiquetaC);
                 <select name="ci" id="ci" class="form-control">
                   <option ></option>
                   @foreach($ci as $det)
-                        <option value="{{$det->ci_enc}}" @if(!empty($request ->ci) && $det->ci_enc==$request ->ci) selected="" @endif>{{strtoupper($det->ci_enc)}}</option>
+                        <option value="{{$det->ci_enc}}" @if(!empty($request ->ci) && $det->ci_enc==$request ->ci) selected="" @endif>{{strtoupper($det->ci_enc)}} {{strtoupper($det->nomb_enc)}}</option>
                   @endforeach
                 </select>
                 <!-- <input type="text" id="ci" name="ci" class="form-control" @if(!empty($request ->ci)) value="{{$request ->ci}}" @endif> -->

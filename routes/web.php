@@ -245,6 +245,12 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'as'   =>	'encuesta.dashboard'
 		]);
 
+  route::get('encuesta/personal',[
+			'uses' =>'EncuestaController@personal',
+			'as'   =>	'encuesta.personal'
+		]);
+
+
 	route::get('encuesta/gis',[
 			'uses' =>'EncuestaController@gis',
 			'as'   =>	'encuesta.gis'

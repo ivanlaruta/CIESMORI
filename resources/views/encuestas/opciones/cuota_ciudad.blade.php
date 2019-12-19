@@ -20,7 +20,7 @@
                   </select>
                 </div>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="number" id="meta" name="meta" required="required" class="form-control col-md-7 col-xs-12" placeholder="Ingrese meta" min="1" max="100">
+                  <input type="number" id="meta" name="meta" required="required" class="form-control col-md-7 col-xs-12" placeholder="Ingrese meta" min="1" max="1000">
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-12">
                  <button type="submit" class="btn btn-block btn-success btn_guardar">Agregar</button>

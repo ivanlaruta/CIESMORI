@@ -122,7 +122,7 @@ class EncuestaController extends Controller
         ->with('encuestas',$encuestas);
     }
 
-    public function libroDatos(Request $request)
+      public function libroDatos(Request $request)
     {
        $librodatos =LibroDatos::
                             where('encuesta_id',$request ->id)
