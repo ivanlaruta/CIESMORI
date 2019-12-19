@@ -81,5 +81,71 @@ class ParametricaCargoTableSeeder extends Seeder
             'codigo' => '14',
             'valor_cadena' => 'PROGRAMADOR',
             ]);
+
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '15',
+            'valor_cadena' => 'AUDITORIAS EN PUNTO DE VENTA',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '16',
+            'valor_cadena' => 'EN HOGARES',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '17',
+            'valor_cadena' => 'EN PUNTOS DE INTERCEPTACIÓN',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '18',
+            'valor_cadena' => 'LOCACION CENTRAL',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '19',
+            'valor_cadena' => 'GRUPOS FOCALES',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '20',
+            'valor_cadena' => 'CENSOS',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '21',
+            'valor_cadena' => 'ENTREVISTAS EN PROFUNDIDAD',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '22',
+            'valor_cadena' => 'ENTREVISTAS ETNOGRAFICAS',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '23',
+            'valor_cadena' => 'SOCIO - ECONOMICAS',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '24',
+            'valor_cadena' => 'OPINION PUBLICA',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '25',
+            'valor_cadena' => 'CALL CENTER',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '26',
+            'valor_cadena' => 'PRUEBAS DE PRODUCTO',
+            ]);
+        DB::table('parametrica')->insert([
+            'tabla' => 'cargo',
+            'codigo' => '27',
+            'valor_cadena' => 'OTRAS',
+            ]);
 	}
 }
