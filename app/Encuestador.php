@@ -11,6 +11,7 @@ class Encuestador extends Model
 		'id','persona_id','cargo','cod_disponibilidad_tiempo','horas_que_puede_trabajar','experiencia','observacion'
     ];
 
+
     public function persona()
     {
         return $this->belongsTo(Persona::class,'persona_id');
@@ -43,5 +44,16 @@ class Encuestador extends Model
     {
         $v= Parametrica::where('tabla','=', 'disponibilidad_tiempo')->where('codigo','=',$this->cod_disponibilidad_tiempo)->get();
         return($v[0]->valor_cadena);
+    }
+
+    public function calificacion_desc()
+    {
+         $v= Parametrica::where('tabla','=', 'CALIFICACION')->where('codigo','=',$this->calificacion)->get();
+          return($v[0]->valor_cadena);
+    }
+    public function estado_enc()
+    {
+         $v= Parametrica::where('tabla','=', 'ESTADO_ENCUESTADORES')->where('codigo','=',$this->estado)->get();
+          return($v[0]->valor_cadena);
     }
 }

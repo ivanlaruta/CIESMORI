@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(imagenTableSeeder::class);
         $this->call(ParametricaLibroTableSeeder::class);
+        $this->call(ParametricaCalificacionEncuestador::class);
+        $this->call(ParametricaEstadoEncuestadores::class);
+
 
 
 

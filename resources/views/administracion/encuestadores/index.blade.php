@@ -29,6 +29,7 @@
                  <th style="width: 10%">Disponibilidad</th>
                  <th style="width: 10%">Encuestas Asignadas</th>
                  <th style="width: 10%">Calificacion</th>
+                 <th style="width: 10%">Estado</th>
                  <th style="width: 1%">Obs</th>
                  <th style="width: 1%">Opciones</th>
                 </tr>
@@ -131,7 +132,8 @@
 
                     </ul>
                   </td>
-                  <td>{{$det->calificacion}}</td>
+                  <td>{{$det->calificacion_desc()}}</td>
+                  <td>{{$det->estado_enc()}}</td>
                 <td>
                     <a><br>{{$det->observacion}}</a>
                 </td>
@@ -147,8 +149,8 @@
                         <span class="fa fa-edit"></span>
                       </a>
 
-                      <a href="#" class="btn-block btn btn-danger btn-xs btn_eliminar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                        <span class="fa fa-trash"></span>
+                      <a href="#" class="btn-block btn btn-default btn-xs btn_eliminar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Cambiar estado">
+                        <span class="fa fa-refresh"></span>
                       </a>
 
 
@@ -205,13 +207,21 @@
                   <div class="modal-body">
                     {{ csrf_field() }}
                     <input type="hidden" id="id_encuestador_txt" name="id_encuestador_txt">
-                    <h4>Eliminar!</h4>
-                    <p>Esta tratando de dar de baja este registro.</p>
-                    <p>Desea continuar?.</p>
+                    <input type="hidden" name="encuestador" id="encuestador">
+                   
+                    <label>Seleccione un estado</label>
+                      <select name="estados" id="estados" class="form-control" required="required">
+                        <option ></option>
+                        @foreach($estados as $det)
+                              <option value="{{$det->codigo}}">{{strtoupper($det->valor_cadena)}}</option>
+                        @endforeach
+                      </select>
+                    <hr>
+
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger btn_eliminar_run" id="btn_eliminar_run">Continuar  <span class="fa fa-trash"></span></button>
+                    <button type="submit" class="btn btn-success btn_eliminar_run" id="btn_eliminar_run">Guardar </button>
                   </div>
                   </form>
                 </div>
@@ -237,40 +247,42 @@
             </div>
 
            
-                  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-sm">
-                      <div class="modal-content">
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
 
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                          </button>
-                          <h4 class="modal-title" id="myModalLabel">Calificacion</h4>
-                        </div>
-                        <div class="modal-body">
-                          <form method="post" action="{{ route('encuestadores.store_califica') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
-                          {{ csrf_field() }}
-
-                          <input type="hidden" name="encuestador" id="encuestador">
-                          <h4><small>  Ingrese un valor entre 1 y 100</small></h4>
-                          <div class="form-group">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12">Calificacion
-                            </label>
-                            
-                            <div class="col-md-8 col-sm-8 col-xs-12">
-                              <input type="number" id="Calificacion" name="Calificacion" required="required" class="form-control col-md-7 col-xs-12" placeholder="Calificacion" min="0" max="100">
-                            </div>
-                          </div>
-                           <button type="submit" class="btn btn-block btn-success btn_guardar btn-block">Guardar</button>
-                          </form>
-                          
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        </div>
-
-                      </div>
-                    </div>
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Calificacion</h4>
                   </div>
+                  <div class="modal-body">
+                    <form method="post" action="{{ route('encuestadores.store_califica') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
+                    {{ csrf_field() }}
+
+                    <input type="hidden" name="encuestador" id="encuestador">
+                   
+                    <label>Seleccione una Calificacion</label>
+                      <select name="Calificacion" id="Calificacion" class="form-control" required="required">
+                        <option ></option>
+                        @foreach($calificaciones as $det)
+                              <option value="{{$det->codigo}}">{{strtoupper($det->valor_cadena)}}</option>
+                        @endforeach
+                      </select>
+                    <hr>
+
+                    
+                     <button type="submit" class="btn btn-block btn-success btn_guardar btn-block">Guardar</button>
+                    </form>
+                    
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -323,12 +335,9 @@
         "bSort" : false,
          "dom": "lfrti",
         //"dom": "Brti",
-
        // "buttons": [ 'copy', 'excel'],
-
         // "lengthMenu": [[5,10, 25, 50, 100, -1], [5,10, 25, 50, 100, "TODO"]],
         "lengthMenu": [[-1], ["TODO"]],
-
 
     } );
 

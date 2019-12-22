@@ -48,12 +48,22 @@ class AdministracionController extends Controller
 
     public function encuestadores_index()
     {
-        $encuestadores = Encuestador::orderBy('id')
-        ->where('estado',1)
+        $encuestadores = Encuestador::orderBy('id')->get();
 
-        ->get();
+        $calificaciones=Parametrica::select('codigo','valor_cadena')
+                            ->where('tabla','CALIFICACION')
+                            ->where('estado','1')
+                            ->orderBy('codigo')->get();
 
-        return view('administracion.encuestadores.index')->with('encuestadores',$encuestadores) ;
+        $estados=Parametrica::select('codigo','valor_cadena')
+                            ->where('tabla','ESTADO_ENCUESTADORES')
+                            ->where('estado','1')
+                            ->orderBy('codigo')->get();
+
+        return view('administracion.encuestadores.index')
+        ->with('calificaciones',$calificaciones)
+        ->with('estados',$estados)
+        ->with('encuestadores',$encuestadores);
     }
 
     public function encuestadores_create_form(Request $request)
@@ -365,7 +375,7 @@ class AdministracionController extends Controller
         // dd($request->all());
 
                $encuestador=Encuestador::find($request->id_encuestador_txt);
-                $encuestador->estado =0;
+                $encuestador->estado =$request->estados;
                 $encuestador->save();
 
                  AdministracionController::generaDat();
