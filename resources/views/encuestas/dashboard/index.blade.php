@@ -5,6 +5,7 @@
 
         <div class="right_col" role="main">
           <div class="row tile_count">
+            @if(Auth::user()->rol->descripcion == 'ADMINISTRADOR')
             <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-book"></i> Encuestas</span>
               <div class="count">{{$total_encuestas}}</div>
@@ -15,6 +16,7 @@
               <div class="count green">{{$total_detalle_encuestas}}</div>
               <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>En todas las encuestas</span>
             </div>
+            @endif
 <!--             <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-fast-forward"></i> Total Audios</span>
               <div class="count">512</div>
@@ -88,7 +90,7 @@
                         <td>{{$lista->departamento}}</td>
                         <td align="center">{{$lista->cantidad}}</td>
                         <td align="center">{{number_format((float)$lista->porcentaje, 2, '.', '')}}%</td>
-                        <td align="center">{{$lista->cantidad}}</td>
+                        <td align="center">{{$lista->nro_ciudad}}</td>
                       </tr>
                       @endforeach
                     </tbody>

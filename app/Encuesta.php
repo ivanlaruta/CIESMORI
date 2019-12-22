@@ -69,7 +69,7 @@ class Encuesta extends Model
     {
          $cantidad_empleados= DB::table('v_encabezado_multimedia')
          ->where('id_encuesta','=',$this->id)
-         ->count(DB::raw('DISTINCT nomb_enc'));
+         ->count();
 
          return($cantidad_empleados);
     }
