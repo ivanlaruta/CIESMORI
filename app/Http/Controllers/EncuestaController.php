@@ -29,7 +29,9 @@ class EncuestaController extends Controller
         $ci=[];
         $ubicacon_a=$ubicacon_b=$ubicacon_c =[];
         if(!empty($request ->id)){
-            $ci=DB::table('v_encuesta_detalle')->where('v_encuesta_detalle.id_encuesta', '=', $request->id)->get();
+            $ci=DB::table('v_encabezado_multimedia')->where('v_encabezado_multimedia.id_encuesta', '=', $request->id)
+            // ->where('v_encabezado_multimedia.ciudad', '=', $request->ciudad)
+            ->get();
             $cantidad=DB::table('v_encuesta_detalle')->where('v_encuesta_detalle.id_encuesta', '=', $request->id)->count();
 
 

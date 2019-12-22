@@ -73,14 +73,14 @@
 
                   </div>
                   <div class="col-md-4 col-sm-4 col-xs-12">
-                    <h4>Distribucion por departamento</h4>
+                    <h4>Distribucion por Ciudad</h4>
                     <canvas id="myChart_{{$det->id}}" width="400" height="400"></canvas>
                     <table class="table table-striped table-sm">
                       <thead>
                         <tr>
                          <th>Ciudad</th>
                          <th>Total</th>
-                         <th>% cuota</th>
+                         <th>% Cuota</th>
                          <th>Personal por ciudad</th>
                         </tr>
                       </thead>

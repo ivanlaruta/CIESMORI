@@ -15,9 +15,9 @@ class CreateVEncabezadoMultimediaTable extends Migration
     {
       DB::statement("
           create view V_encabezado_multimedia as
-            select id_encuesta,nombre,ciudad,count(ciudad) as numero_boletas_cuidad,nomb_enc,count(nombre_archivo) as cantidad_de_archivos
+            select ci_enc, id_encuesta,nombre,ciudad,count(ciudad) as numero_boletas_cuidad,nomb_enc,count(nombre_archivo) as cantidad_de_archivos
             from v_detalle_multimedia
-            group by ciudad, nombre,nomb_enc,id_encuesta
+            group by ciudad,nombre,ci_enc,id_encuesta,nomb_enc
             order by nombre,ciudad,nomb_enc
         ");
     }
