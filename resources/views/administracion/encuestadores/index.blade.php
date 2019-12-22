@@ -132,14 +132,14 @@
 
                     </ul>
                   </td>
-                  <td>{{$det->calificacion_desc()}}</td>
+                  <td>@if(is_null($det->calificacion)) SIN CALIFICAR @else {{$det->calificacion_desc()}} @endif </td>
                   <td>{{$det->estado_enc()}}</td>
                 <td>
                     <a><br>{{$det->observacion}}</a>
                 </td>
                 <td>
 
-                       <button type="button" class="btn btn-info btn-block  btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg" title="Calificar" onclick="fn_idEncuestador({{$det->id}});"><span class="fa fa-star"></span></button>
+                       <button type="button" class="btn btn-info btn-block  btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg" title="Calificar" id_encuestador = '{{$det->id}}' onclick="fn_idEncuestador({{$det->id}});"><span class="fa fa-star"></span></button>
 
                       <a href="#" class="btn-block btn btn-success btn-xs btn_agregar_encuesta" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Administrar encuestas">
                         <span class="fa fa-file"></span>
@@ -207,7 +207,7 @@
                   <div class="modal-body">
                     {{ csrf_field() }}
                     <input type="hidden" id="id_encuestador_txt" name="id_encuestador_txt">
-                    <input type="hidden" name="encuestador" id="encuestador">
+                    <input type="hidden" name="encuestador" id="encuestador_2" class="encuestador">
                    
                     <label>Seleccione un estado</label>
                       <select name="estados" id="estados" class="form-control" required="required">
@@ -260,7 +260,7 @@
                     <form method="post" action="{{ route('encuestadores.store_califica') }}" class="form-horizontal form-label-left"  enctype="multipart/form-data">
                     {{ csrf_field() }}
 
-                    <input type="hidden" name="encuestador" id="encuestador">
+                    <input type="hidden" name="encuestador" id="encuestador" class="encuestador">
                    
                     <label>Seleccione una Calificacion</label>
                       <select name="Calificacion" id="Calificacion" class="form-control" required="required">
@@ -342,8 +342,8 @@
     } );
 
 function fn_idEncuestador(valor) {
-    // alert(valor);
-    $('#encuestador').val(valor);
+     // alert(valor);
+    $('.encuestador').val(valor);
   };
  
 // =============== agrefar_ encuesta ============================

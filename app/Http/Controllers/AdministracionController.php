@@ -416,7 +416,7 @@ class AdministracionController extends Controller
 
           $encuestador_id = $request->encuestador;
           $Calificacion = $request->Calificacion;
-
+          // dd($request->all());
             $encuestadores=Encuestador::find($encuestador_id);
                 $encuestadores->calificacion =$Calificacion;
                 $encuestadores->save();
