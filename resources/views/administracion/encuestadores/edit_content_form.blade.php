@@ -228,18 +228,6 @@
                   <button type="submit" class="btn btn-block btn-success btn_guardar">Guardar</button>
                 </div>
               </div>
-              <div class="x_title">
-                <h2> Estado del Encuestador</h2>
-                <div class="clearfix"></div>
-              </div>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="form-control col-md-7 col-xs-12 select_disponibilidad_tiempo" data-width="100%" id="cod_disponibilidad_tiempo" name="cod_disponibilidad_tiempo" required="required">
-                  <option></option>
-                  @foreach($disponibilidad_tiempo as $det)
-                    <option value="{{$det->codigo}}"  @if($det->codigo==$encuestador->cod_disponibilidad_tiempo) selected @endif>{{strtoupper($det->valor_cadena)}}</option>
-                  @endforeach
-                </select>
-              </div>
             </form>
           </div>
 

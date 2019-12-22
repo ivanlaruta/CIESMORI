@@ -287,7 +287,7 @@ class AdministracionController extends Controller
         $persona->fill($request->all());
         $persona -> fecha_nacimiento = date("Y-m-d",strtotime(str_replace('/', '-',$request->fecha_nacimiento))) ;
 
-     
+
 
 
 
