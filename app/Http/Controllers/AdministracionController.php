@@ -80,9 +80,6 @@ class AdministracionController extends Controller
                             ->where('estado','1')
                             ->orderBy('codigo')->get();
 
-              
-
-
         return view('administracion.personal.index')
         ->with('calificaciones',$calificaciones)
         ->with('estados',$estados)
