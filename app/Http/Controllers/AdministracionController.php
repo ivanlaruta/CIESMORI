@@ -66,6 +66,30 @@ class AdministracionController extends Controller
         ->with('encuestadores',$encuestadores);
     }
 
+    public function personal()
+    {
+        $encuestadores = Encuestador::orderBy('id')->get();
+
+        $calificaciones=Parametrica::select('codigo','valor_cadena')
+                            ->where('tabla','CALIFICACION')
+                            ->where('estado','1')
+                            ->orderBy('codigo')->get();
+
+        $estados=Parametrica::select('codigo','valor_cadena')
+                            ->where('tabla','ESTADO_ENCUESTADORES')
+                            ->where('estado','1')
+                            ->orderBy('codigo')->get();
+
+              
+
+
+        return view('administracion.personal.index')
+        ->with('calificaciones',$calificaciones)
+        ->with('estados',$estados)
+        ->with('encuestadores',$encuestadores);
+
+    }
+
     public function encuestadores_create_form(Request $request)
     {
         $expedido=Departamento::where('estado','1')

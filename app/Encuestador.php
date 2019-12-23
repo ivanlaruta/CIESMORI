@@ -56,4 +56,8 @@ class Encuestador extends Model
          $v= Parametrica::where('tabla','=', 'ESTADO_ENCUESTADORES')->where('codigo','=',$this->estado)->get();
           return($v[0]->valor_cadena);
     }
+    public function detalle_encuestador()
+    {
+        return $this->hasMany('App\v_detalle_encuestador','id');
+    }
 }

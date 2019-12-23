@@ -149,7 +149,10 @@ route::get('administracion/usuarios/editar',[
 		'as'   =>	'administracion.usuarios.validar_user'
 	]);
 
-
+  route::get('administracion/personal',[
+      'uses' =>'administracionController@personal',
+      'as'   =>	'administracion.personal'
+    ]);
 
 });
 
@@ -244,6 +247,8 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'uses' =>'EncuestaController@dashboard',
 			'as'   =>	'encuesta.dashboard'
 		]);
+
+
 
   route::get('encuesta/personal',[
 			'uses' =>'EncuestaController@personal',

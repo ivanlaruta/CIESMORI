@@ -388,8 +388,10 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,885,34) Id_auxiliar
             from `".$request -> db."`.".$encuesta -> nombre_tabla." a
             LEFT JOIN ciudad c on c.id = SUBSTR(a.questionnaire,22,1)
-            where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
+
             ");
+
+            // where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
 
         DB::insert("
         insert into encuesta_detalle2
@@ -438,9 +440,11 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,2997,80) Apellido_encuestador
             ,SUBSTR(a.questionnaire,3077,30) Id_del_dispositivo
             from `".$request -> db."`.".$encuesta -> nombre_tabla." a
-            where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
+
 
             ");
+
+              // where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
 
 
                  $ruta_audios = $encuesta -> carpeta_audios;
@@ -588,8 +592,9 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,885,34) Id_auxiliar
             from `".$encuesta -> nombre_db."`.".$encuesta -> nombre_tabla." a
              LEFT JOIN ciudad c on c.id = SUBSTR(a.questionnaire,22,1)
-             where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
+
             ");
+            // where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
 
         DB::insert("
         insert into encuesta_detalle2
@@ -638,8 +643,11 @@ class EncuestaController extends Controller
             ,SUBSTR(a.questionnaire,2997,80) Apellido_encuestador
             ,SUBSTR(a.questionnaire,3077,30) Id_del_dispositivo
             from `".$encuesta -> nombre_db."`.".$encuesta -> nombre_tabla." a
-            where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
+
             ");
+
+            //where ltrim(rtrim(SUBSTR(a.questionnaire,2219,2)))='1'
+
             $ruta_audios = $encuesta -> carpeta_audios;
             $ruta_imagenes = $encuesta -> carpeta_imagenes;
             if (is_dir($ruta_audios))

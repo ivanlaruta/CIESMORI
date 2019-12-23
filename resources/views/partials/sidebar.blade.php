@@ -23,6 +23,7 @@
                     <ul class="nav child_menu">
                       <li><a href="{{ route('administracion.encuestadores.index')}}">Registro de Personal</a></li>
                       <li><a href="{{ route('administracion.usuarios.index')}}">Usuarios</a></li>
+                      <li><a href="{{ route('administracion.personal')}}">Reporte de Personal</a></li>
                     </ul>
                   </li>
                   @endif
