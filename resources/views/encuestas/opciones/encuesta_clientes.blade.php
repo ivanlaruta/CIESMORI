@@ -3,14 +3,14 @@
 <div class="row">
 
 
-            <p>Lista clentes asignads a la encuesta.</p>
+            <p>Lista de clientes asignados al estudio</p>
 
             <form method="get" action="{{ route('encuesta.asigna_cliente_store') }}" class="form-horizontal form-label-left"  >
             {{ csrf_field() }}
 
               <input type="hidden" name="encuesta_id" value="{{$encuesta_id}}" >
               <div class="form-group">
-                
+
                 <div class="col-md-8 col-sm-8 col-xs-6">
                   <select class="form-control col-md-7 col-xs-12 "  data-width="100%" id="usuario_id" name="usuario_id" required="required">
                     <option> Seleccione un cliente ...</option>
@@ -19,7 +19,7 @@
                     @endforeach
                   </select>
                 </div>
-                
+
                 <div class="col-md-4 col-sm-4 col-xs-6">
                  <button type="submit" class="btn btn-block btn-success btn_guardar">Agregar</button>
                 </div>
@@ -39,17 +39,17 @@
               @foreach($clientes as $det)
               <tr>
                 <td>{{$det->cliente->nombre}} {{$det->cliente->apellido}}</td>
-                
+
                 <td>
                    <div class="btn-group" role="group" >
                       <a href="#" class="btn btn-danger btn-xs btn_eliminar" id_cliente = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                        <span class="fa fa-trash"></span> 
+                        <span class="fa fa-trash"></span>
                       </a>
                     </div>
-                  </td>        
+                  </td>
                 </tr>
                 @endforeach
-                
+
 
               </tbody>
             </table>

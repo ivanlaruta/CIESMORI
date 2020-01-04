@@ -42,6 +42,7 @@
                     <th style="width: 1%">Meta del Estudio</th>
                     <th style="width: 1%">registros</th>
                     @if(Auth::user()->rol->descripcion != 'CLIENTE')
+                    <th style="width: 1%">Estado</th>
                     <th style="width: 1%">Opciones</th>
                     @endif
                   </tr>
@@ -73,12 +74,16 @@
                       </div>
                     </td>
                     @if(Auth::user()->rol->descripcion != 'CLIENTE')
+
+                      @if($det->estado == '1')
+                        <td>{{'Estudio Habilitado'}}</td>
+
+
                     <td align="center">
                         <form method="get" action="{{  route('encuesta.actualizar') }}" >
                           {{ csrf_field() }}
                           <input type="hidden" id="id_encuesta" name="id_encuesta" value="{{$det->id}}">
-
-                          <button type="submit" class="btn btn-success btn-xs btn-block btn_refresh" id="btn_eliminar_run"  title="Actualizar" onclick="func_load();"><span class="fa fa-refresh fa-lg"></span></button>
+                          <button type="submit" class="btn btn-success btn-xs btn-block btn_refresh" id="btn_eliminar_run"  title="Actualizar" onclick="func_load();" ><span class="fa fa-refresh fa-lg" ></span></button>
                         </form>
 
                         <a href="#" class="btn btn-warning btn-xs  btn_edit btn-block" id_encuesta = '{{$det->id}}'  title="Modificar">
@@ -90,8 +95,37 @@
                         <a href="#" class="btn btn-default btn-xs  btn_cliente btn-block" id_encuesta = '{{$det->id}}'  title="Asignar clientes">
                           <span class="fa fa-user fa-lg"></span>
                         </a>
+                        <a href="#" class="btn-block btn btn-default btn-xs btn_eliminar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Cambiar estado">
+                          <span class="fa fa-refresh"></span>
+                        </a>
 
-                    </td>@endif
+                    </td>
+                      @else
+                        <td>{{'Estudio Deshabilitado'}}</td>
+
+                        <td align="center">
+                            <form method="get" action="{{  route('encuesta.actualizar') }}" >
+                              {{ csrf_field() }}
+                              <input type="hidden" id="id_encuesta" name="id_encuesta" value="{{$det->id}}">
+                              <button type="submit" class="btn btn-success btn-xs btn-block btn_refresh" id="btn_eliminar_run"  title="Actualizar" onclick="func_load();"  disabled  ><span class="fa fa-refresh fa-lg" ></span></button>
+                            </form>
+
+                            <a href="#" class="btn btn-warning btn-xs  btn_edit btn-block" id_encuesta = '{{$det->id}}'  title="Modificar" disabled>
+                              <span class="fa fa-edit fa-lg"></span>
+                            </a>
+                            <a href="#" class="btn btn-info btn-xs  btn_ciudad btn-block" id_encuesta = '{{$det->id}}'  title="Cuota por ciudad" disabled>
+                              <span class="fa fa-map fa-lg"></span>
+                            </a>
+                            <a href="#" class="btn btn-default btn-xs  btn_cliente btn-block" id_encuesta = '{{$det->id}}'  title="Asignar clientes" disabled>
+                              <span class="fa fa-user fa-lg"></span>
+                            </a>
+                            <a href="#" class="btn-block btn btn-default btn-xs btn_eliminar" id_encuestador = '{{$det->id}}'  data-toggle="tooltip" data-placement="bottom" title="Cambiar estado">
+                              <span class="fa fa-refresh"></span>
+                            </a>
+
+                        </td>
+                    @endif
+                    @endif
 
                   </tr>
                   @endforeach

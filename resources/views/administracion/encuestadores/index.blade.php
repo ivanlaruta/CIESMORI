@@ -154,7 +154,7 @@
                       </a>
 
 
-                   
+
                   </td>
                 </tr>
                 @endforeach
@@ -208,7 +208,7 @@
                     {{ csrf_field() }}
                     <input type="hidden" id="id_encuestador_txt" name="id_encuestador_txt">
                     <input type="hidden" name="encuestador" id="encuestador_2" class="encuestador">
-                   
+
                     <label>Seleccione un estado</label>
                       <select name="estados" id="estados" class="form-control" required="required">
                         <option ></option>
@@ -246,7 +246,7 @@
               </div>
             </div>
 
-           
+
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -261,7 +261,7 @@
                     {{ csrf_field() }}
 
                     <input type="hidden" name="encuestador" id="encuestador" class="encuestador">
-                   
+
                     <label>Seleccione una Calificacion</label>
                       <select name="Calificacion" id="Calificacion" class="form-control" required="required">
                         <option ></option>
@@ -271,10 +271,10 @@
                       </select>
                     <hr>
 
-                    
+
                      <button type="submit" class="btn btn-block btn-success btn_guardar btn-block">Guardar</button>
                     </form>
-                    
+
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -345,7 +345,7 @@ function fn_idEncuestador(valor) {
      // alert(valor);
     $('.encuestador').val(valor);
   };
- 
+
 // =============== agrefar_ encuesta ============================
 var id_asignar;
 

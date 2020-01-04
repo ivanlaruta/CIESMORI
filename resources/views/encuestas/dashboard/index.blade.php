@@ -7,14 +7,14 @@
           <div class="row tile_count">
             @if(Auth::user()->rol->descripcion == 'ADMINISTRADOR')
             <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-book"></i> Encuestas</span>
+              <span class="count_top"><i class="fa fa-book"></i> Estudios</span>
               <div class="count">{{$total_encuestas}}</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> Encuestas relacionadas</span>
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> Estudios relacionadas</span>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-bar-chart"></i> Total Registros</span>
               <div class="count green">{{$total_detalle_encuestas}}</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>En todas las encuestas</span>
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i>En todas los estudios</span>
             </div>
             @endif
 <!--             <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
@@ -80,8 +80,8 @@
                         <tr>
                          <th>Ciudad</th>
                          <th>Total</th>
-                         <th>% Cuota</th>
-                         <th>Personal por ciudad</th>
+                         <!-- <th>% Cuota</th> -->
+                         <th align="center">Personal Por Ciudad</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -89,7 +89,7 @@
                       <tr>
                         <td>{{$lista->departamento}}</td>
                         <td align="center">{{$lista->cantidad}}</td>
-                        <td align="center">{{number_format((float)$lista->porcentaje, 2, '.', '')}}%</td>
+                        <!-- <td align="center">{{number_format((float)$lista->porcentaje, 2, '.', '')}}%</td> -->
                         <td align="center">{{$lista->nro_ciudad}}</td>
                       </tr>
                       @endforeach
