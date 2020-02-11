@@ -238,6 +238,11 @@ Route::group(['prefix'=>'encuesta','middleware'=>'auth'],function(){
 			'as'   =>	'encuesta.actualizar'
 		]);
 
+	route::get('encuesta/cambiar_estado',[
+			'uses' =>'EncuestaController@cambiar_estado',
+			'as'   =>	'encuesta.cambiar_estado'
+		]);
+
 	route::get('encuesta/contenido_detalle',[
 			'uses' =>'EncuestaController@contenido_detalle',
 			'as'   =>	'encuesta.contenido_detalle'

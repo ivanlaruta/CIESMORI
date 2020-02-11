@@ -827,6 +827,21 @@ class EncuestaController extends Controller
     }
 
 
+    public function cambiar_estado(Request $request)
+    {
+
+        $encuesta = Encuesta::find($request->id_encuesta);
+        if ($encuesta->estado==1) {
+           $encuesta->estado =0;
+        }
+        else{
+           $encuesta->estado =1;
+        }
+        $encuesta->save();
+        return redirect()->route('encuesta.index')->with('mensaje',"Se asigno correctamente");
+    }
+
+
     public function create()
     {
         //
